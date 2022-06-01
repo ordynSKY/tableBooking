@@ -1,0 +1,15 @@
+.select-lang {
+  display: flex;
+  justify-content: flex-end;
+  margin: 60px 80px 0px 0px;
+}
+
+.select {
+  min-width: 46px;
+  font-family: "Lusitana";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  border: none;
+}

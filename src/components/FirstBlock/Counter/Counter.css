@@ -1,0 +1,41 @@
+.counter {
+  display: flex;
+  padding: 0px 2px;
+  border: 1px solid rgb(0, 0, 0);
+  max-width: 187px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.decrement {
+  width: 41px;
+  height: 41px;
+  background: #c4c4c4;
+  color: #fff;
+  border: none;
+  padding: 7px;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.increment {
+  width: 41px;
+  height: 41px;
+  background: #000000;
+  color: #fff;
+  border: none;
+  padding: 7px;
+  font-weight: 500;
+  font-size: 20px;
+  margin: 0;
+}
+
+.title-counter {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  padding: 11px 15px;
+}

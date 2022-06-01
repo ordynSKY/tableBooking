@@ -1,0 +1,20 @@
+.overhead {
+  margin: 83px 87px 0px 0px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #989898;
+}
+
+.title {
+  margin: 12px 0px 38px 0px;
+  font-family: "Lusitana";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 52px;
+  line-height: 100%;
+  letter-spacing: 4px;
+  color: #333333;
+}
