@@ -9,6 +9,8 @@ import Cancel from "./Cancel/Cancel.jsx";
 import Copyrigth from "./Copyrigth/Copyrigth.jsx";
 
 function MainBlock(props) {
+  const isValid = props.guestValue;
+
   return (
     <div className="content">
       <Image />
@@ -21,7 +23,11 @@ function MainBlock(props) {
             decrement={props.decrement}
             guestValue={props.guestValue}
           />
-          <button className="button-main" onClick={props.handleChangeItem}>
+          <button
+            className="button-main"
+            onClick={props.handleChangeItem}
+            disabled={!isValid}
+          >
             Next →
           </button>
           <Info />

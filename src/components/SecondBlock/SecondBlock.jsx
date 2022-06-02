@@ -4,6 +4,7 @@ import "./SecondBlock.css";
 import SelectLang from "../FirstBlock/SelectLang/SelectLang";
 import Calendar from "./Calendar/Calendar.jsx";
 import moment from "moment";
+import Copyrigth from "../FirstBlock/Copyrigth/Copyrigth";
 
 function SecondBlock(props) {
   return (
@@ -31,11 +32,18 @@ function SecondBlock(props) {
               handleDateChange={props.handleDateChange}
             />
           </div>
-          <div>{moment(props.selectedDate).format("DD-MM-YYYY HH:mm")}</div>
-          <div className="next-button">
-            <a href="/#" className="next" onClick={props.handleChangeItem}>
-              Next →
+          <div
+            className="button-main next-button"
+            onClick={props.handleChangeItem}
+          >
+            Next →
+          </div>
+          <div className="footer">
+            <p className="subtitle">Cannot find a suitable time?</p>
+            <a href="/#" className="waiting-list">
+              Add me to the waiting list
             </a>
+            <Copyrigth />
           </div>
         </div>
       </div>

@@ -74,7 +74,6 @@
 .second-info {
   text-align: left;
   margin-top: 40px;
-  font-size: 14px;
 }
 
 .no-border {
@@ -83,4 +82,43 @@
 }
 a {
   color: #67a1e5;
+}
+
+.form-name__password {
+  padding: 12px 16px;
+  width: 399px;
+  height: 47px;
+  margin: 26px 0px 16px 0px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  align-items: center;
+  color: #989898;
+  border: 1px solid #000000;
+}
+
+.form-name__confirm-password {
+  padding: 12px 16px;
+  width: 399px;
+  height: 47px;
+  margin-right: 15px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  align-items: center;
+  color: #989898;
+  border: 1px solid #000000;
+}
+
+.third-info {
+  width: 428px;
+  font-size: 14px;
+}
+
+.copyrigth-footer {
+  margin: 35px 60px 57px 41px;
 }

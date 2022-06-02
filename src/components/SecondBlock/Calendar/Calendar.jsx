@@ -12,7 +12,7 @@ function Calendar(props) {
   return (
     <div className="calendar__second">
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Grid container justifyContent="space-around">
+        <Grid container justifyContent="space-between">
           <KeyboardDatePicker
             // disableToolbar
             variant="dialog"
@@ -29,9 +29,9 @@ function Calendar(props) {
 
           <KeyboardTimePicker
             margin="normal"
+            ampm={false}
             id="time-picker"
             label="Select Time"
-            format="hh:mm"
             value={props.selectedDate}
             onChange={props.handleDateChange}
             KeyboardButtonProps={{

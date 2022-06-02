@@ -178,8 +178,13 @@ li {
   align-items: center;
   text-align: center;
   letter-spacing: 2px;
-
+  cursor: pointer;
   width: 192px;
   height: 47px;
   justify-content: center;
+}
+
+.button-main:hover:disabled {
+  opacity: 0.8;
+  cursor: default;
 }
