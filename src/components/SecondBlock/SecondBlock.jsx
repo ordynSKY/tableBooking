@@ -3,7 +3,6 @@ import Image from "../FirstBlock/img/Image";
 import "./SecondBlock.css";
 import SelectLang from "../FirstBlock/SelectLang/SelectLang";
 import Calendar from "./Calendar/Calendar.jsx";
-import moment from "moment";
 import Copyrigth from "../FirstBlock/Copyrigth/Copyrigth";
 
 function SecondBlock(props) {

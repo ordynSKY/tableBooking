@@ -53,8 +53,8 @@ function LastBlock(props) {
                 <div className="guests-date">
                   Not correct?
                   <br />
-                  <a href="">Edit my information</a> &nbsp;
-                  <a href="">Not me</a>
+                  <a href="/#">Edit my information</a> &nbsp;
+                  <a href="/#">Not me</a>
                 </div>
               </div>
             </div>
@@ -105,7 +105,3 @@ function LastBlock(props) {
 }
 
 export default LastBlock;
-
-{
-  /*  */
-}
