@@ -56,9 +56,6 @@ a {
   color: #586fc5;
 }
 
-.offer {
-}
-
 .place {
   font-size: 18px;
   margin-bottom: 21px;
@@ -106,6 +103,9 @@ a {
 
 .content {
   display: flex;
+  max-width: 1280px;
+  max-height: 727px;
+  margin: 15px auto;
 }
 
 .content-cut {
@@ -118,6 +118,7 @@ li {
 
 .content-wrapper {
   width: 100%;
+  min-width: 727px;
 }
 
 .main-block__body {
@@ -126,17 +127,20 @@ li {
 
 .main-block__info {
   max-width: 428px;
-  margin-top: 62px;
+  margin-top: 32px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 150%;
   color: #333333;
+  display: block;
+  text-align: left;
 }
 
 .cancel-booking {
   display: block;
+  max-width: 121px;
   margin-top: 14px;
   font-family: "Inter";
   font-style: normal;
@@ -145,12 +149,13 @@ li {
   line-height: 150%;
   color: #333333;
   text-decoration: none;
+  text-align: left;
 }
 
 .copyrigth {
   display: flex;
   justify-content: flex-end;
-  margin: 86px 60px 57px 0px;
+  margin: px 60px 57px 0px;
   font-family: "Lusitana";
   font-style: normal;
   font-weight: 400;
@@ -158,4 +163,23 @@ li {
   line-height: 100%;
   text-transform: uppercase;
   color: #333333;
+}
+
+.button-main {
+  font-family: "Lusitana";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  display: flex;
+  margin-top: 38px;
+  background: #000;
+  color: #fff;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 2px;
+
+  width: 192px;
+  height: 47px;
+  justify-content: center;
 }

@@ -1,26 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Counter.css";
 
-function Counter() {
-  const [guestValue, setGuestValue] = useState(0);
-
-  function increment() {
-    setGuestValue(guestValue + 1);
-  }
-
-  function decrement() {
-    if (guestValue !== 0) {
-      setGuestValue(guestValue - 1);
-    }
-  }
-
+function Counter(props) {
   return (
     <div className="counter">
-      <button onClick={decrement} className="decrement">
+      <button onClick={props.decrement} className="decrement">
         –
       </button>
-      <div className="title-counter">{guestValue} guests</div>
-      <button onClick={increment} className="increment">
+      <div className="title-counter">{props.guestValue} guests</div>
+      <button onClick={props.increment} className="increment">
         +
       </button>
     </div>

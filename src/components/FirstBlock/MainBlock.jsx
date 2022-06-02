@@ -8,7 +8,7 @@ import Info from "./Info/Info.jsx";
 import Cancel from "./Cancel/Cancel.jsx";
 import Copyrigth from "./Copyrigth/Copyrigth.jsx";
 
-function MainBlock() {
+function MainBlock(props) {
   return (
     <div className="content">
       <Image />
@@ -16,7 +16,14 @@ function MainBlock() {
         <div className="main-block__body">
           <SelectLang />
           <Title />
-          <Counter />
+          <Counter
+            increment={props.increment}
+            decrement={props.decrement}
+            guestValue={props.guestValue}
+          />
+          <button className="button-main" onClick={props.handleChangeItem}>
+            Next →
+          </button>
           <Info />
           <Cancel />
         </div>
