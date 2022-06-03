@@ -43,9 +43,27 @@ const App = () => {
   const [inputMobile, setInputMobile] = useState("");
   const [inputZip, setInputZip] = useState("");
 
+  const [time, setTime] = useState("18:00");
+  let bookedTimes = [
+    "18:00",
+    "18:15",
+    "18:45",
+    "19:00",
+    "19:15",
+    "19:45",
+    "20:00",
+    "20:15",
+    "20:45",
+    "21:00",
+    "21:15",
+    "21:45",
+    "22:00",
+  ];
+
   return (
     <div>
       <Carousel
+        swipeable={false}
         showArrows={false}
         showStatus={false}
         showIndicators={false}
@@ -68,6 +86,9 @@ const App = () => {
             guestValue={guestValue}
             selectedDate={selectedDate}
             handleDateChange={handleDateChange}
+            bookedTimes={bookedTimes}
+            time={time}
+            setTime={setTime}
           />
         </div>
         <div>
@@ -100,6 +121,7 @@ const App = () => {
             handlePrevItem={handlePrevItem}
             guestValue={guestValue}
             selectedDate={selectedDate}
+            time={time}
             inputFirstName={inputFirstName}
             inputLastName={inputLastName}
             inputEmail={inputEmail}

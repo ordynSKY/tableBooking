@@ -13,3 +13,7 @@
   line-height: 100%;
   border: none;
 }
+
+option {
+  background: rgb(0, 0, 0);
+}

@@ -4,6 +4,7 @@ import "./SecondBlock.css";
 import SelectLang from "../FirstBlock/SelectLang/SelectLang";
 import Calendar from "./Calendar/Calendar.jsx";
 import Copyrigth from "../FirstBlock/Copyrigth/Copyrigth";
+import Time from "./Calendar/Time";
 
 function SecondBlock(props) {
   return (
@@ -31,6 +32,11 @@ function SecondBlock(props) {
               handleDateChange={props.handleDateChange}
             />
           </div>
+          <Time
+            time={props.time}
+            setTime={props.setTime}
+            bookedTimes={props.bookedTimes}
+          />
           <div
             className="button-main next-button"
             onClick={props.handleChangeItem}

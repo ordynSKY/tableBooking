@@ -39,7 +39,10 @@ function LastBlock(props) {
                   <b>{props.guestValue}</b>
                   <br />
                   Day/time: &nbsp;
-                  <b>{moment(props.selectedDate).format("DD-MM-YYYY HH:mm")}</b>
+                  <b>
+                    {moment(props.selectedDate).format("DD-MM-YYYY")}{" "}
+                    {props.time}
+                  </b>
                 </div>
               </div>
               <div className="client-info">
@@ -92,7 +95,7 @@ function LastBlock(props) {
 
           <div className="next-button second-next-button">
             <a href="/#" className="next" onClick={props.handleChangeItem}>
-              Next →
+              Complete booking →
             </a>
           </div>
           <div className="copyrigth-footer">

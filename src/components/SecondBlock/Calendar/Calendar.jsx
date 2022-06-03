@@ -26,18 +26,6 @@ function Calendar(props) {
               "aria-label": "change-date",
             }}
           />
-
-          <KeyboardTimePicker
-            margin="normal"
-            ampm={false}
-            id="time-picker"
-            label="Select Time"
-            value={props.selectedDate}
-            onChange={props.handleDateChange}
-            KeyboardButtonProps={{
-              "aria-label": "change-date",
-            }}
-          />
         </Grid>
       </MuiPickersUtilsProvider>
     </div>

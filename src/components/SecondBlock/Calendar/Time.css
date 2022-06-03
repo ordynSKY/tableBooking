@@ -1,0 +1,26 @@
+.time-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  width: 66px;
+  height: 48px;
+  left: 649px;
+  top: 582px;
+  background: #c9dcc7;
+  border: 1px solid #ffffff;
+}
+
+.block-buttons {
+  display: inline-block;
+}
+
+.carousel-buttons {
+  display: inline-block;
+}

@@ -121,6 +121,12 @@ li {
   min-width: 727px;
 }
 
+@media (max-width: 1280px) {
+  .content-wrapper {
+    min-width: 0;
+  }
+}
+
 .main-block__body {
   margin-left: 100px;
 }
