@@ -20,6 +20,12 @@
   align-items: center;
   margin: 40px 0px 40px -40px;
 }
+
+@media (max-width: 1024px) {
+  .mainblock {
+    margin: 40px auto;
+  }
+}
 .mainblock > img {
   width: 10px;
   height: 60px;

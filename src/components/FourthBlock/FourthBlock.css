@@ -128,3 +128,25 @@ a {
 .copyrigth-footer {
   margin: 35px 60px 57px 41px;
 }
+
+@media (max-width: 375px) {
+  .form-name__email {
+    width: 70%;
+  }
+  .form-name__firstname {
+    width: 70%;
+  }
+  .form-name__mobile {
+    width: 70%;
+    margin-bottom: 16px;
+  }
+  .form-name__zip {
+    width: 70%;
+  }
+  .form-name__password {
+    width: 70%;
+  }
+  .form-name__confirm-password {
+    width: 70%;
+  }
+}
