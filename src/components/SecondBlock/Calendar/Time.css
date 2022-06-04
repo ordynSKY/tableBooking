@@ -18,7 +18,7 @@
 .mainblock {
   display: flex;
   align-items: center;
-  margin: 40px 0px;
+  margin: 40px 0px 40px -40px;
 }
 .mainblock > img {
   width: 10px;
