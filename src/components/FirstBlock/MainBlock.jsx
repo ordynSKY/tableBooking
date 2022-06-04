@@ -31,9 +31,11 @@ function MainBlock(props) {
             Next →
           </button>
           <Info />
-          <Cancel />
+          <div className="main-footer">
+            <Cancel />
+            <Copyrigth />
+          </div>
         </div>
-        <Copyrigth />
       </div>
     </div>
   );

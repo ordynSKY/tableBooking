@@ -1,9 +1,12 @@
 import React from "react";
 import Background from "./image6.jpg";
+import "./Image.css";
 
 function Image() {
   return (
-    <img style={{ width: "553px", heigth: "720ox" }} src={Background} alt="" />
+    <div className="main-image_picture">
+      <img className="main-image" src={Background} alt="" />
+    </div>
   );
 }
 

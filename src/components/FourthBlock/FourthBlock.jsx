@@ -34,12 +34,12 @@ function FourthBlock(props) {
           <div className="form">
             <div className="form-mobile-zip">
               <input
-                type="text"
+                type="password"
                 className="form-name__password"
                 placeholder="Password"
               />
               <input
-                type="text"
+                type="password"
                 className="form-name__confirm-password"
                 placeholder="Confirm password"
               />

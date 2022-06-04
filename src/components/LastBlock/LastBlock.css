@@ -158,3 +158,89 @@
 .copyrigth-footer {
   margin: 0px 60px 57px 0px;
 }
+
+.second-next-button {
+  width: 271px;
+}
+@media (max-width: 1024px) {
+  .info-body {
+    flex-direction: column;
+  }
+
+  .client-info {
+    margin-left: 20px;
+  }
+
+  .form-name__comment {
+    max-width: 399px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .form {
+    text-align: center;
+  }
+}
+
+@media (max-width: 1024px) {
+  .second-info {
+    text-align: center;
+  }
+  .third-info {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 425px) {
+  .second-info {
+    font-size: 13px;
+  }
+  .third-info {
+    width: 100%;
+  }
+  .form-name__comment {
+    width: 90%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .second-next-button {
+    display: flex;
+    justify-content: center;
+    margin: 40px auto;
+    text-align: center;
+  }
+  .copyrigth-footer {
+    margin: 0;
+  }
+  .form-name__comment {
+    display: block;
+  }
+  .checkbox {
+    display: flex;
+    justify-content: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .last-info {
+    margin: auto;
+  }
+}
+
+@media (max-width: 425px) {
+  .last-info {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 425px) {
+  .cancel-booking {
+    margin: auto;
+    text-align: center;
+  }
+  .checkbox {
+    display: inline-block;
+    text-align: left;
+  }
+}

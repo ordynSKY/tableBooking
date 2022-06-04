@@ -114,6 +114,12 @@ a {
   border: 1px solid #000000;
 }
 
+@media (max-width: 1024px) {
+  .form-name__confirm-password {
+    margin: 0;
+  }
+}
+
 .third-info {
   width: 428px;
   font-size: 14px;

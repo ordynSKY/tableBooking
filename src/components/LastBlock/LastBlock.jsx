@@ -73,6 +73,7 @@ function LastBlock(props) {
               </div>
               <div className="checkbox">
                 <input
+                  id="first-checkbox"
                   type="checkbox"
                   style={{ width: "14px", heigth: "14px", marginRight: "8px" }}
                 />

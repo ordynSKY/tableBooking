@@ -3,7 +3,7 @@ import "./Title.css";
 
 function Title() {
   return (
-    <div>
+    <div className="main-title">
       <div className="overhead">
         Welcome to the online booking for Rositas Bistro
       </div>

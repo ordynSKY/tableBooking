@@ -9,6 +9,15 @@
   text-align: left;
 }
 
+@media (max-width: 1024px) {
+  .overhead {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    text-align: center;
+  }
+}
+
 .title {
   margin: 12px 0px 38px 0px;
   font-family: "Lusitana";
@@ -19,4 +28,20 @@
   letter-spacing: 4px;
   color: #333333;
   text-align: left;
+}
+
+@media (max-width: 1024px) {
+  .title {
+    display: flex;
+    justify-content: center;
+    margin: 30px auto;
+    text-align: center;
+  }
+  .main-block__info {
+    display: block;
+    justify-content: center;
+    margin: 30px auto;
+    text-align: center;
+    text-decoration: none;
+  }
 }

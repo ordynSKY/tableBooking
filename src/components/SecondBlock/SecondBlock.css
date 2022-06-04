@@ -8,6 +8,12 @@
   margin-top: 60px;
 }
 
+@media (max-width: 1024px) {
+  .back {
+    margin: 20px 0px 0px 40px;
+  }
+}
+
 .back-link {
   text-decoration: none;
   font-family: "Inter";
@@ -92,4 +98,35 @@
   font-size: 14px;
   line-height: 150%;
   margin-right: 100px;
+}
+
+@media (max-width: 1024px) {
+  .second-block__datepicker {
+    display: flex;
+    justify-content: center;
+  }
+  .button-main {
+    display: flex;
+    justify-content: center;
+    margin: 40px auto;
+    text-align: center;
+  }
+  .footer {
+    margin: 0 auto;
+    display: block;
+    justify-content: center;
+  }
+  .subtitle {
+    display: block;
+    justify-content: center;
+    margin: 0;
+  }
+  .waiting-list {
+    display: block;
+    justify-content: center;
+    margin: 0;
+  }
+}
+
+@media (max-width: 1024px) {
 }

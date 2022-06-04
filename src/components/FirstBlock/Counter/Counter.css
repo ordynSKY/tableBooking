@@ -7,6 +7,15 @@
   align-items: center;
 }
 
+@media (max-width: 1024px) {
+  .counter {
+    display: flex;
+
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
 .decrement {
   width: 41px;
   height: 41px;
