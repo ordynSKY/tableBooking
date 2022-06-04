@@ -8,6 +8,7 @@
   background: #c9dcc7;
   border: 1px solid #ffffff;
   padding-bottom: 0;
+  cursor: pointer;
 }
 
 .time-button:focus {
@@ -32,6 +33,7 @@
 }
 .block-buttons {
   display: flex;
+  cursor: pointer;
 }
 
 .block-button__slider {

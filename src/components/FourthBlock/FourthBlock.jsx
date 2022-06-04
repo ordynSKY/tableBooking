@@ -45,11 +45,9 @@ function FourthBlock(props) {
               />
             </div>
           </div>
-          <div className="next-button second-next-button">
-            <a href="/#" className="next" onClick={props.handleChangeItem}>
-              Next →
-            </a>
-          </div>
+          <button className="button-main" onClick={props.handleChangeItem}>
+            Next →
+          </button>
           <div className="copyrigth-footer">
             <Copyrigth />
           </div>
