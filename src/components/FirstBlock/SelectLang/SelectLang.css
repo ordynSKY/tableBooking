@@ -1,7 +1,7 @@
 .select-lang {
   display: flex;
   justify-content: flex-end;
-  margin: 60px 80px 0px 0px;
+  margin: 30px 80px 0px 0px;
 }
 
 @media (max-width: 1024px) {

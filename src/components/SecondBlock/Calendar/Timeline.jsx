@@ -18,7 +18,7 @@ const disabledIntervals = [
   { start: getTodayAtSpecificHour(20), end: getTodayAtSpecificHour(24) },
 ];
 
-class Timeline extends React.Component {
+class TimeLine extends React.Component {
   state = {
     error: false,
     selectedInterval: [selectedStart, selectedEnd],
@@ -33,7 +33,7 @@ class Timeline extends React.Component {
     return (
       <TimeRange
         error={error}
-        ticksNumber={17}
+        ticksNumber={36}
         selectedInterval={selectedInterval}
         timelineInterval={[startTime, endTime]}
         onUpdateCallback={this.errorHandler}
@@ -44,4 +44,4 @@ class Timeline extends React.Component {
   }
 }
 
-export default Timeline;
+export default TimeLine;

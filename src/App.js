@@ -31,11 +31,19 @@ const App = () => {
     }
   }
 
-  const [selectedDate, setSelectedDate] = React.useState(null);
-  const [orderDate, setOrderDate] = useState("");
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+  };
+
+  // Another calendar
+
+  const [selectedDay, setSelectedDay] = useState(null);
+  const [orderDate, setOrderDate] = useState("");
+
+  const handleDayChange = (date) => {
+    setSelectedDay(date);
     setOrderDate(date.year + "-" + date.month + "-" + date.day);
   };
 
@@ -91,6 +99,8 @@ const App = () => {
             bookedTimes={bookedTimes}
             time={time}
             setTime={setTime}
+            selectedDay={selectedDay}
+            handleDayChange={handleDayChange}
           />
         </div>
         <div>

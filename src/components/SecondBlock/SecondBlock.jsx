@@ -2,10 +2,11 @@ import React from "react";
 import Image from "../FirstBlock/img/Image";
 import "./SecondBlock.css";
 import SelectLang from "../FirstBlock/SelectLang/SelectLang";
+import Calendar from "./Calendar/Calendar.jsx";
 import Copyrigth from "../FirstBlock/Copyrigth/Copyrigth";
 import Time from "./Calendar/Time";
+import TimeLine from "./Calendar/TimeLine";
 import Cal from "./Calendar/Cal";
-import Timeline from "./Calendar/Timeline";
 
 function SecondBlock(props) {
   return (
@@ -33,8 +34,8 @@ function SecondBlock(props) {
               handleDateChange={props.handleDateChange}
             /> */}
             <Cal
-              selectedDate={props.selectedDate}
-              handleDateChange={props.handleDateChange}
+              selectedDay={props.selectedDay}
+              handleDayChange={props.handleDayChange}
             />
           </div>
           {/* <Time
@@ -42,7 +43,7 @@ function SecondBlock(props) {
             setTime={props.setTime}
             bookedTimes={props.bookedTimes}
           /> */}
-          <Timeline />
+          <TimeLine />
           <div
             className="button-main next-button"
             onClick={props.handleChangeItem}

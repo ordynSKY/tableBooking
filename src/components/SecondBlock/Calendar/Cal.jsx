@@ -5,8 +5,8 @@ import { Calendar } from "react-modern-calendar-datepicker";
 const Cal = (props) => {
   return (
     <Calendar
-      value={props.selectedDate}
-      onChange={props.handleDateChange}
+      value={props.selectedDay}
+      onChange={props.handleDayChange}
       shouldHighlightWeekends
     />
   );
