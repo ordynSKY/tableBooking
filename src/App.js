@@ -31,10 +31,12 @@ const App = () => {
     }
   }
 
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [selectedDate, setSelectedDate] = React.useState(null);
+  const [orderDate, setOrderDate] = useState("");
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    setOrderDate(date.year + "-" + date.month + "-" + date.day);
   };
 
   const [inputFirstName, setInputFirstName] = useState("");
@@ -120,7 +122,7 @@ const App = () => {
             handleChangeItem={handleChangeItem}
             handlePrevItem={handlePrevItem}
             guestValue={guestValue}
-            selectedDate={selectedDate}
+            orderDate={orderDate}
             time={time}
             inputFirstName={inputFirstName}
             inputLastName={inputLastName}

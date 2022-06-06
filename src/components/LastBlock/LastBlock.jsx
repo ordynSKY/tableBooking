@@ -40,8 +40,7 @@ function LastBlock(props) {
                   <br />
                   Day/time: &nbsp;
                   <b>
-                    {moment(props.selectedDate).format("DD-MM-YYYY")}{" "}
-                    {props.time}
+                    {moment(props.orderDate).format("DD-MM-YYYY")} {props.time}
                   </b>
                 </div>
               </div>
