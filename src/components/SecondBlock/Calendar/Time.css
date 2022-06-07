@@ -19,7 +19,7 @@
 .mainblock {
   display: flex;
   align-items: center;
-  margin: 40px 0px 40px -40px;
+  margin: 20px 0px 30px -40px;
 }
 
 @media (max-width: 1024px) {
