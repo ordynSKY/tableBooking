@@ -7,6 +7,7 @@ import { useRef } from "react";
 import ThirdBlock from "./components/ThirdBlock/ThirdBlock";
 import FourthBlock from "./components/FourthBlock/FourthBlock";
 import LastBlock from "./components/LastBlock/LastBlock";
+import myAxios from "./API";
 
 const App = () => {
   const ref = useRef(null);
@@ -52,6 +53,31 @@ const App = () => {
   const [inputEmail, setInputEmail] = useState("");
   const [inputMobile, setInputMobile] = useState("");
   const [inputZip, setInputZip] = useState("");
+  const [inputPassword, setInputPassword] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState("");
+
+  const postRequest = () => {
+    myAxios
+      .post("/api/customers/register", {
+        first_name: inputFirstName,
+        last_name: inputLastName,
+        email: inputEmail,
+        phone: inputMobile,
+        zip_code: inputZip,
+        allow_send_emails: 1,
+        allow_send_news: 0,
+        password: inputPassword,
+        password_confirmation: confirmPassword,
+        language: "en",
+      })
+      .then((response) => {
+        localStorage.setItem("token", response.data.token);
+        handleChangeItem();
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
 
   const [time, setTime] = useState("18:00");
   let bookedTimes = [
@@ -125,6 +151,21 @@ const App = () => {
             handleChangeItem={handleChangeItem}
             handlePrevItem={handlePrevItem}
             guestValue={guestValue}
+            inputFirstName={inputFirstName}
+            setInputFirstName={setInputFirstName}
+            inputLastName={inputLastName}
+            setInputLastName={setInputLastName}
+            inputEmail={inputEmail}
+            setInputEmail={setInputEmail}
+            inputMobile={inputMobile}
+            setInputMobile={setInputMobile}
+            inputZip={inputZip}
+            setInputZip={setInputZip}
+            inputPassword={inputPassword}
+            setInputPassword={setInputPassword}
+            confirmPassword={confirmPassword}
+            setconfirmPassword={setconfirmPassword}
+            postRequest={postRequest}
           />
         </div>
         <div>

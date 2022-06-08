@@ -30,7 +30,7 @@ function ThirdBlock(props) {
           <div className="title third-title">
             Enter your <br /> Contact Details
           </div>
-          <div className="form">
+          <form className="form">
             <div className="form-name">
               <input
                 type="text"
@@ -74,7 +74,7 @@ function ThirdBlock(props) {
                 onChange={(event) => props.setInputZip(event.target.value)}
               />
             </div>
-          </div>
+          </form>
           <button
             className="button-main"
             onClick={props.handleChangeItem}
