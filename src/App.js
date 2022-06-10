@@ -8,6 +8,8 @@ import ThirdBlock from "./components/ThirdBlock/ThirdBlock";
 import FourthBlock from "./components/FourthBlock/FourthBlock";
 import LastBlock from "./components/LastBlock/LastBlock";
 import myAxios from "./API";
+import EmailBlock from "./components/EmailBlock/EmailBlock";
+import LoginBlock from "./components/LoginBlock/LoginBlock";
 
 const App = () => {
   const ref = useRef(null);
@@ -59,6 +61,9 @@ const App = () => {
   const [errorRespPass, setErrorRespPass] = useState("");
   const [errorRespTitle, setErrorRespTitle] = useState("");
 
+  // another errorstate
+  // const [errorsResp, setErrorsResp] = useState("");
+
   const postRequest = () => {
     myAxios
       .post("/api/customers/register", {
@@ -78,7 +83,6 @@ const App = () => {
         handleChangeItem();
       })
       .catch((error) => {
-        // console.log("error", error);
         setErrorRespTitle("Please go back and fix the errors:");
         setErrorRespEmail(error.response.data.errors.email);
         setErrorRespPass(error.response.data.errors.password);
@@ -133,6 +137,20 @@ const App = () => {
             setTime={setTime}
             selectedDay={selectedDay}
             handleDayChange={handleDayChange}
+          />
+        </div>
+        <div>
+          <EmailBlock
+            handleChangeItem={handleChangeItem}
+            handlePrevItem={handlePrevItem}
+            guestValue={guestValue}
+          />
+        </div>
+        <div>
+          <LoginBlock
+            handleChangeItem={handleChangeItem}
+            handlePrevItem={handlePrevItem}
+            guestValue={guestValue}
           />
         </div>
         <div>
