@@ -54,7 +54,10 @@ const App = () => {
   const [inputMobile, setInputMobile] = useState("");
   const [inputZip, setInputZip] = useState("");
   const [inputPassword, setInputPassword] = useState("");
-  const [confirmPassword, setconfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorRespEmail, setErrorRespEmail] = useState("");
+  const [errorRespPass, setErrorRespPass] = useState("");
+  const [errorRespTitle, setErrorRespTitle] = useState("");
 
   const postRequest = () => {
     myAxios
@@ -75,7 +78,10 @@ const App = () => {
         handleChangeItem();
       })
       .catch((error) => {
-        console.log("error", error);
+        // console.log("error", error);
+        setErrorRespTitle("Please go back and fix the errors:");
+        setErrorRespEmail(error.response.data.errors.email);
+        setErrorRespPass(error.response.data.errors.password);
       });
   };
 
@@ -164,8 +170,11 @@ const App = () => {
             inputPassword={inputPassword}
             setInputPassword={setInputPassword}
             confirmPassword={confirmPassword}
-            setconfirmPassword={setconfirmPassword}
+            setConfirmPassword={setConfirmPassword}
             postRequest={postRequest}
+            errorRespTitle={errorRespTitle}
+            errorRespEmail={errorRespEmail}
+            errorRespPass={errorRespPass}
           />
         </div>
         <div>

@@ -82,6 +82,7 @@ function ThirdBlock(props) {
           >
             Next →
           </button>
+
           <div className="second-info">
             By creating a DinnerBooking profile I accept the{" "}
             <a className="no-border" href="/#">

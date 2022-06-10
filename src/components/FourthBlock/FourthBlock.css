@@ -114,9 +114,24 @@ a {
   border: 1px solid #000000;
 }
 
+.error-response {
+  margin-top: 20px;
+  text-align: left;
+  color: red;
+}
+
+.error-response-list {
+  font-size: 14px;
+}
+
 @media (max-width: 1024px) {
   .form-name__confirm-password {
     margin: 0;
+  }
+
+  .error-response {
+    text-align: center;
+    margin-bottom: 40px;
   }
 }
 

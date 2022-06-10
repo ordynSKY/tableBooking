@@ -5,7 +5,6 @@ import SelectLang from "../FirstBlock/SelectLang/SelectLang";
 import Copyrigth from "../FirstBlock/Copyrigth/Copyrigth";
 
 function FourthBlock(props) {
-  console.log(props);
   return (
     <div className="content">
       <Image />
@@ -32,6 +31,7 @@ function FourthBlock(props) {
             <br />
             For future bookings like this, you will not need the password.
           </div>
+
           <form className="form">
             <div className="form-mobile-zip">
               <input
@@ -47,7 +47,7 @@ function FourthBlock(props) {
                 placeholder="Confirm password"
                 value={props.confirmPassword}
                 onChange={(event) =>
-                  props.setconfirmPassword(event.target.value)
+                  props.setConfirmPassword(event.target.value)
                 }
               />
             </div>
@@ -55,6 +55,15 @@ function FourthBlock(props) {
           <button className="button-main" onClick={props.postRequest}>
             Next →
           </button>
+          <div className="error-response">
+            {props.errorRespTitle}
+            <br />
+            <div className="error-response-list">
+              {props.errorRespEmail}
+              <br />
+              {props.errorRespPass}
+            </div>
+          </div>
           <div className="copyrigth-footer">
             <Copyrigth />
           </div>
