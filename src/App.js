@@ -57,12 +57,16 @@ const App = () => {
   const [inputZip, setInputZip] = useState("");
   const [inputPassword, setInputPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errorRespEmail, setErrorRespEmail] = useState("");
-  const [errorRespPass, setErrorRespPass] = useState("");
-  const [errorRespTitle, setErrorRespTitle] = useState("");
+  // const [errorRespEmail, setErrorRespEmail] = useState("");
+  // const [errorRespPass, setErrorRespPass] = useState("");
+  // const [errorRespTitle, setErrorRespTitle] = useState("");
 
   // another errorstate
-  // const [errorsResp, setErrorsResp] = useState("");
+  const [errorsResp, setErrorsResp] = useState({
+    title: "",
+    emailError: "",
+    passError: "",
+  });
 
   const postRequest = () => {
     myAxios
@@ -83,9 +87,28 @@ const App = () => {
         handleChangeItem();
       })
       .catch((error) => {
-        setErrorRespTitle("Please go back and fix the errors:");
-        setErrorRespEmail(error.response.data.errors.email);
-        setErrorRespPass(error.response.data.errors.password);
+        setErrorsResp({
+          title: "Please go back and fix the errors:",
+          emailError: error.response.data.errors.email,
+          passError: error.response.data.errors.password,
+        });
+      });
+  };
+
+  // Email check
+  const [userConfirmed, setUserConfirmed] = useState();
+  const [needOpen, setNeedOpen] = useState("mail");
+
+  const EmailCheckRequest = () => {
+    myAxios
+      .post("api/customers/verify", {
+        email: inputEmail,
+      })
+      .then((response) => {
+        setUserConfirmed("login");
+      })
+      .catch((error) => {
+        setNeedOpen("registration");
       });
   };
 
@@ -144,6 +167,9 @@ const App = () => {
             handleChangeItem={handleChangeItem}
             handlePrevItem={handlePrevItem}
             guestValue={guestValue}
+            inputEmail={inputEmail}
+            setInputEmail={setInputEmail}
+            EmailCheckRequest={EmailCheckRequest}
           />
         </div>
         <div>
@@ -190,9 +216,10 @@ const App = () => {
             confirmPassword={confirmPassword}
             setConfirmPassword={setConfirmPassword}
             postRequest={postRequest}
-            errorRespTitle={errorRespTitle}
-            errorRespEmail={errorRespEmail}
-            errorRespPass={errorRespPass}
+            // errorRespTitle={errorRespTitle}
+            // errorRespEmail={errorRespEmail}
+            // errorRespPass={errorRespPass}
+            errorsResp={errorsResp}
           />
         </div>
         <div>

@@ -2,8 +2,12 @@ import React from "react";
 import "./Time.css";
 import Arrow from "../Calendar/vector.jpg";
 import ArrowLeft from "../Calendar/vectorleft.png";
+import { useState } from "react";
+import { Children } from "react";
 
 function Time(props) {
+  const [activeButton, setActiveButton] = useState(null);
+
   let buttonRight = document.getElementById("slideRight");
   let buttonLeft = document.getElementById("slideLeft");
 
@@ -20,15 +24,30 @@ function Time(props) {
         <img src={ArrowLeft} alt="" />
       </button>
       <div className="block-button__slider">
-        {props.bookedTimes.map((e) => {
-          return (
-            <div key={e} className="block-buttons">
-              <div onClick={(e) => props.setTime(e.currentTarget.textContent)}>
-                <button className="time-button">{e}</button>
+        {Children.toArray(
+          props.bookedTimes.map((e, i) => {
+            return (
+              <div className="block-buttons">
+                <div
+                  onClick={(e) => {
+                    return (
+                      props.setTime(e.currentTarget.textContent),
+                      setActiveButton(i)
+                    );
+                  }}
+                >
+                  <button
+                    className={`time-button${
+                      activeButton === i ? " active" : ""
+                    }`}
+                  >
+                    {e}
+                  </button>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
       <button id="slideRight" type="button" onClick={buttonRight}>
         <img src={Arrow} alt="" />

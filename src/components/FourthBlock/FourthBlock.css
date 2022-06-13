@@ -121,6 +121,7 @@ a {
 }
 
 .error-response-list {
+  list-style-type: disc;
   font-size: 14px;
 }
 

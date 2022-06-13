@@ -51,6 +51,7 @@ function EmailBlock(props) {
           </div>
         </div>
       </div>
+      <div>{props.content}</div>
     </div>
   );
 }

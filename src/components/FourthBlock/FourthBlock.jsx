@@ -5,6 +5,7 @@ import SelectLang from "../FirstBlock/SelectLang/SelectLang";
 import Copyrigth from "../FirstBlock/Copyrigth/Copyrigth";
 
 function FourthBlock(props) {
+  const dispErrors = props.errorsResp;
   return (
     <div className="content">
       <Image />
@@ -56,13 +57,11 @@ function FourthBlock(props) {
             Next →
           </button>
           <div className="error-response">
-            {props.errorRespTitle}
+            {dispErrors?.title}
             <br />
-            <div className="error-response-list">
-              {props.errorRespEmail}
-              <br />
-              {props.errorRespPass}
-            </div>
+            {dispErrors?.emailError}
+            <br />
+            {dispErrors?.passError}
           </div>
           <div className="copyrigth-footer">
             <Copyrigth />
