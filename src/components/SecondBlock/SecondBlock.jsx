@@ -7,9 +7,24 @@ import Time from "./Calendar/Time";
 import Cal from "./Calendar/Cal";
 import ModalEmail from "../ModalEmail/ModalEmail";
 import { useState } from "react";
+import ModalLogin from "../ModalLogin/ModalLogin";
 
 function SecondBlock(props) {
   const [modalActive, setModalActive] = useState(false);
+
+  let content = (
+    <ModalEmail
+      active={modalActive}
+      setActive={setModalActive}
+      inputEmail={props.inputEmail}
+      setInputEmail={props.setInputEmail}
+      emailRequest={props.emailRequest}
+    />
+  );
+
+  if (props.needLogin === "login") {
+    content = <ModalLogin />;
+  }
 
   console.log(props);
   return (
@@ -57,27 +72,7 @@ function SecondBlock(props) {
           </div>
         </div>
       </div>
-      <ModalEmail active={modalActive} setActive={setModalActive}>
-        <div className="title modal-title">
-          Please enter your email to continue
-        </div>
-        <form className="form modal-email">
-          <div className="form-email">
-            <input
-              type="text"
-              className="form-name__email "
-              placeholder="Email address"
-              value={props.inputEmail}
-              onChange={(event) => props.setInputEmail(event.target.value)}
-            />
-            <div className="modal-button">
-              <button className="button-main" onClick={props.emailRequest}>
-                Continue →
-              </button>
-            </div>
-          </div>
-        </form>
-      </ModalEmail>
+      {content}
     </div>
   );
 }
