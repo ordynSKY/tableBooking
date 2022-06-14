@@ -11,12 +11,6 @@ import { useState } from "react";
 function SecondBlock(props) {
   const [modalActive, setModalActive] = useState(false);
 
-  let content = null;
-
-  if (props.needLogin) {
-    content = <div>test</div>;
-  }
-
   console.log(props);
   return (
     <div className="content">
@@ -83,7 +77,6 @@ function SecondBlock(props) {
             </div>
           </div>
         </form>
-        {content}
       </ModalEmail>
     </div>
   );

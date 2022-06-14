@@ -92,6 +92,7 @@ const App = () => {
   // Email check
   const [needLogin, setNeedLogin] = useState(null);
   const [needRegister, setNeedRegister] = useState(null);
+  const [defaultModal, setDefaultModal] = useState("email");
 
   const emailRequest = () => {
     myAxios
@@ -100,11 +101,11 @@ const App = () => {
       })
       .then((response) => {
         console.log("need open login");
-        setNeedLogin(true);
+        setNeedLogin("login");
       })
       .catch((error) => {
         console.log(error, "need open register");
-        setNeedRegister(false);
+        setNeedRegister("register");
       });
   };
 
