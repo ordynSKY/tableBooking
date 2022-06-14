@@ -50,6 +50,27 @@
   color: #333333;
 }
 
+.modal-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modal-email {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
 .next-button {
   font-family: "Lusitana";
   font-style: normal;

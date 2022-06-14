@@ -8,9 +8,6 @@ import ThirdBlock from "./components/ThirdBlock/ThirdBlock";
 import FourthBlock from "./components/FourthBlock/FourthBlock";
 import LastBlock from "./components/LastBlock/LastBlock";
 import myAxios from "./API";
-import EmailBlock from "./components/EmailBlock/EmailBlock";
-import LoginBlock from "./components/LoginBlock/LoginBlock";
-
 const App = () => {
   const ref = useRef(null);
 
@@ -57,9 +54,6 @@ const App = () => {
   const [inputZip, setInputZip] = useState("");
   const [inputPassword, setInputPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  // const [errorRespEmail, setErrorRespEmail] = useState("");
-  // const [errorRespPass, setErrorRespPass] = useState("");
-  // const [errorRespTitle, setErrorRespTitle] = useState("");
 
   // another errorstate
   const [errorsResp, setErrorsResp] = useState({
@@ -96,19 +90,21 @@ const App = () => {
   };
 
   // Email check
-  const [userConfirmed, setUserConfirmed] = useState();
-  const [needOpen, setNeedOpen] = useState("mail");
+  const [needLogin, setNeedLogin] = useState(null);
+  const [needRegister, setNeedRegister] = useState(null);
 
-  const EmailCheckRequest = () => {
+  const emailRequest = () => {
     myAxios
       .post("api/customers/verify", {
         email: inputEmail,
       })
       .then((response) => {
-        setUserConfirmed("login");
+        console.log("need open login");
+        setNeedLogin(true);
       })
       .catch((error) => {
-        setNeedOpen("registration");
+        console.log(error, "need open register");
+        setNeedRegister(false);
       });
   };
 
@@ -160,26 +156,16 @@ const App = () => {
             setTime={setTime}
             selectedDay={selectedDay}
             handleDayChange={handleDayChange}
-          />
-        </div>
-        <div>
-          <EmailBlock
-            handleChangeItem={handleChangeItem}
-            handlePrevItem={handlePrevItem}
-            guestValue={guestValue}
+            emailRequest={emailRequest}
             inputEmail={inputEmail}
             setInputEmail={setInputEmail}
-            EmailCheckRequest={EmailCheckRequest}
+            needLogin={needLogin}
+            setNeedLogin={setNeedLogin}
+            needRegister={needRegister}
+            setNeedRegister={setNeedRegister}
           />
         </div>
-        <div>
-          <LoginBlock
-            handleChangeItem={handleChangeItem}
-            handlePrevItem={handlePrevItem}
-            guestValue={guestValue}
-          />
-        </div>
-        <div>
+        {/* <div>
           <ThirdBlock
             handleChangeItem={handleChangeItem}
             handlePrevItem={handlePrevItem}
@@ -216,12 +202,9 @@ const App = () => {
             confirmPassword={confirmPassword}
             setConfirmPassword={setConfirmPassword}
             postRequest={postRequest}
-            // errorRespTitle={errorRespTitle}
-            // errorRespEmail={errorRespEmail}
-            // errorRespPass={errorRespPass}
             errorsResp={errorsResp}
           />
-        </div>
+        </div> */}
         <div>
           <LastBlock
             handleChangeItem={handleChangeItem}
