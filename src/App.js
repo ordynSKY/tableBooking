@@ -90,8 +90,6 @@ const App = () => {
   };
 
   // Email check
-  const [needLogin, setNeedLogin] = useState(null);
-  const [needRegister, setNeedRegister] = useState(null);
   const [defaultModal, setDefaultModal] = useState("email");
 
   const emailRequest = () => {
@@ -101,11 +99,11 @@ const App = () => {
       })
       .then((response) => {
         console.log("need open login");
-        setNeedLogin("login");
+        defaultModal("login");
       })
       .catch((error) => {
         console.log(error, "need open register");
-        setNeedRegister("register");
+        defaultModal("register");
       });
   };
 
@@ -160,10 +158,10 @@ const App = () => {
             emailRequest={emailRequest}
             inputEmail={inputEmail}
             setInputEmail={setInputEmail}
-            needLogin={needLogin}
-            setNeedLogin={setNeedLogin}
-            needRegister={needRegister}
-            setNeedRegister={setNeedRegister}
+            defaultModal={defaultModal}
+            setDefaultModal={setDefaultModal}
+            postRequest={postRequest}
+            errorsResp={errorsResp}
           />
         </div>
         {/* <div>

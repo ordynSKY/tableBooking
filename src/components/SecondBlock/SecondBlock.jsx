@@ -8,23 +8,57 @@ import Cal from "./Calendar/Cal";
 import ModalEmail from "../ModalEmail/ModalEmail";
 import { useState } from "react";
 import ModalLogin from "../ModalLogin/ModalLogin";
+import ModalRegister from "../ModalRegister/ModalRegister";
 
 function SecondBlock(props) {
   const [modalActive, setModalActive] = useState(false);
 
-  let content = (
-    <ModalEmail
-      active={modalActive}
-      setActive={setModalActive}
-      inputEmail={props.inputEmail}
-      setInputEmail={props.setInputEmail}
-      emailRequest={props.emailRequest}
-    />
-  );
+  let content =
+    (props.needLogin === "email" && (
+      <ModalEmail
+        active={modalActive}
+        setActive={setModalActive}
+        inputEmail={props.inputEmail}
+        setInputEmail={props.setInputEmail}
+        emailRequest={props.emailRequest}
+      />
+    ),
+    props.needLogin === "login" && (
+      <ModalLogin
+        active={modalActive}
+        setActive={setModalActive}
+        inputEmail={props.inputEmail}
+        setInputEmail={props.setInputEmail}
+        inputPassword={props.inputPassword}
+        setInputPassword={props.setInputPassword}
+      />
+    ),
+    props.needLogin === "register" && (
+      <ModalRegister
+        active={modalActive}
+        setActive={setModalActive}
+        inputEmail={props.inputEmail}
+        setInputEmail={props.setInputEmail}
+        inputFirstName={props.inputFirstName}
+        setInputFirstName={props.setInputFirstName}
+        inputLastName={props.inputLastName}
+        setInputLastName={props.setInputLastName}
+        inputMobile={props.inputMobile}
+        setInputMobile={props.setInputMobile}
+        inputZip={props.inputZip}
+        setInputZip={props.setInputZip}
+        inputPassword={props.inputPassword}
+        setInputPassword={props.setInputPassword}
+        confirmPassword={props.confirmPassword}
+        setConfirmPassword={props.setConfirmPassword}
+        postRequest={props.postRequest}
+        errorsResp={props.errorsResp}
+      />
+    ));
 
-  if (props.needLogin === "login") {
-    content = <ModalLogin />;
-  }
+  // if (props.needLogin === "login") {
+  //   content = ;
+  // }
 
   console.log(props);
   return (
@@ -72,7 +106,47 @@ function SecondBlock(props) {
           </div>
         </div>
       </div>
-      {content}
+      {props.defaultModal === "email" && (
+        <ModalEmail
+          active={modalActive}
+          setActive={setModalActive}
+          inputEmail={props.inputEmail}
+          setInputEmail={props.setInputEmail}
+          emailRequest={props.emailRequest}
+        />
+      )}
+      {props.defaultModal === "login" && (
+        <ModalLogin
+          active={modalActive}
+          setActive={setModalActive}
+          inputEmail={props.inputEmail}
+          setInputEmail={props.setInputEmail}
+          inputPassword={props.inputPassword}
+          setInputPassword={props.setInputPassword}
+        />
+      )}
+      {props.defaultModal === "register" && (
+        <ModalRegister
+          active={modalActive}
+          setActive={setModalActive}
+          inputEmail={props.inputEmail}
+          setInputEmail={props.setInputEmail}
+          inputFirstName={props.inputFirstName}
+          setInputFirstName={props.setInputFirstName}
+          inputLastName={props.inputLastName}
+          setInputLastName={props.setInputLastName}
+          inputMobile={props.inputMobile}
+          setInputMobile={props.setInputMobile}
+          inputZip={props.inputZip}
+          setInputZip={props.setInputZip}
+          inputPassword={props.inputPassword}
+          setInputPassword={props.setInputPassword}
+          confirmPassword={props.confirmPassword}
+          setConfirmPassword={props.setConfirmPassword}
+          postRequest={props.postRequest}
+          errorsResp={props.errorsResp}
+        />
+      )}
     </div>
   );
 }
