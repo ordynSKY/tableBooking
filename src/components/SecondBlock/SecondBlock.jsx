@@ -5,63 +5,21 @@ import SelectLang from "../FirstBlock/SelectLang/SelectLang";
 import Copyrigth from "../FirstBlock/Copyrigth/Copyrigth";
 import Time from "./Calendar/Time";
 import Cal from "./Calendar/Cal";
-import ModalEmail from "../ModalEmail/ModalEmail";
 import { useState } from "react";
-import ModalLogin from "../ModalLogin/ModalLogin";
-import ModalRegister from "../ModalRegister/ModalRegister";
 import MainModal from "../MainModal/MainModal";
 
 function SecondBlock(props) {
   const [modalActive, setModalActive] = useState(false);
+  const [emailModalTitle, setEmailModalTitle] = useState(
+    "Please enter your email to continue"
+  );
+  const [loginModalTitle, setLoginModalTitle] = useState(
+    "Please enter your email and password to continue"
+  );
+  const [registerModalTitle, setRegisterModalTitle] = useState(
+    "Enter your contact details"
+  );
 
-  let content =
-    (props.needLogin === "email" && (
-      <ModalEmail
-        active={modalActive}
-        setActive={setModalActive}
-        inputEmail={props.inputEmail}
-        setInputEmail={props.setInputEmail}
-        emailRequest={props.emailRequest}
-      />
-    ),
-    props.needLogin === "login" && (
-      <ModalLogin
-        active={modalActive}
-        setActive={setModalActive}
-        inputEmail={props.inputEmail}
-        setInputEmail={props.setInputEmail}
-        inputPassword={props.inputPassword}
-        setInputPassword={props.setInputPassword}
-      />
-    ),
-    props.needLogin === "register" && (
-      <ModalRegister
-        active={modalActive}
-        setActive={setModalActive}
-        inputEmail={props.inputEmail}
-        setInputEmail={props.setInputEmail}
-        inputFirstName={props.inputFirstName}
-        setInputFirstName={props.setInputFirstName}
-        inputLastName={props.inputLastName}
-        setInputLastName={props.setInputLastName}
-        inputMobile={props.inputMobile}
-        setInputMobile={props.setInputMobile}
-        inputZip={props.inputZip}
-        setInputZip={props.setInputZip}
-        inputPassword={props.inputPassword}
-        setInputPassword={props.setInputPassword}
-        confirmPassword={props.confirmPassword}
-        setConfirmPassword={props.setConfirmPassword}
-        postRequest={props.postRequest}
-        errorsResp={props.errorsResp}
-      />
-    ));
-
-  // if (props.needLogin === "login") {
-  //   content = ;
-  // }
-
-  console.log(props);
   return (
     <div className="content">
       <Image />
@@ -108,26 +66,31 @@ function SecondBlock(props) {
         </div>
       </div>
       {props.defaultModal === "email" && (
-        <ModalEmail
+        <MainModal
+          emailModalTitle={emailModalTitle}
+          setEmailModalTitle={setEmailModalTitle}
           active={modalActive}
           setActive={setModalActive}
           inputEmail={props.inputEmail}
           setInputEmail={props.setInputEmail}
-          emailRequest={props.emailRequest}
+          callback={props.emailRequest}
+          defaultModal={props.defaultModal}
         />
       )}
       {props.defaultModal === "login" && (
-        <ModalLogin
+        <MainModal
           active={modalActive}
           setActive={setModalActive}
           inputEmail={props.inputEmail}
           setInputEmail={props.setInputEmail}
           inputPassword={props.inputPassword}
           setInputPassword={props.setInputPassword}
+          callback={props.emailRequest}
+          defaultModal={props.defaultModal}
         />
       )}
       {props.defaultModal === "register" && (
-        <ModalRegister
+        <MainModal
           active={modalActive}
           setActive={setModalActive}
           inputEmail={props.inputEmail}
@@ -144,21 +107,11 @@ function SecondBlock(props) {
           setInputPassword={props.setInputPassword}
           confirmPassword={props.confirmPassword}
           setConfirmPassword={props.setConfirmPassword}
-          postRequest={props.postRequest}
+          callback={props.postRequest}
           errorsResp={props.errorsResp}
-        />
-      )}
-
-      {
-        <MainModal
-          active={modalActive}
-          setActive={setModalActive}
-          inputEmail={props.inputEmail}
-          setInputEmail={props.setInputEmail}
-          callback={props.emailRequest}
           defaultModal={props.defaultModal}
         />
-      }
+      )}
     </div>
   );
 }

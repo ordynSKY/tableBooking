@@ -62,6 +62,8 @@ const App = () => {
     passError: "",
   });
 
+  console.log(inputPassword);
+
   const postRequest = () => {
     myAxios
       .post("/api/customers/register", {
@@ -162,6 +164,18 @@ const App = () => {
             setDefaultModal={setDefaultModal}
             postRequest={postRequest}
             errorsResp={errorsResp}
+            inputFirstName={inputFirstName}
+            setInputFirstName={setInputFirstName}
+            inputLastName={inputLastName}
+            setInputLastName={setInputLastName}
+            inputMobile={inputMobile}
+            setInputMobile={setInputMobile}
+            inputZip={inputZip}
+            setInputZip={setInputZip}
+            inputPassword={inputPassword}
+            setInputPassword={setInputPassword}
+            confirmPassword={confirmPassword}
+            setConfirmPassword={setConfirmPassword}
           />
         </div>
         {/* <div>
