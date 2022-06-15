@@ -9,6 +9,7 @@ import ModalEmail from "../ModalEmail/ModalEmail";
 import { useState } from "react";
 import ModalLogin from "../ModalLogin/ModalLogin";
 import ModalRegister from "../ModalRegister/ModalRegister";
+import MainModal from "../MainModal/MainModal";
 
 function SecondBlock(props) {
   const [modalActive, setModalActive] = useState(false);
@@ -147,6 +148,17 @@ function SecondBlock(props) {
           errorsResp={props.errorsResp}
         />
       )}
+
+      {
+        <MainModal
+          active={modalActive}
+          setActive={setModalActive}
+          inputEmail={props.inputEmail}
+          setInputEmail={props.setInputEmail}
+          callback={props.emailRequest}
+          defaultModal={props.defaultModal}
+        />
+      }
     </div>
   );
 }

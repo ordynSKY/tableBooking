@@ -99,11 +99,11 @@ const App = () => {
       })
       .then((response) => {
         console.log("need open login");
-        defaultModal("login");
+        setDefaultModal("login");
       })
       .catch((error) => {
         console.log(error, "need open register");
-        defaultModal("register");
+        setDefaultModal("register");
       });
   };
 

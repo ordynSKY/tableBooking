@@ -20,13 +20,13 @@ export default function ModalEmail(props) {
               value={props.inputEmail}
               onChange={(event) => props.setInputEmail(event.target.value)}
             />
-            <div className="modal-button">
-              <button className="button-main" onClick={props.emailRequest}>
-                Continue →
-              </button>
-            </div>
           </div>
         </form>
+        <div className="modal-button">
+          <button className="button-main" onClick={props.emailRequest}>
+            Continue →
+          </button>
+        </div>
       </div>
     </div>
   );
