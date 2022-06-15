@@ -10,14 +10,8 @@ import MainModal from "../MainModal/MainModal";
 
 function SecondBlock(props) {
   const [modalActive, setModalActive] = useState(false);
-  const [emailModalTitle, setEmailModalTitle] = useState(
+  const [modalTitle, setModalTitle] = useState(
     "Please enter your email to continue"
-  );
-  const [loginModalTitle, setLoginModalTitle] = useState(
-    "Please enter your email and password to continue"
-  );
-  const [registerModalTitle, setRegisterModalTitle] = useState(
-    "Enter your contact details"
   );
 
   return (
@@ -67,8 +61,8 @@ function SecondBlock(props) {
       </div>
       {props.defaultModal === "email" && (
         <MainModal
-          emailModalTitle={emailModalTitle}
-          setEmailModalTitle={setEmailModalTitle}
+          modalTitle={modalTitle}
+          setModalTitle={setModalTitle}
           active={modalActive}
           setActive={setModalActive}
           inputEmail={props.inputEmail}

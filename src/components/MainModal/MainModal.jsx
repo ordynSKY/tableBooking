@@ -10,9 +10,15 @@ export default function MainModal(props) {
     >
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         <div className="title modal-title">
-          Please enter your email to continue
+          {props.modalTitle === "email" && (
+            <p>Please enter your email to continue</p>
+          )}
+          {props.modalTitle === "login" && (
+            <p>Please enter your email and password to continue</p>
+          )}
+          {props.modalTitle === "register" && <p>Enter your contact details</p>}
         </div>
-        <form className="form">
+        <form className="form form-modal">
           <div className="form-name">
             {props.defaultModal === "register" && (
               <div>
