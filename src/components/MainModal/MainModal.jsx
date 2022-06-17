@@ -4,9 +4,10 @@ import "react-phone-input-2/lib/bootstrap.css";
 import "./MainModal.css";
 
 export default function MainModal(props) {
-  const [inputMobile, setInputMobile] = useState("");
+  console.log(props.mainProps);
   const dispErrors = props.errorsResp;
   const { title } = props;
+
   return (
     <div
       className={props.active ? "modal active" : "modal"}
@@ -47,7 +48,7 @@ export default function MainModal(props) {
                 type="text"
                 className="form-name__email"
                 placeholder="Email address"
-                value={props.inputEmail}
+                value={props.mainProps?.inputEmail}
                 onChange={(event) => props.setInputEmail(event.target.value)}
               />
             )}

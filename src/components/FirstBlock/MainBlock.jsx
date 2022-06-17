@@ -28,7 +28,7 @@ function MainBlock(props) {
             onClick={props.handleChangeItem}
             disabled={!isValid}
           >
-            Next →
+            {props.mainProps.title}
           </button>
           <Info />
           <div className="main-footer">

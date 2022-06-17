@@ -61,7 +61,7 @@ function SecondBlock(props) {
           title="Please enter your email to continue"
           active={modalActive}
           setActive={setModalActive}
-          inputEmail={props.inputEmail}
+          mainProps={props.mainProps}
           setInputEmail={props.setInputEmail}
           callback={props.emailRequest}
           defaultModal={props.defaultModal}

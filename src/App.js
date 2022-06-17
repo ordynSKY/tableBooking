@@ -54,7 +54,11 @@ const App = () => {
   const [inputZip, setInputZip] = useState("");
   const [inputPassword, setInputPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isRequestLoading, setIsRequestLoading] = useState(false);
+
+  const mainProps = {
+    title: "Next →",
+    inputEmail: "text",
+  };
 
   // another errorstate
   const [errorsResp, setErrorsResp] = useState({
@@ -98,7 +102,6 @@ const App = () => {
   const [defaultModal, setDefaultModal] = useState("email");
 
   const emailRequest = () => {
-    setIsRequestLoading(true);
     myAxios
       .post("api/customers/verify", {
         email: inputEmail,
@@ -109,7 +112,6 @@ const App = () => {
       .catch((error) => {
         setDefaultModal("register");
       });
-    setIsRequestLoading(false);
   };
 
   // Login request
@@ -195,6 +197,7 @@ const App = () => {
             increment={increment}
             decrement={decrement}
             guestValue={guestValue}
+            mainProps={mainProps}
           />
         </div>
         <div>
@@ -210,7 +213,7 @@ const App = () => {
             selectedDay={selectedDay}
             handleDayChange={handleDayChange}
             emailRequest={emailRequest}
-            inputEmail={inputEmail}
+            // inputEmail={inputEmail}
             setInputEmail={setInputEmail}
             defaultModal={defaultModal}
             setDefaultModal={setDefaultModal}
@@ -229,8 +232,7 @@ const App = () => {
             confirmPassword={confirmPassword}
             setConfirmPassword={setConfirmPassword}
             loginRequest={loginRequest}
-            isRequestLoading={isRequestLoading}
-            setIsRequestLoading={setIsRequestLoading}
+            mainProps={mainProps}
           />
         </div>
 
