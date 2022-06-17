@@ -6,6 +6,8 @@ import Copyrigth from "../FirstBlock/Copyrigth/Copyrigth";
 import moment from "moment";
 
 function LastBlock(props) {
+  console.log(props.userData);
+
   return (
     <div className="content">
       <Image />
@@ -15,6 +17,10 @@ function LastBlock(props) {
             <div className="back">
               <a href="/#" className="back-link" onClick={props.handlePrevItem}>
                 ← Back
+              </a>{" "}
+              |{" "}
+              <a href="/" className="back-link" onClick={props.logout}>
+                Logout
               </a>
             </div>
             <div className="second-step__lang">
@@ -47,16 +53,17 @@ function LastBlock(props) {
               <div className="client-info">
                 <div className="client-title">Your contact information</div>
                 <div className="client-adress">
-                  {props.inputFirstName} {props.inputLastName} <br />
-                  {props.inputMobile} <br />
-                  {props.inputEmail} <br />
-                  {props.inputZip}
+                  {props.userData && props.userData.first_name}{" "}
+                  {props.userData && props.userData.last_name} <br />
+                  {props.userData && props.userData.phone} <br />
+                  {props.userData && props.userData.email} <br />
+                  {props.userData && props.userData.zip_code}
                 </div>
                 <div className="guests-date">
                   Not correct?
                   <br />
                   <a href="/#">Edit my information</a> &nbsp;
-                  <a href="/#">Not me</a>
+                  <a href="/">Not me</a>
                 </div>
               </div>
             </div>
@@ -76,8 +83,10 @@ function LastBlock(props) {
                   type="checkbox"
                   style={{ width: "14px", heigth: "14px", marginRight: "8px" }}
                 />
-                Get restaurant news and inspiration from DinnerBooking.com on
-                email. &nbsp; <a href="/#">See our privacy policy</a>
+                <div>
+                  Get restaurant news and inspiration from DinnerBooking.com on
+                  email. <a href="/#">See our privacy policy</a>
+                </div>
               </div>
               <div className="second-checkbox">
                 <input

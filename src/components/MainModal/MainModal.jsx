@@ -1,23 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/bootstrap.css";
 import "./MainModal.css";
 
 export default function MainModal(props) {
+  const [inputMobile, setInputMobile] = useState("");
   const dispErrors = props.errorsResp;
+  const { title } = props;
   return (
     <div
       className={props.active ? "modal active" : "modal"}
       onClick={() => props.setActive(false)}
     >
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
-        <div className="title modal-title">
-          {props.modalTitle === "email" && (
-            <p>Please enter your email to continue</p>
-          )}
-          {props.modalTitle === "login" && (
-            <p>Please enter your email and password to continue</p>
-          )}
-          {props.modalTitle === "register" && <p>Enter your contact details</p>}
-        </div>
+        <div className="title modal-title">{title}</div>
         <form className="form form-modal">
           <div className="form-name">
             {props.defaultModal === "register" && (

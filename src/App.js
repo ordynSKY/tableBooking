@@ -4,7 +4,7 @@ import MainBlock from "./components/FirstBlock/MainBlock.jsx";
 import { Carousel } from "react-responsive-carousel";
 import SecondBlock from "./components/SecondBlock/SecondBlock";
 import { useRef } from "react";
-import ThirdBlock from "./components/ThirdBlock/ThirdBlock";
+// import ThirdBlock from "./components/ThirdBlock/ThirdBlock";
 import FourthBlock from "./components/FourthBlock/FourthBlock";
 import LastBlock from "./components/LastBlock/LastBlock";
 import myAxios from "./API";
@@ -54,6 +54,7 @@ const App = () => {
   const [inputZip, setInputZip] = useState("");
   const [inputPassword, setInputPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isRequestLoading, setIsRequestLoading] = useState(false);
 
   // another errorstate
   const [errorsResp, setErrorsResp] = useState({
@@ -95,18 +96,67 @@ const App = () => {
   const [defaultModal, setDefaultModal] = useState("email");
 
   const emailRequest = () => {
+    setIsRequestLoading(true);
     myAxios
       .post("api/customers/verify", {
         email: inputEmail,
       })
       .then((response) => {
-        console.log("need open login");
         setDefaultModal("login");
       })
       .catch((error) => {
-        console.log(error, "need open register");
         setDefaultModal("register");
       });
+    setIsRequestLoading(false);
+  };
+
+  // Login request
+
+  const [userData, setUserData] = useState(null);
+
+  const getUserInfoReq = () => {
+    myAxios
+      .get("api/customers", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setUserData(response.data);
+      })
+      .catch((error) => {});
+  };
+
+  const loginRequest = () => {
+    myAxios
+      .post("api/customers/login", {
+        email: inputEmail,
+        password: inputPassword,
+      })
+      .then((response) => {
+        localStorage.setItem("token", response.data.token);
+        handleChangeItem();
+        getUserInfoReq();
+      })
+      .catch((error) => {
+        console.log(error, "not logged");
+      });
+  };
+
+  //Logout request
+
+  const logout = () => {
+    myAxios.post(
+      "api/customers/logout",
+      {},
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    );
+    localStorage.removeItem("token");
   };
 
   const [time, setTime] = useState("18:00");
@@ -176,48 +226,12 @@ const App = () => {
             setInputPassword={setInputPassword}
             confirmPassword={confirmPassword}
             setConfirmPassword={setConfirmPassword}
+            loginRequest={loginRequest}
+            isRequestLoading={isRequestLoading}
+            setIsRequestLoading={setIsRequestLoading}
           />
         </div>
-        {/* <div>
-          <ThirdBlock
-            handleChangeItem={handleChangeItem}
-            handlePrevItem={handlePrevItem}
-            guestValue={guestValue}
-            inputFirstName={inputFirstName}
-            setInputFirstName={setInputFirstName}
-            inputLastName={inputLastName}
-            setInputLastName={setInputLastName}
-            inputEmail={inputEmail}
-            setInputEmail={setInputEmail}
-            inputMobile={inputMobile}
-            setInputMobile={setInputMobile}
-            inputZip={inputZip}
-            setInputZip={setInputZip}
-          />
-        </div>
-        <div>
-          <FourthBlock
-            handleChangeItem={handleChangeItem}
-            handlePrevItem={handlePrevItem}
-            guestValue={guestValue}
-            inputFirstName={inputFirstName}
-            setInputFirstName={setInputFirstName}
-            inputLastName={inputLastName}
-            setInputLastName={setInputLastName}
-            inputEmail={inputEmail}
-            setInputEmail={setInputEmail}
-            inputMobile={inputMobile}
-            setInputMobile={setInputMobile}
-            inputZip={inputZip}
-            setInputZip={setInputZip}
-            inputPassword={inputPassword}
-            setInputPassword={setInputPassword}
-            confirmPassword={confirmPassword}
-            setConfirmPassword={setConfirmPassword}
-            postRequest={postRequest}
-            errorsResp={errorsResp}
-          />
-        </div> */}
+
         <div>
           <LastBlock
             handleChangeItem={handleChangeItem}
@@ -230,6 +244,8 @@ const App = () => {
             inputEmail={inputEmail}
             inputMobile={inputMobile}
             inputZip={inputZip}
+            userData={userData}
+            logout={logout}
           />
         </div>
       </Carousel>

@@ -49,14 +49,15 @@
 }
 
 .client-info {
-  margin: 9px 21px 0px 56px;
+  margin: 9px 21px 0px 0px;
 }
 
 .client-title {
+  display: inline-block;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
-  font-size: 22px;
+  font-size: 21px;
   line-height: 150%;
   display: flex;
   align-items: center;
@@ -128,6 +129,7 @@
 .checkbox {
   display: flex;
   justify-content: left;
+  text-align: left;
   margin: 0px 8px 0px 20px;
   font-family: "Inter";
   font-style: normal;
@@ -255,4 +257,7 @@
   .react_time_range__time_range_container {
     margin: 20% auto;
   }
+}
+.form-comment {
+  text-align: left;
 }
