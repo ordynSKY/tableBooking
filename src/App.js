@@ -82,6 +82,7 @@ const App = () => {
       .then((response) => {
         localStorage.setItem("token", response.data.token);
         handleChangeItem();
+        console.log("registered");
       })
       .catch((error) => {
         setErrorsResp({
@@ -89,6 +90,7 @@ const App = () => {
           emailError: error.response.data.errors.email,
           passError: error.response.data.errors.password,
         });
+        console.log(error);
       });
   };
 
@@ -246,6 +248,17 @@ const App = () => {
             inputZip={inputZip}
             userData={userData}
             logout={logout}
+            setInputEmail={setInputEmail}
+            setInputFirstName={setInputFirstName}
+            setInputLastName={setInputLastName}
+            setInputMobile={setInputMobile}
+            setInputZip={setInputZip}
+            inputPassword={inputPassword}
+            setInputPassword={setInputPassword}
+            confirmPassword={confirmPassword}
+            setConfirmPassword={setConfirmPassword}
+            postRequest={postRequest}
+            errorsResp={errorsResp}
           />
         </div>
       </Carousel>

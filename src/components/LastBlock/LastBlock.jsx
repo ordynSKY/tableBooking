@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "../FirstBlock/img/Image";
 import "./LastBlock.css";
 import SelectLang from "../FirstBlock/SelectLang/SelectLang";
 import Copyrigth from "../FirstBlock/Copyrigth/Copyrigth";
 import moment from "moment";
+import MainModal from "../MainModal/MainModal";
 
 function LastBlock(props) {
+  const [modalActive, setModalActive] = useState(false);
   console.log(props.userData);
 
   return (
@@ -62,7 +64,10 @@ function LastBlock(props) {
                 <div className="guests-date">
                   Not correct?
                   <br />
-                  <a href="/#">Edit my information</a> &nbsp;
+                  <a href="/#" onClick={() => setModalActive(true)}>
+                    Edit my information
+                  </a>{" "}
+                  &nbsp;
                   <a href="/">Not me</a>
                 </div>
               </div>
@@ -110,6 +115,28 @@ function LastBlock(props) {
           <div className="copyrigth-footer">
             <Copyrigth />
           </div>
+          <MainModal
+            title="Enter your contact details"
+            active={modalActive}
+            setActive={setModalActive}
+            inputEmail={props.inputEmail}
+            setInputEmail={props.setInputEmail}
+            inputFirstName={props.inputFirstName}
+            setInputFirstName={props.setInputFirstName}
+            inputLastName={props.inputLastName}
+            setInputLastName={props.setInputLastName}
+            inputMobile={props.inputMobile}
+            setInputMobile={props.setInputMobile}
+            inputZip={props.inputZip}
+            setInputZip={props.setInputZip}
+            inputPassword={props.inputPassword}
+            setInputPassword={props.setInputPassword}
+            confirmPassword={props.confirmPassword}
+            setConfirmPassword={props.setConfirmPassword}
+            callback={props.postRequest}
+            errorsResp={props.errorsResp}
+            defaultModal={"register"}
+          />
         </div>
       </div>
     </div>
