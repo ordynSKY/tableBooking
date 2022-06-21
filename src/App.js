@@ -57,7 +57,7 @@ const App = () => {
 
   const mainProps = {
     title: "Next →",
-    inputEmail: "text",
+    inputEmail: inputEmail,
   };
 
   // another errorstate

@@ -8,7 +8,6 @@ import MainModal from "../MainModal/MainModal";
 
 function LastBlock(props) {
   const [modalActive, setModalActive] = useState(false);
-  console.log(props.userData);
 
   return (
     <div className="content">

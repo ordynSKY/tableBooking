@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/bootstrap.css";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 import "./MainModal.css";
 
 export default function MainModal(props) {
-  console.log(props.mainProps);
+  console.log("MainModal", props.mainProps);
   const dispErrors = props.errorsResp;
   const { title } = props;
+  const { mainProps } = props;
+  const [value, setValue] = useState();
+  console.log(props);
 
   return (
     <div
@@ -48,14 +51,21 @@ export default function MainModal(props) {
                 type="text"
                 className="form-name__email"
                 placeholder="Email address"
-                value={props.mainProps?.inputEmail}
+                value={mainProps?.inputEmail}
                 onChange={(event) => props.setInputEmail(event.target.value)}
               />
             )}
           </div>
           <div className="form-mobile-zip">
             {props.defaultModal === "register" && (
-              <div>
+              <div style={{ display: "flex" }}>
+                {/* <PhoneInput
+                  defaultCountry="RU"
+                  value={value}
+                  onChange={setValue}
+                  className="form-name__mobile"
+                  placeholder="Mobile  number"
+                /> */}
                 <input
                   type="text"
                   className="form-name__mobile"
@@ -72,28 +82,26 @@ export default function MainModal(props) {
                 />
               </div>
             )}
-            {(props.defaultModal === "login" ||
-              props.defaultModal === "register") && (
-              <input
-                type="password"
-                className="form-name__password"
-                placeholder="Password"
-                value={props.inputPassword}
-                onChange={(event) => props.setInputPassword(event.target.value)}
-              />
-            )}
-            {props.defaultModal === "register" && (
-              <input
-                type="password"
-                className="form-name__confirm-password"
-                placeholder="Confirm password"
-                value={props.confirmPassword}
-                onChange={(event) =>
-                  props.setConfirmPassword(event.target.value)
-                }
-              />
-            )}
           </div>
+          {(props.defaultModal === "login" ||
+            props.defaultModal === "register") && (
+            <input
+              type="password"
+              className="form-name__password"
+              placeholder="Password"
+              value={props.inputPassword}
+              onChange={(event) => props.setInputPassword(event.target.value)}
+            />
+          )}
+          {props.defaultModal === "register" && (
+            <input
+              type="password"
+              className="form-name__confirm-password"
+              placeholder="Confirm password"
+              value={props.confirmPassword}
+              onChange={(event) => props.setConfirmPassword(event.target.value)}
+            />
+          )}
         </form>
         <div className="modal-button">
           <button className="button-main" onClick={props.callback}>
