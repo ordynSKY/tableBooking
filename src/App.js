@@ -67,8 +67,6 @@ const App = () => {
     passError: "",
   });
 
-  console.log(inputPassword);
-
   const postRequest = () => {
     myAxios
       .post("/api/customers/register", {
@@ -116,6 +114,18 @@ const App = () => {
 
   // Login request
 
+  const userDataState = (userData1) => {
+    setInputFirstName(userData1?.first_name);
+    setInputLastName(userData1?.last_name);
+    setInputEmail(userData1?.email);
+    setInputMobile(userData1?.phone);
+    setInputZip(userData1?.zip_code);
+    setInputPassword(userData1?.password);
+    setConfirmPassword(userData1?.password_confirmation);
+    console.log("getting user data", userData1);
+    console.log("getting user data", userData1?.email);
+  };
+
   const [userData, setUserData] = useState(null);
 
   const getUserInfoReq = () => {
@@ -126,8 +136,8 @@ const App = () => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         setUserData(response.data);
+        userDataState(response.data);
       })
       .catch((error) => {});
   };
@@ -261,6 +271,7 @@ const App = () => {
             setConfirmPassword={setConfirmPassword}
             postRequest={postRequest}
             errorsResp={errorsResp}
+            userDataState={userDataState}
           />
         </div>
       </Carousel>

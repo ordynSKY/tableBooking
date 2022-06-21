@@ -9,6 +9,11 @@ import MainModal from "../MainModal/MainModal";
 function LastBlock(props) {
   const [modalActive, setModalActive] = useState(false);
 
+  const showModalWindow = () => {
+    props.userDataState();
+    setModalActive(true);
+  };
+
   return (
     <div className="content">
       <Image />
@@ -63,7 +68,7 @@ function LastBlock(props) {
                 <div className="guests-date">
                   Not correct?
                   <br />
-                  <a href="/#" onClick={() => setModalActive(true)}>
+                  <a href="/#" onClick={() => showModalWindow()}>
                     Edit my information
                   </a>{" "}
                   &nbsp;

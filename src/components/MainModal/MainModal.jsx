@@ -4,12 +4,9 @@ import PhoneInput from "react-phone-number-input";
 import "./MainModal.css";
 
 export default function MainModal(props) {
-  console.log("MainModal", props.mainProps);
   const dispErrors = props.errorsResp;
   const { title } = props;
   const { mainProps } = props;
-  const [value, setValue] = useState();
-  console.log(props);
 
   return (
     <div
@@ -48,7 +45,7 @@ export default function MainModal(props) {
               props.defaultModal === "register" ||
               props.defaultModal === "email") && (
               <input
-                type="text"
+                type="email"
                 className="form-name__email"
                 placeholder="Email address"
                 value={mainProps?.inputEmail}
