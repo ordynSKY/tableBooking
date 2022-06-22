@@ -10,9 +10,13 @@ function LastBlock(props) {
   const [modalActive, setModalActive] = useState(false);
 
   const showModalWindow = () => {
-    props.userDataState();
+    // props.getUserInfoReq();
     setModalActive(true);
   };
+
+  console.log("getting user email", props.userData1?.email);
+
+  const { mainProps } = props;
 
   return (
     <div className="content">
@@ -123,7 +127,7 @@ function LastBlock(props) {
             title="Enter your contact details"
             active={modalActive}
             setActive={setModalActive}
-            inputEmail={props.inputEmail}
+            mainProps={mainProps}
             setInputEmail={props.setInputEmail}
             inputFirstName={props.inputFirstName}
             setInputFirstName={props.setInputFirstName}
@@ -137,7 +141,7 @@ function LastBlock(props) {
             setInputPassword={props.setInputPassword}
             confirmPassword={props.confirmPassword}
             setConfirmPassword={props.setConfirmPassword}
-            callback={props.postRequest}
+            callback={props.EditUserInfoReq}
             errorsResp={props.errorsResp}
             defaultModal={"register"}
           />

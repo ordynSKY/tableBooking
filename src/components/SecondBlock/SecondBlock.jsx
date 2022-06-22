@@ -78,6 +78,7 @@ function SecondBlock(props) {
           setInputPassword={props.setInputPassword}
           callback={props.loginRequest}
           defaultModal={props.defaultModal}
+          mainProps={props.mainProps}
         />
       )}
       {props.defaultModal === "register" && (
@@ -99,10 +100,11 @@ function SecondBlock(props) {
           setInputPassword={props.setInputPassword}
           confirmPassword={props.confirmPassword}
           setConfirmPassword={props.setConfirmPassword}
-          callback={props.postRequest}
+          callback={props.EditUserInfoReq}
           errorsResp={props.errorsResp}
           defaultModal={props.defaultModal}
           userData={props.userData}
+          mainProps={props.mainProps}
         />
       )}
     </div>

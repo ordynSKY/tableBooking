@@ -7,6 +7,8 @@ export default function MainModal(props) {
   const dispErrors = props.errorsResp;
   const { title } = props;
   const { mainProps } = props;
+  const [value, setValue] = useState(null);
+  console.log("mobile inputs", props);
 
   return (
     <div
@@ -40,7 +42,7 @@ export default function MainModal(props) {
               </div>
             )}
           </div>
-          <div className="form-email">
+          <div className="form__wrapper">
             {(props.defaultModal === "login" ||
               props.defaultModal === "register" ||
               props.defaultModal === "email") && (
@@ -55,50 +57,56 @@ export default function MainModal(props) {
           </div>
           <div className="form-mobile-zip">
             {props.defaultModal === "register" && (
-              <div style={{ display: "flex" }}>
-                {/* <PhoneInput
-                  defaultCountry="RU"
+              <div className="form-mobile-number" style={{ display: "flex" }}>
+                <PhoneInput
+                  defaultCountry="DK"
                   value={value}
-                  onChange={setValue}
+                  onChange={(event) => setValue(event.target.value)}
                   className="form-name__mobile"
                   placeholder="Mobile  number"
-                /> */}
-                <input
+                />
+                {/* <input
                   type="text"
                   className="form-name__mobile"
                   placeholder="Mobile  number"
                   value={props.inputMobile}
                   onChange={(event) => props.setInputMobile(event.target.value)}
-                />
-                <input
-                  type="text"
-                  className="form-name__zip"
-                  placeholder="Zip code"
-                  value={props.inputZip}
-                  onChange={(event) => props.setInputZip(event.target.value)}
-                />
+                /> */}
+                <div>
+                  <input
+                    type="text"
+                    className="form-name__zip"
+                    placeholder="Zip code"
+                    value={props.inputZip}
+                    onChange={(event) => props.setInputZip(event.target.value)}
+                  />
+                </div>
               </div>
             )}
           </div>
-          {(props.defaultModal === "login" ||
-            props.defaultModal === "register") && (
-            <input
-              type="password"
-              className="form-name__password"
-              placeholder="Password"
-              value={props.inputPassword}
-              onChange={(event) => props.setInputPassword(event.target.value)}
-            />
-          )}
-          {props.defaultModal === "register" && (
-            <input
-              type="password"
-              className="form-name__confirm-password"
-              placeholder="Confirm password"
-              value={props.confirmPassword}
-              onChange={(event) => props.setConfirmPassword(event.target.value)}
-            />
-          )}
+          <div className="form-password">
+            {(props.defaultModal === "login" ||
+              props.defaultModal === "register") && (
+              <input
+                type="password"
+                className="form-name__password"
+                placeholder="Password"
+                value={props.inputPassword}
+                onChange={(event) => props.setInputPassword(event.target.value)}
+              />
+            )}
+            {props.defaultModal === "register" && (
+              <input
+                type="password"
+                className="form-name__confirm-password"
+                placeholder="Confirm password"
+                value={props.confirmPassword}
+                onChange={(event) =>
+                  props.setConfirmPassword(event.target.value)
+                }
+              />
+            )}
+          </div>
         </form>
         <div className="modal-button">
           <button className="button-main" onClick={props.callback}>

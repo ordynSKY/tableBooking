@@ -13,7 +13,9 @@
   transition: 0.5s;
   z-index: 10;
 }
-
+.form__wrapper {
+  width: 100%;
+}
 .modal.active {
   opacity: 1;
   pointer-events: all;
@@ -24,14 +26,23 @@
   border-radius: 12px;
   background-color: #fff;
   width: 50%;
-  /* transform: scale(0.5);
-        transition: 0.4s all; */
+  max-height: 70%;
+}
+
+@media (max-width: 375px) {
+  .modal__content {
+    width: 60%;
+  }
+}
+@media (max-width: 425px) {
+  .modal__content {
+    width: 70%;
+  }
 }
 
 .modal__content.active {
   transform: scale(1);
 }
-
 
 .react-tel-input > * {
   color: #989898;

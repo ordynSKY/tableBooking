@@ -173,6 +173,40 @@ const App = () => {
     localStorage.removeItem("token");
   };
 
+  // Edit user info request
+
+  const EditUserInfoReq = () => {
+    myAxios
+      .post(
+        "/api/customers",
+        {
+          first_name: inputFirstName,
+          last_name: inputLastName,
+          email: inputEmail,
+          phone: inputMobile,
+          zip_code: inputZip,
+          allow_send_emails: 1,
+          allow_send_news: 0,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((response) => {
+        console.log("edited");
+      })
+      .catch((error) => {
+        setErrorsResp({
+          title: "Please go back and fix the errors:",
+          emailError: error.response.data.errors.email,
+          passError: error.response.data.errors.password,
+        });
+        console.log("edit info error", error);
+      });
+  };
+
   const [time, setTime] = useState("18:00");
   let bookedTimes = [
     "18:00",
@@ -243,6 +277,7 @@ const App = () => {
             setConfirmPassword={setConfirmPassword}
             loginRequest={loginRequest}
             mainProps={mainProps}
+            EditUserInfoReq={EditUserInfoReq}
           />
         </div>
 
@@ -255,7 +290,7 @@ const App = () => {
             time={time}
             inputFirstName={inputFirstName}
             inputLastName={inputLastName}
-            inputEmail={inputEmail}
+            // inputEmail={inputEmail}
             inputMobile={inputMobile}
             inputZip={inputZip}
             userData={userData}
@@ -272,6 +307,8 @@ const App = () => {
             postRequest={postRequest}
             errorsResp={errorsResp}
             userDataState={userDataState}
+            mainProps={mainProps}
+            EditUserInfoReq={EditUserInfoReq}
           />
         </div>
       </Carousel>
