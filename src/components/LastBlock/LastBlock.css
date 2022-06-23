@@ -261,3 +261,33 @@
 .form-comment {
   text-align: left;
 }
+
+.PhoneInput {
+  /* This is done to stretch the contents of this component. */
+  display: flex;
+  align-items: center;
+  margin-right: 29px;
+}
+
+@media (max-width: 768px) {
+  .PhoneInput {
+    margin-right: 0;
+  }
+}
+
+.form-password {
+  max-width: 400px;
+  margin: auto;
+}
+
+@media (max-width: 475px) {
+  .form-password {
+    max-width: 190px;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-password {
+    max-width: 190px;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import "./MainModal.css";
@@ -7,7 +7,6 @@ export default function MainModal(props) {
   const dispErrors = props.errorsResp;
   const { title } = props;
   const { mainProps } = props;
-  const [value, setValue] = useState(null);
   console.log("mobile inputs", props);
 
   return (
@@ -60,8 +59,8 @@ export default function MainModal(props) {
               <div className="form-mobile-number" style={{ display: "flex" }}>
                 <PhoneInput
                   defaultCountry="DK"
-                  value={value}
-                  onChange={(event) => setValue(event.target.value)}
+                  value={props.inputMobile}
+                  onChange={props.setInputMobile}
                   className="form-name__mobile"
                   placeholder="Mobile  number"
                 />
