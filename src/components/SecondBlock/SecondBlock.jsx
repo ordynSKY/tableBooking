@@ -100,7 +100,7 @@ function SecondBlock(props) {
           setInputPassword={props.setInputPassword}
           confirmPassword={props.confirmPassword}
           setConfirmPassword={props.setConfirmPassword}
-          callback={props.EditUserInfoReq}
+          callback={props.postRequest}
           errorsResp={props.errorsResp}
           defaultModal={props.defaultModal}
           userData={props.userData}

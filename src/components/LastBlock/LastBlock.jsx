@@ -63,11 +63,24 @@ function LastBlock(props) {
               <div className="client-info">
                 <div className="client-title">Your contact information</div>
                 <div className="client-adress">
-                  {props.userData && props.userData.first_name}{" "}
-                  {props.userData && props.userData.last_name} <br />
-                  {props.userData && props.userData.phone} <br />
-                  {props.userData && props.userData.email} <br />
-                  {props.userData && props.userData.zip_code}
+                  {props.userData?.first_name ||
+                    props.newUserData?.customer?.first_name ||
+                    null}{" "}
+                  {props.userData?.last_name ||
+                    props.newUserData?.customer?.last_name ||
+                    null}
+                  <br />
+                  {props.userData?.phone ||
+                    props.newUserData?.customer?.phone ||
+                    null}
+                  <br />
+                  {props.userData?.email ||
+                    props.newUserData?.customer?.email ||
+                    null}
+                  <br />
+                  {props.userData?.zip_code ||
+                    props.newUserData?.customer?.zip_code ||
+                    null}
                 </div>
                 <div className="guests-date">
                   Not correct?

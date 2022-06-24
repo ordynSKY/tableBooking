@@ -66,6 +66,7 @@ const App = () => {
     emailError: "",
     passError: "",
   });
+  const [newUserData, setNewUserData] = useState(null);
 
   const postRequest = () => {
     myAxios
@@ -83,8 +84,10 @@ const App = () => {
       })
       .then((response) => {
         localStorage.setItem("token", response.data.token);
+        setNewUserData(response);
         handleChangeItem();
         console.log("registered");
+        console.log("resp", response.data.customer);
       })
       .catch((error) => {
         setErrorsResp({
@@ -122,8 +125,6 @@ const App = () => {
     setInputZip(userData1?.zip_code);
     setInputPassword(userData1?.password);
     setConfirmPassword(userData1?.password_confirmation);
-    console.log("getting user data", userData1);
-    console.log("getting user data", userData1?.email);
   };
 
   const [userData, setUserData] = useState(null);
@@ -294,6 +295,7 @@ const App = () => {
             inputMobile={inputMobile}
             inputZip={inputZip}
             userData={userData}
+            newUserData={newUserData}
             logout={logout}
             setInputEmail={setInputEmail}
             setInputFirstName={setInputFirstName}
