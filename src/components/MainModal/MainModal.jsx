@@ -8,6 +8,8 @@ export default function MainModal(props) {
   const { title } = props;
   console.log("mobile inputs", props);
 
+  const setInput = (name) => {};
+
   return (
     <div
       className={props.active ? "modal active" : "modal"}
@@ -23,18 +25,24 @@ export default function MainModal(props) {
                   type="text"
                   className="form-name__firstname"
                   placeholder="First Name"
-                  value={props.inputFirstName}
+                  value={props.userData.inputFirstName}
                   onChange={(event) =>
-                    props.setInputFirstName(event.target.value)
+                    props.setUserData((prev) => ({
+                      ...prev,
+                      inputFirstName: event.target.value,
+                    }))
                   }
                 />
                 <input
                   type="text"
                   className="form-name__firstname"
                   placeholder="Last Name"
-                  value={props.inputLastName}
+                  value={props.userData.inputLastName}
                   onChange={(event) =>
-                    props.setInputLastName(event.target.value)
+                    props.setUserData((prev) => ({
+                      ...prev,
+                      inputLastName: event.target.value,
+                    }))
                   }
                 />
               </div>
@@ -52,7 +60,7 @@ export default function MainModal(props) {
                 onChange={(event) =>
                   props.setUserData((prev) => ({
                     ...prev,
-                    inputEmail: event.target.data,
+                    inputEmail: event.target.value,
                   }))
                 }
               />
@@ -63,25 +71,28 @@ export default function MainModal(props) {
               <div className="form-mobile-number" style={{ display: "flex" }}>
                 <PhoneInput
                   defaultCountry="DK"
-                  value={props.inputMobile}
-                  onChange={props.setInputMobile}
+                  value={props.userData.inputMobile}
+                  onChange={(val) =>
+                    props.setUserData((prev) => ({
+                      ...prev,
+                      inputMobile: val,
+                    }))
+                  }
                   className="form-name__mobile"
                   placeholder="Mobile  number"
                 />
-                {/* <input
-                  type="text"
-                  className="form-name__mobile"
-                  placeholder="Mobile  number"
-                  value={props.inputMobile}
-                  onChange={(event) => props.setInputMobile(event.target.value)}
-                /> */}
                 <div>
                   <input
                     type="text"
                     className="form-name__zip"
                     placeholder="Zip code"
-                    value={props.inputZip}
-                    onChange={(event) => props.setInputZip(event.target.value)}
+                    value={props.userData.inputZip}
+                    onChange={(event) =>
+                      props.setUserData((prev) => ({
+                        ...prev,
+                        inputZip: event.target.value,
+                      }))
+                    }
                   />
                 </div>
               </div>
@@ -94,8 +105,13 @@ export default function MainModal(props) {
                 type="password"
                 className="form-name__password"
                 placeholder="Password"
-                value={props.inputPassword}
-                onChange={(event) => props.setInputPassword(event.target.value)}
+                value={props.userData.inputPassword}
+                onChange={(event) =>
+                  props.setUserData((prev) => ({
+                    ...prev,
+                    inputPassword: event.target.value,
+                  }))
+                }
               />
             )}
             {props.defaultModal === "register" && (
@@ -103,9 +119,12 @@ export default function MainModal(props) {
                 type="password"
                 className="form-name__confirm-password"
                 placeholder="Confirm password"
-                value={props.confirmPassword}
+                value={props.userData.confirmPassword}
                 onChange={(event) =>
-                  props.setConfirmPassword(event.target.value)
+                  props.setUserData((prev) => ({
+                    ...prev,
+                    confirmPassword: event.target.value,
+                  }))
                 }
               />
             )}

@@ -5,12 +5,6 @@ import SelectLang from "../FirstBlock/SelectLang/SelectLang";
 import Copyrigth from "../FirstBlock/Copyrigth/Copyrigth";
 
 function ThirdBlock(props) {
-  const isValid =
-    props.inputFirstName &&
-    props.inputLastName &&
-    // props.userDatainputEmail &&
-    props.inputMobile;
-
   return (
     <div className="content">
       <Image />
@@ -32,7 +26,7 @@ function ThirdBlock(props) {
           </div>
           <form className="form">
             <div className="form-name">
-              <input
+              {/* <input
                 type="text"
                 className="form-name__firstname"
                 placeholder="First Name"
@@ -40,14 +34,14 @@ function ThirdBlock(props) {
                 onChange={(event) =>
                   props.setInputFirstName(event.target.value)
                 }
-              />
-              <input
+              /> */}
+              {/* <input
                 type="text"
                 className="form-name__firstname"
                 placeholder="Last Name"
                 value={props.inputLastName}
                 onChange={(event) => props.setInputLastName(event.target.value)}
-              />
+              /> */}
             </div>
             <div className="form-email">
               {/* <input
@@ -59,27 +53,23 @@ function ThirdBlock(props) {
               /> */}
             </div>
             <div className="form-mobile-zip">
-              <input
+              {/* <input
                 type="text"
                 className="form-name__mobile"
                 placeholder="Mobile  number"
                 value={props.inputMobile}
                 onChange={(event) => props.setInputMobile(event.target.value)}
-              />
-              <input
+              /> */}
+              {/* <input
                 type="text"
                 className="form-name__zip"
                 placeholder="Zip code"
                 value={props.inputZip}
                 onChange={(event) => props.setInputZip(event.target.value)}
-              />
+              /> */}
             </div>
           </form>
-          <button
-            className="button-main"
-            onClick={props.handleChangeItem}
-            disabled={!isValid}
-          >
+          <button className="button-main" onClick={props.handleChangeItem}>
             Next →
           </button>
 

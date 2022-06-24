@@ -73,8 +73,6 @@ function SecondBlock(props) {
           title="Please enter your email and password to continue"
           active={modalActive}
           setActive={setModalActive}
-          inputPassword={props.inputPassword}
-          setInputPassword={props.setInputPassword}
           callback={props.loginRequest}
           defaultModal={props.defaultModal}
           mainProps={props.mainProps}
@@ -87,18 +85,6 @@ function SecondBlock(props) {
           title="Enter your contact details"
           active={modalActive}
           setActive={setModalActive}
-          inputFirstName={props.inputFirstName}
-          setInputFirstName={props.setInputFirstName}
-          inputLastName={props.inputLastName}
-          setInputLastName={props.setInputLastName}
-          inputMobile={props.inputMobile}
-          setInputMobile={props.setInputMobile}
-          inputZip={props.inputZip}
-          setInputZip={props.setInputZip}
-          inputPassword={props.inputPassword}
-          setInputPassword={props.setInputPassword}
-          confirmPassword={props.confirmPassword}
-          setConfirmPassword={props.setConfirmPassword}
           callback={props.postRequest}
           errorsResp={props.errorsResp}
           defaultModal={props.defaultModal}

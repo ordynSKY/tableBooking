@@ -61,13 +61,13 @@ function LastBlock(props) {
               <div className="client-info">
                 <div className="client-title">Your contact information</div>
                 <div className="client-adress">
-                  {props.inputFirstName} {props.inputLastName}
+                  {props.userData.inputFirstName} {props.userData.inputLastName}
                   <br />
                   {props.userData.inputEmail}
                   <br />
-                  {props.inputMobile}
+                  {props.userData.inputMobile}
                   <br />
-                  {props.inputZip}
+                  {props.userData.inputZip}
                 </div>
                 <div className="guests-date">
                   Not correct?
@@ -127,18 +127,6 @@ function LastBlock(props) {
             title="Enter your contact details"
             active={modalActive}
             setActive={setModalActive}
-            inputFirstName={props.inputFirstName}
-            setInputFirstName={props.setInputFirstName}
-            inputLastName={props.inputLastName}
-            setInputLastName={props.setInputLastName}
-            inputMobile={props.inputMobile}
-            setInputMobile={props.setInputMobile}
-            inputZip={props.inputZip}
-            setInputZip={props.setInputZip}
-            inputPassword={props.inputPassword}
-            setInputPassword={props.setInputPassword}
-            confirmPassword={props.confirmPassword}
-            setConfirmPassword={props.setConfirmPassword}
             callback={props.EditUserInfoReq}
             errorsResp={props.errorsResp}
             defaultModal={"register"}

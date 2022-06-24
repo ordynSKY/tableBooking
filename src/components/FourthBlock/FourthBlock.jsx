@@ -34,24 +34,7 @@ function FourthBlock(props) {
           </div>
 
           <form className="form">
-            <div className="form-mobile-zip">
-              <input
-                type="password"
-                className="form-name__password"
-                placeholder="Password"
-                value={props.inputPassword}
-                onChange={(event) => props.setInputPassword(event.target.value)}
-              />
-              <input
-                type="password"
-                className="form-name__confirm-password"
-                placeholder="Confirm password"
-                value={props.confirmPassword}
-                onChange={(event) =>
-                  props.setConfirmPassword(event.target.value)
-                }
-              />
-            </div>
+            <div className="form-mobile-zip"></div>
           </form>
           <button className="button-main" onClick={props.postRequest}>
             Next →

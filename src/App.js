@@ -47,13 +47,6 @@ const App = () => {
     setOrderDate(date.year + "-" + date.month + "-" + date.day);
   };
 
-  const [inputFirstName, setInputFirstName] = useState("");
-  const [inputLastName, setInputLastName] = useState("");
-  const [inputMobile, setInputMobile] = useState("");
-  const [inputZip, setInputZip] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
   // New state
   const [userData, setUserData] = useState({
     inputFirstName: "",
@@ -64,6 +57,19 @@ const App = () => {
     inputPassword: "",
     confirmPassword: "",
   });
+
+  const userDataState = (userData1) => {
+    setUserData((prev) => ({ ...prev, inputFirstName: userData1?.first_name }));
+    setUserData((prev) => ({ ...prev, inputLastName: userData1?.last_name }));
+    setUserData((prev) => ({ ...prev, inputEmail: userData1?.email }));
+    setUserData((prev) => ({ ...prev, inputMobile: userData1?.phone }));
+    setUserData((prev) => ({ ...prev, inputZip: userData1?.zip_code }));
+    setUserData((prev) => ({ ...prev, inputPassword: userData1?.password }));
+    setUserData((prev) => ({
+      ...prev,
+      confirmPassword: userData1?.password_confirmation,
+    }));
+  };
 
   const mainProps = {
     title: "Next →",
@@ -80,15 +86,15 @@ const App = () => {
   const postRequest = () => {
     myAxios
       .post("/api/customers/register", {
-        first_name: inputFirstName,
-        last_name: inputLastName,
+        first_name: userData.inputFirstName,
+        last_name: userData.inputLastName,
         email: userData.inputEmail,
-        phone: inputMobile,
-        zip_code: inputZip,
+        phone: userData.inputMobile,
+        zip_code: userData.inputZip,
         allow_send_emails: 1,
         allow_send_news: 0,
-        password: inputPassword,
-        password_confirmation: confirmPassword,
+        password: userData.inputPassword,
+        password_confirmation: userData.confirmPassword,
         language: "en",
       })
       .then((response) => {
@@ -127,16 +133,6 @@ const App = () => {
 
   // Login request
 
-  const userDataState = (userData1) => {
-    setInputFirstName(userData1?.first_name);
-    setInputLastName(userData1?.last_name);
-    setInputMobile(userData1?.phone);
-    setInputZip(userData1?.zip_code);
-    setInputPassword(userData1?.password);
-    setConfirmPassword(userData1?.password_confirmation);
-    setUserData((prev) => ({ ...prev, inputEmail: userData1?.email }));
-  };
-
   const getUserInfoReq = () => {
     myAxios
       .get("api/customers", {
@@ -154,7 +150,7 @@ const App = () => {
     myAxios
       .post("api/customers/login", {
         email: userData.inputEmail,
-        password: inputPassword,
+        password: userData.inputPassword,
       })
       .then((response) => {
         localStorage.setItem("token", response.data.token);
@@ -188,11 +184,11 @@ const App = () => {
       .post(
         "/api/customers",
         {
-          first_name: inputFirstName,
-          last_name: inputLastName,
+          first_name: userData.inputFirstName,
+          last_name: userData.inputLastName,
           email: userData.inputEmail,
-          phone: inputMobile,
-          zip_code: inputZip,
+          phone: userData.inputMobile,
+          zip_code: userData.inputZip,
           allow_send_emails: 1,
           allow_send_news: 0,
         },
@@ -269,18 +265,6 @@ const App = () => {
             setDefaultModal={setDefaultModal}
             postRequest={postRequest}
             errorsResp={errorsResp}
-            inputFirstName={inputFirstName}
-            setInputFirstName={setInputFirstName}
-            inputLastName={inputLastName}
-            setInputLastName={setInputLastName}
-            inputMobile={inputMobile}
-            setInputMobile={setInputMobile}
-            inputZip={inputZip}
-            setInputZip={setInputZip}
-            inputPassword={inputPassword}
-            setInputPassword={setInputPassword}
-            confirmPassword={confirmPassword}
-            setConfirmPassword={setConfirmPassword}
             loginRequest={loginRequest}
             EditUserInfoReq={EditUserInfoReq}
             userData={userData}
@@ -295,20 +279,8 @@ const App = () => {
             guestValue={guestValue}
             orderDate={orderDate}
             time={time}
-            inputFirstName={inputFirstName}
-            inputLastName={inputLastName}
-            inputMobile={inputMobile}
-            inputZip={inputZip}
             newUserData={newUserData}
             logout={logout}
-            setInputFirstName={setInputFirstName}
-            setInputLastName={setInputLastName}
-            setInputMobile={setInputMobile}
-            setInputZip={setInputZip}
-            inputPassword={inputPassword}
-            setInputPassword={setInputPassword}
-            confirmPassword={confirmPassword}
-            setConfirmPassword={setConfirmPassword}
             postRequest={postRequest}
             errorsResp={errorsResp}
             userDataState={userDataState}
