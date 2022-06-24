@@ -54,6 +54,17 @@ const App = () => {
   const [inputPassword, setInputPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  // New state
+  const [userData, setUserData] = useState({
+    inputFirstName: "",
+    inputLastName: "",
+    inputEmail: "",
+    inputMobile: "",
+    inputZip: "",
+    inputPassword: "",
+    confirmPassword: "",
+  });
+
   const mainProps = {
     title: "Next →",
   };
@@ -83,7 +94,6 @@ const App = () => {
       .then((response) => {
         localStorage.setItem("token", response.data.token);
         userDataState(response.data.customer);
-        setUserData(response.data.customer);
         handleChangeItem();
         console.log("registered");
         console.log("resp", response.data);
@@ -102,6 +112,7 @@ const App = () => {
   const [defaultModal, setDefaultModal] = useState("email");
 
   const emailRequest = () => {
+    console.log("user data", userData);
     myAxios
       .post("api/customers/verify", {
         email: userData.inputEmail,
@@ -119,7 +130,6 @@ const App = () => {
   const userDataState = (userData1) => {
     setInputFirstName(userData1?.first_name);
     setInputLastName(userData1?.last_name);
-    setUserData.inputEmail(userData1?.email);
     setInputMobile(userData1?.phone);
     setInputZip(userData1?.zip_code);
     setInputPassword(userData1?.password);
@@ -136,7 +146,6 @@ const App = () => {
       })
       .then((response) => {
         userDataState(response.data);
-        setUserData(response.data);
       })
       .catch((error) => {});
   };
@@ -205,17 +214,6 @@ const App = () => {
         console.log("edit info error", error);
       });
   };
-
-  // New state
-  const [userData, setUserData] = useState({
-    inputFirstName: "",
-    inputLastName: "",
-    inputEmail: "",
-    inputMobile: "",
-    inputZip: "",
-    inputPassword: "",
-    confirmPassword: "",
-  });
 
   const [time, setTime] = useState("18:00");
   let bookedTimes = [
