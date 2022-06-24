@@ -49,7 +49,6 @@ const App = () => {
 
   const [inputFirstName, setInputFirstName] = useState("");
   const [inputLastName, setInputLastName] = useState("");
-  const [inputEmail, setInputEmail] = useState("");
   const [inputMobile, setInputMobile] = useState("");
   const [inputZip, setInputZip] = useState("");
   const [inputPassword, setInputPassword] = useState("");
@@ -57,7 +56,6 @@ const App = () => {
 
   const mainProps = {
     title: "Next →",
-    inputEmail: inputEmail,
   };
 
   // another errorstate
@@ -73,7 +71,7 @@ const App = () => {
       .post("/api/customers/register", {
         first_name: inputFirstName,
         last_name: inputLastName,
-        email: inputEmail,
+        email: userData.inputEmail,
         phone: inputMobile,
         zip_code: inputZip,
         allow_send_emails: 1,
@@ -84,10 +82,11 @@ const App = () => {
       })
       .then((response) => {
         localStorage.setItem("token", response.data.token);
-        setNewUserData(response);
+        userDataState(response.data.customer);
+        setUserData(response.data.customer);
         handleChangeItem();
         console.log("registered");
-        console.log("resp", response.data.customer);
+        console.log("resp", response.data);
       })
       .catch((error) => {
         setErrorsResp({
@@ -105,7 +104,7 @@ const App = () => {
   const emailRequest = () => {
     myAxios
       .post("api/customers/verify", {
-        email: inputEmail,
+        email: userData.inputEmail,
       })
       .then((response) => {
         setDefaultModal("login");
@@ -120,14 +119,13 @@ const App = () => {
   const userDataState = (userData1) => {
     setInputFirstName(userData1?.first_name);
     setInputLastName(userData1?.last_name);
-    setInputEmail(userData1?.email);
+    setUserData.inputEmail(userData1?.email);
     setInputMobile(userData1?.phone);
     setInputZip(userData1?.zip_code);
     setInputPassword(userData1?.password);
     setConfirmPassword(userData1?.password_confirmation);
+    setUserData((prev) => ({ ...prev, inputEmail: userData1?.email }));
   };
-
-  const [userData, setUserData] = useState(null);
 
   const getUserInfoReq = () => {
     myAxios
@@ -137,8 +135,8 @@ const App = () => {
         },
       })
       .then((response) => {
-        setUserData(response.data);
         userDataState(response.data);
+        setUserData(response.data);
       })
       .catch((error) => {});
   };
@@ -146,7 +144,7 @@ const App = () => {
   const loginRequest = () => {
     myAxios
       .post("api/customers/login", {
-        email: inputEmail,
+        email: userData.inputEmail,
         password: inputPassword,
       })
       .then((response) => {
@@ -183,7 +181,7 @@ const App = () => {
         {
           first_name: inputFirstName,
           last_name: inputLastName,
-          email: inputEmail,
+          email: userData.inputEmail,
           phone: inputMobile,
           zip_code: inputZip,
           allow_send_emails: 1,
@@ -207,6 +205,17 @@ const App = () => {
         console.log("edit info error", error);
       });
   };
+
+  // New state
+  const [userData, setUserData] = useState({
+    inputFirstName: "",
+    inputLastName: "",
+    inputEmail: "",
+    inputMobile: "",
+    inputZip: "",
+    inputPassword: "",
+    confirmPassword: "",
+  });
 
   const [time, setTime] = useState("18:00");
   let bookedTimes = [
@@ -258,8 +267,6 @@ const App = () => {
             selectedDay={selectedDay}
             handleDayChange={handleDayChange}
             emailRequest={emailRequest}
-            // inputEmail={inputEmail}
-            setInputEmail={setInputEmail}
             defaultModal={defaultModal}
             setDefaultModal={setDefaultModal}
             postRequest={postRequest}
@@ -277,8 +284,9 @@ const App = () => {
             confirmPassword={confirmPassword}
             setConfirmPassword={setConfirmPassword}
             loginRequest={loginRequest}
-            mainProps={mainProps}
             EditUserInfoReq={EditUserInfoReq}
+            userData={userData}
+            setUserData={setUserData}
           />
         </div>
 
@@ -291,13 +299,10 @@ const App = () => {
             time={time}
             inputFirstName={inputFirstName}
             inputLastName={inputLastName}
-            // inputEmail={inputEmail}
             inputMobile={inputMobile}
             inputZip={inputZip}
-            userData={userData}
             newUserData={newUserData}
             logout={logout}
-            setInputEmail={setInputEmail}
             setInputFirstName={setInputFirstName}
             setInputLastName={setInputLastName}
             setInputMobile={setInputMobile}
@@ -309,8 +314,9 @@ const App = () => {
             postRequest={postRequest}
             errorsResp={errorsResp}
             userDataState={userDataState}
-            mainProps={mainProps}
             EditUserInfoReq={EditUserInfoReq}
+            userData={userData}
+            setUserData={setUserData}
           />
         </div>
       </Carousel>

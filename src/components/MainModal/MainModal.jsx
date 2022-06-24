@@ -6,7 +6,6 @@ import "./MainModal.css";
 export default function MainModal(props) {
   const dispErrors = props.errorsResp;
   const { title } = props;
-  const { mainProps } = props;
   console.log("mobile inputs", props);
 
   return (
@@ -49,8 +48,13 @@ export default function MainModal(props) {
                 type="email"
                 className="form-name__email"
                 placeholder="Email address"
-                value={mainProps?.inputEmail}
-                onChange={(event) => props.setInputEmail(event.target.value)}
+                value={props.userData?.inputEmail}
+                onChange={(event) =>
+                  props.setUserData((prev) => ({
+                    ...prev,
+                    inputEmail: event.target.data,
+                  }))
+                }
               />
             )}
           </div>

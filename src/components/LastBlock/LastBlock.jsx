@@ -14,9 +14,7 @@ function LastBlock(props) {
     setModalActive(true);
   };
 
-  console.log("getting user email", props.userData1?.email);
-
-  const { mainProps } = props;
+  console.log("getting full resp", props);
 
   return (
     <div className="content">
@@ -63,24 +61,13 @@ function LastBlock(props) {
               <div className="client-info">
                 <div className="client-title">Your contact information</div>
                 <div className="client-adress">
-                  {props.userData?.first_name ||
-                    props.newUserData?.customer?.first_name ||
-                    null}{" "}
-                  {props.userData?.last_name ||
-                    props.newUserData?.customer?.last_name ||
-                    null}
+                  {props.inputFirstName} {props.inputLastName}
                   <br />
-                  {props.userData?.phone ||
-                    props.newUserData?.customer?.phone ||
-                    null}
+                  {props.userData.inputEmail}
                   <br />
-                  {props.userData?.email ||
-                    props.newUserData?.customer?.email ||
-                    null}
+                  {props.inputMobile}
                   <br />
-                  {props.userData?.zip_code ||
-                    props.newUserData?.customer?.zip_code ||
-                    null}
+                  {props.inputZip}
                 </div>
                 <div className="guests-date">
                   Not correct?
@@ -140,8 +127,6 @@ function LastBlock(props) {
             title="Enter your contact details"
             active={modalActive}
             setActive={setModalActive}
-            mainProps={mainProps}
-            setInputEmail={props.setInputEmail}
             inputFirstName={props.inputFirstName}
             setInputFirstName={props.setInputFirstName}
             inputLastName={props.inputLastName}
@@ -157,6 +142,8 @@ function LastBlock(props) {
             callback={props.EditUserInfoReq}
             errorsResp={props.errorsResp}
             defaultModal={"register"}
+            userData={props.userData}
+            setUserData={props.setUserData}
           />
         </div>
       </div>

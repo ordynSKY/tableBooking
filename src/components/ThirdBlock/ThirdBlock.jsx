@@ -8,7 +8,7 @@ function ThirdBlock(props) {
   const isValid =
     props.inputFirstName &&
     props.inputLastName &&
-    props.inputEmail &&
+    // props.userDatainputEmail &&
     props.inputMobile;
 
   return (
@@ -50,13 +50,13 @@ function ThirdBlock(props) {
               />
             </div>
             <div className="form-email">
-              <input
+              {/* <input
                 type="text"
                 className="form-name__email"
                 placeholder="Email address"
                 value={props.inputEmail}
                 onChange={(event) => props.setInputEmail(event.target.value)}
-              />
+              /> */}
             </div>
             <div className="form-mobile-zip">
               <input

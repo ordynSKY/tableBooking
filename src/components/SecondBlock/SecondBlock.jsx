@@ -62,9 +62,10 @@ function SecondBlock(props) {
           active={modalActive}
           setActive={setModalActive}
           mainProps={props.mainProps}
-          setInputEmail={props.setInputEmail}
           callback={props.emailRequest}
           defaultModal={props.defaultModal}
+          userData={props.userData}
+          setUserData={props.setUserData}
         />
       )}
       {props.defaultModal === "login" && (
@@ -72,13 +73,13 @@ function SecondBlock(props) {
           title="Please enter your email and password to continue"
           active={modalActive}
           setActive={setModalActive}
-          inputEmail={props.inputEmail}
-          setInputEmail={props.setInputEmail}
           inputPassword={props.inputPassword}
           setInputPassword={props.setInputPassword}
           callback={props.loginRequest}
           defaultModal={props.defaultModal}
           mainProps={props.mainProps}
+          userData={props.userData}
+          setUserData={props.setUserData}
         />
       )}
       {props.defaultModal === "register" && (
@@ -86,8 +87,6 @@ function SecondBlock(props) {
           title="Enter your contact details"
           active={modalActive}
           setActive={setModalActive}
-          inputEmail={props.inputEmail}
-          setInputEmail={props.setInputEmail}
           inputFirstName={props.inputFirstName}
           setInputFirstName={props.setInputFirstName}
           inputLastName={props.inputLastName}
@@ -103,8 +102,9 @@ function SecondBlock(props) {
           callback={props.postRequest}
           errorsResp={props.errorsResp}
           defaultModal={props.defaultModal}
-          userData={props.userData}
           mainProps={props.mainProps}
+          userData={props.userData}
+          setUserData={props.setUserData}
         />
       )}
     </div>
