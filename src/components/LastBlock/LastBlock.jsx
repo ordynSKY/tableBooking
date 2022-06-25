@@ -61,13 +61,13 @@ function LastBlock(props) {
               <div className="client-info">
                 <div className="client-title">Your contact information</div>
                 <div className="client-adress">
-                  {props.userData.inputFirstName} {props.userData.inputLastName}
+                  {props.userData.first_name} {props.userData.last_name}
                   <br />
-                  {props.userData.inputEmail}
+                  {props.userData.email}
                   <br />
-                  {props.userData.inputMobile}
+                  {props.userData.phone}
                   <br />
-                  {props.userData.inputZip}
+                  {props.userData.zip_code}
                 </div>
                 <div className="guests-date">
                   Not correct?

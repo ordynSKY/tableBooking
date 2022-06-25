@@ -4,9 +4,8 @@ import MainBlock from "./components/FirstBlock/MainBlock.jsx";
 import { Carousel } from "react-responsive-carousel";
 import SecondBlock from "./components/SecondBlock/SecondBlock";
 import { useRef } from "react";
-// import ThirdBlock from "./components/ThirdBlock/ThirdBlock";
-import FourthBlock from "./components/FourthBlock/FourthBlock";
 import LastBlock from "./components/LastBlock/LastBlock";
+import "./components/FourthBlock/FourthBlock.css";
 import myAxios from "./API";
 const App = () => {
   const ref = useRef(null);
@@ -49,28 +48,17 @@ const App = () => {
 
   // New state
   const [userData, setUserData] = useState({
-    inputFirstName: "",
-    inputLastName: "",
-    inputEmail: "",
-    inputMobile: "",
-    inputZip: "",
-    inputPassword: "",
-    confirmPassword: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    zip_code: "",
+    password: "",
+    password_confirmation: "",
+    allow_send_emails: 1,
+    allow_send_news: 0,
+    language: "en",
   });
-
-  const userDataState = (userData1) => {
-    setUserData((prev) => ({ ...prev, inputFirstName: userData1?.first_name }));
-    setUserData((prev) => ({ ...prev, inputLastName: userData1?.last_name }));
-    setUserData((prev) => ({ ...prev, inputEmail: userData1?.email }));
-    setUserData((prev) => ({ ...prev, inputMobile: userData1?.phone }));
-    setUserData((prev) => ({ ...prev, inputZip: userData1?.zip_code }));
-    setUserData((prev) => ({ ...prev, inputPassword: userData1?.password }));
-    setUserData((prev) => ({
-      ...prev,
-      confirmPassword: userData1?.password_confirmation,
-    }));
-  };
-
   const mainProps = {
     title: "Next →",
   };
@@ -81,25 +69,17 @@ const App = () => {
     emailError: "",
     passError: "",
   });
-  const [newUserData, setNewUserData] = useState(null);
 
-  const postRequest = () => {
+  // Register request
+
+  const postRequest = (data, url, type) => {
     myAxios
-      .post("/api/customers/register", {
-        first_name: userData.inputFirstName,
-        last_name: userData.inputLastName,
-        email: userData.inputEmail,
-        phone: userData.inputMobile,
-        zip_code: userData.inputZip,
-        allow_send_emails: 1,
-        allow_send_news: 0,
-        password: userData.inputPassword,
-        password_confirmation: userData.confirmPassword,
-        language: "en",
+      .post(url, {
+        ...data,
       })
       .then((response) => {
         localStorage.setItem("token", response.data.token);
-        userDataState(response.data.customer);
+        setUserData(response.data.customer);
         handleChangeItem();
         console.log("registered");
         console.log("resp", response.data);
@@ -110,7 +90,7 @@ const App = () => {
           emailError: error.response.data.errors.email,
           passError: error.response.data.errors.password,
         });
-        console.log(error);
+        console.log("reg error", error);
       });
   };
 
@@ -120,14 +100,15 @@ const App = () => {
   const emailRequest = () => {
     console.log("user data", userData);
     myAxios
-      .post("api/customers/verify", {
-        email: userData.inputEmail,
+      .post("/api/customers/verify", {
+        email: userData.email,
       })
       .then((response) => {
         setDefaultModal("login");
       })
       .catch((error) => {
         setDefaultModal("register");
+        console.log("email check error", error);
       });
   };
 
@@ -135,22 +116,22 @@ const App = () => {
 
   const getUserInfoReq = () => {
     myAxios
-      .get("api/customers", {
+      .get("/api/customers", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
       .then((response) => {
-        userDataState(response.data);
+        setUserData(response.data);
       })
       .catch((error) => {});
   };
 
   const loginRequest = () => {
     myAxios
-      .post("api/customers/login", {
-        email: userData.inputEmail,
-        password: userData.inputPassword,
+      .post("/api/customers/login", {
+        email: userData.email,
+        password: userData.password,
       })
       .then((response) => {
         localStorage.setItem("token", response.data.token);
@@ -166,7 +147,7 @@ const App = () => {
 
   const logout = () => {
     myAxios.post(
-      "api/customers/logout",
+      "/api/customers/logout",
       {},
       {
         headers: {
@@ -184,13 +165,7 @@ const App = () => {
       .post(
         "/api/customers",
         {
-          first_name: userData.inputFirstName,
-          last_name: userData.inputLastName,
-          email: userData.inputEmail,
-          phone: userData.inputMobile,
-          zip_code: userData.inputZip,
-          allow_send_emails: 1,
-          allow_send_news: 0,
+          ...userData,
         },
         {
           headers: {
@@ -279,11 +254,9 @@ const App = () => {
             guestValue={guestValue}
             orderDate={orderDate}
             time={time}
-            newUserData={newUserData}
             logout={logout}
             postRequest={postRequest}
             errorsResp={errorsResp}
-            userDataState={userDataState}
             EditUserInfoReq={EditUserInfoReq}
             userData={userData}
             setUserData={setUserData}

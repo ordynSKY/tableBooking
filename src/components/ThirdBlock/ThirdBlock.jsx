@@ -25,49 +25,9 @@ function ThirdBlock(props) {
             Enter your <br /> Contact Details
           </div>
           <form className="form">
-            <div className="form-name">
-              {/* <input
-                type="text"
-                className="form-name__firstname"
-                placeholder="First Name"
-                value={props.inputFirstName}
-                onChange={(event) =>
-                  props.setInputFirstName(event.target.value)
-                }
-              /> */}
-              {/* <input
-                type="text"
-                className="form-name__firstname"
-                placeholder="Last Name"
-                value={props.inputLastName}
-                onChange={(event) => props.setInputLastName(event.target.value)}
-              /> */}
-            </div>
-            <div className="form-email">
-              {/* <input
-                type="text"
-                className="form-name__email"
-                placeholder="Email address"
-                value={props.inputEmail}
-                onChange={(event) => props.setInputEmail(event.target.value)}
-              /> */}
-            </div>
-            <div className="form-mobile-zip">
-              {/* <input
-                type="text"
-                className="form-name__mobile"
-                placeholder="Mobile  number"
-                value={props.inputMobile}
-                onChange={(event) => props.setInputMobile(event.target.value)}
-              /> */}
-              {/* <input
-                type="text"
-                className="form-name__zip"
-                placeholder="Zip code"
-                value={props.inputZip}
-                onChange={(event) => props.setInputZip(event.target.value)}
-              /> */}
-            </div>
+            <div className="form-name"></div>
+            <div className="form-email"></div>
+            <div className="form-mobile-zip"></div>
           </form>
           <button className="button-main" onClick={props.handleChangeItem}>
             Next →
