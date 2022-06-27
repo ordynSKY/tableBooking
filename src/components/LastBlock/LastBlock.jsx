@@ -10,7 +10,7 @@ function LastBlock(props) {
   const [modalActive, setModalActive] = useState(false);
 
   const showModalWindow = () => {
-    // props.getUserInfoReq();
+    props.setDefaultModal("edit");
     setModalActive(true);
   };
 

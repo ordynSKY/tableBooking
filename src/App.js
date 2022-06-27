@@ -82,9 +82,6 @@ const App = () => {
           }
         : {};
 
-    console.log("Type:", type, type === "register", type === "login");
-    console.log("URL:", url);
-
     myAxios
       .post(
         url,
@@ -94,7 +91,6 @@ const App = () => {
         config
       )
       .then((response) => {
-        handleChangeItem();
         console.log("registered");
         console.log("resp", response.data);
         console.log("Type:", type, type === "register", type === "login");
@@ -103,6 +99,8 @@ const App = () => {
         type === "login" && getUserInfoReq();
         (type === "register" || type === "login") &&
           localStorage.setItem("token", response.data.token);
+        type === "email" && setDefaultModal("login");
+        handleChangeItem();
       })
       .catch((error) => {
         setErrorsResp({
@@ -111,6 +109,7 @@ const App = () => {
           passError: error.response.data.errors.password,
         });
         console.log("reg error", error);
+        type === "email" && setDefaultModal("register");
       });
   };
 
@@ -178,34 +177,6 @@ const App = () => {
     localStorage.removeItem("token");
   };
 
-  // Edit user info request
-
-  // const EditUserInfoReq = () => {
-  //   myAxios
-  //     .post(
-  //       "/api/customers",
-  //       {
-  //         ...userData,
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: "Bearer " + localStorage.getItem("token"),
-  //         },
-  //       }
-  //     )
-  //     .then((response) => {
-  //       console.log("edited");
-  //     })
-  //     .catch((error) => {
-  //       setErrorsResp({
-  //         title: "Please go back and fix the errors:",
-  //         emailError: error.response.data.errors.email,
-  //         passError: error.response.data.errors.password,
-  //       });
-  //       console.log("edit info error", error);
-  //     });
-  // };
-
   const [time, setTime] = useState("18:00");
   let bookedTimes = [
     "18:00",
@@ -255,7 +226,6 @@ const App = () => {
             setTime={setTime}
             selectedDay={selectedDay}
             handleDayChange={handleDayChange}
-            emailRequest={emailRequest}
             defaultModal={defaultModal}
             setDefaultModal={setDefaultModal}
             postRequest={postRequest}
@@ -263,6 +233,7 @@ const App = () => {
             loginRequest={loginRequest}
             userData={userData}
             setUserData={setUserData}
+            emailRequest={emailRequest}
           />
         </div>
 
@@ -279,6 +250,7 @@ const App = () => {
             userData={userData}
             setUserData={setUserData}
             defaultModal={defaultModal}
+            setDefaultModal={setDefaultModal}
           />
         </div>
       </Carousel>
