@@ -127,9 +127,9 @@ function LastBlock(props) {
             title="Enter your contact details"
             active={modalActive}
             setActive={setModalActive}
-            callback={props.EditUserInfoReq}
+            callback={props.postRequest}
             errorsResp={props.errorsResp}
-            defaultModal={"register"}
+            defaultModal={"edit"}
             userData={props.userData}
             setUserData={props.setUserData}
           />

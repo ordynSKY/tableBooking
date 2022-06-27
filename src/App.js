@@ -73,16 +73,36 @@ const App = () => {
   // Register request
 
   const postRequest = (data, url, type) => {
+    const config =
+      type === "logout" || type === "edit"
+        ? {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        : {};
+
+    console.log("Type:", type, type === "register", type === "login");
+    console.log("URL:", url);
+
     myAxios
-      .post(url, {
-        ...data,
-      })
+      .post(
+        url,
+        {
+          ...data,
+        },
+        config
+      )
       .then((response) => {
-        localStorage.setItem("token", response.data.token);
-        setUserData(response.data.customer);
         handleChangeItem();
         console.log("registered");
         console.log("resp", response.data);
+        console.log("Type:", type, type === "register", type === "login");
+        console.log("URL:", url);
+        type === "register" && setUserData(response.data.customer);
+        type === "login" && getUserInfoReq();
+        (type === "register" || type === "login") &&
+          localStorage.setItem("token", response.data.token);
       })
       .catch((error) => {
         setErrorsResp({
@@ -160,31 +180,31 @@ const App = () => {
 
   // Edit user info request
 
-  const EditUserInfoReq = () => {
-    myAxios
-      .post(
-        "/api/customers",
-        {
-          ...userData,
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-      .then((response) => {
-        console.log("edited");
-      })
-      .catch((error) => {
-        setErrorsResp({
-          title: "Please go back and fix the errors:",
-          emailError: error.response.data.errors.email,
-          passError: error.response.data.errors.password,
-        });
-        console.log("edit info error", error);
-      });
-  };
+  // const EditUserInfoReq = () => {
+  //   myAxios
+  //     .post(
+  //       "/api/customers",
+  //       {
+  //         ...userData,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: "Bearer " + localStorage.getItem("token"),
+  //         },
+  //       }
+  //     )
+  //     .then((response) => {
+  //       console.log("edited");
+  //     })
+  //     .catch((error) => {
+  //       setErrorsResp({
+  //         title: "Please go back and fix the errors:",
+  //         emailError: error.response.data.errors.email,
+  //         passError: error.response.data.errors.password,
+  //       });
+  //       console.log("edit info error", error);
+  //     });
+  // };
 
   const [time, setTime] = useState("18:00");
   let bookedTimes = [
@@ -241,7 +261,6 @@ const App = () => {
             postRequest={postRequest}
             errorsResp={errorsResp}
             loginRequest={loginRequest}
-            EditUserInfoReq={EditUserInfoReq}
             userData={userData}
             setUserData={setUserData}
           />
@@ -257,9 +276,9 @@ const App = () => {
             logout={logout}
             postRequest={postRequest}
             errorsResp={errorsResp}
-            EditUserInfoReq={EditUserInfoReq}
             userData={userData}
             setUserData={setUserData}
+            defaultModal={defaultModal}
           />
         </div>
       </Carousel>
