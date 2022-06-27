@@ -5,7 +5,7 @@ import "./MainModal.css";
 
 export default function MainModal(props) {
   const dispErrors = props.errorsResp;
-  const { title, setUserData, userData, defaultModal } = props;
+  const { title, setUserData, userData, defaultModal, setActive } = props;
 
   const setInput = (name, value) => {
     setUserData((prev) => ({ ...prev, [name]: value }));
@@ -21,20 +21,19 @@ export default function MainModal(props) {
   return (
     <div
       className={props.active ? "modal active" : "modal"}
-      onClick={() => props.setActive(false)}
+      onClick={() => setActive(false)}
     >
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         <div className="title modal-title">{title}</div>
         <form className="form form-modal">
           <div className="form-name">
-            {(props.defaultModal === "register" ||
-              props.defaultModal === "edit") && (
+            {(defaultModal === "register" || defaultModal === "edit") && (
               <div>
                 <input
                   type="text"
                   className="form-name__firstname"
                   placeholder="First Name"
-                  value={props.userData.first_name}
+                  value={userData.first_name}
                   onChange={(event) =>
                     setInput("first_name", event.target.value)
                   }
@@ -43,7 +42,7 @@ export default function MainModal(props) {
                   type="text"
                   className="form-name__firstname"
                   placeholder="Last Name"
-                  value={props.userData.last_name}
+                  value={userData.last_name}
                   onChange={(event) =>
                     setInput("last_name", event.target.value)
                   }
@@ -52,63 +51,56 @@ export default function MainModal(props) {
             )}
           </div>
           <div className="form__wrapper">
-            {(props.defaultModal === "login" ||
-              props.defaultModal === "register" ||
-              props.defaultModal === "email" ||
-              props.defaultModal === "edit") && (
-              <input
-                type="email"
-                className="form-name__email"
-                placeholder="Email address"
-                value={props.userData?.email}
-                onChange={(event) => setInput("email", event.target.value)}
-              />
-            )}
+            <input
+              type="email"
+              className="form-name__email"
+              placeholder="Email address"
+              value={userData?.email}
+              onChange={(event) => setInput("email", event.target.value)}
+            />
           </div>
           <div className="form-mobile-zip">
-            {props.defaultModal === "register" ||
-              (props.defaultModal === "edit" && (
-                <div className="form-mobile-number" style={{ display: "flex" }}>
-                  <PhoneInput
-                    defaultCountry="DK"
-                    value={props.userData.phone}
-                    onChange={(val) => setInput("phone", val)}
-                    className="form-name__mobile"
-                    placeholder="Mobile  number"
+            {(defaultModal === "register" || defaultModal === "edit") && (
+              <div className="form-mobile-number" style={{ display: "flex" }}>
+                <PhoneInput
+                  defaultCountry="DK"
+                  value={userData.phone}
+                  onChange={(val) => setInput("phone", val)}
+                  className="form-name__mobile"
+                  placeholder="Mobile  number"
+                />
+                <div>
+                  <input
+                    type="text"
+                    className="form-name__zip"
+                    placeholder="Zip code"
+                    value={userData.zip_code}
+                    onChange={(event) =>
+                      setInput("zip_code", event.target.value)
+                    }
                   />
-                  <div>
-                    <input
-                      type="text"
-                      className="form-name__zip"
-                      placeholder="Zip code"
-                      value={props.userData.zip_code}
-                      onChange={(event) =>
-                        setInput("zip_code", event.target.value)
-                      }
-                    />
-                  </div>
                 </div>
-              ))}
+              </div>
+            )}
           </div>
           <div className="form-password">
-            {(props.defaultModal === "login" ||
-              props.defaultModal === "register" ||
-              props.defaultModal === "edit") && (
+            {(defaultModal === "login" ||
+              defaultModal === "register" ||
+              defaultModal === "edit") && (
               <input
                 type="password"
                 className="form-name__password"
                 placeholder="Password"
-                value={props.userData.password}
+                value={userData.password}
                 onChange={(event) => setInput("password", event.target.value)}
               />
             )}
-            {(props.defaultModal === "register" ||
-              props.defaultModal === "edit") && (
+            {(defaultModal === "register" || defaultModal === "edit") && (
               <input
                 type="password"
                 className="form-name__confirm-password"
                 placeholder="Confirm password"
-                value={props.userData.password_confirmation}
+                value={userData.password_confirmation}
                 onChange={(event) =>
                   setInput("password_confirmation", event.target.value)
                 }

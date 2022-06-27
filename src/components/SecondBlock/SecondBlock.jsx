@@ -62,7 +62,7 @@ function SecondBlock(props) {
           active={modalActive}
           setActive={setModalActive}
           mainProps={props.mainProps}
-          callback={props.emailRequest}
+          callback={props.postRequest}
           defaultModal={props.defaultModal}
           userData={props.userData}
           setUserData={props.setUserData}
@@ -73,7 +73,7 @@ function SecondBlock(props) {
           title="Please enter your email and password to continue"
           active={modalActive}
           setActive={setModalActive}
-          callback={props.loginRequest}
+          callback={props.postRequest}
           defaultModal={props.defaultModal}
           mainProps={props.mainProps}
           userData={props.userData}

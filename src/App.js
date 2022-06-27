@@ -82,6 +82,8 @@ const App = () => {
           }
         : {};
 
+    console.log("Type and config: ", type, config);
+
     myAxios
       .post(
         url,
@@ -96,18 +98,25 @@ const App = () => {
         console.log("Type:", type, type === "register", type === "login");
         console.log("URL:", url);
         type === "register" && setUserData(response.data.customer);
-        type === "login" && getUserInfoReq();
-        (type === "register" || type === "login") &&
+        if (type === "register" || type === "login") {
           localStorage.setItem("token", response.data.token);
+          handleChangeItem();
+        }
         type === "email" && setDefaultModal("login");
-        handleChangeItem();
+        type === "login" && getUserInfoReq();
+        if (type === "logout") {
+          localStorage.removeItem("token");
+          window.location.reload();
+        }
       })
       .catch((error) => {
-        setErrorsResp({
-          title: "Please go back and fix the errors:",
-          emailError: error.response.data.errors.email,
-          passError: error.response.data.errors.password,
-        });
+        if (type === "register" || type === "edit") {
+          setErrorsResp({
+            title: "Please go back and fix the errors:",
+            emailError: error.response.data.errors.email,
+            passError: error.response.data.errors.password,
+          });
+        }
         console.log("reg error", error);
         type === "email" && setDefaultModal("register");
       });
@@ -115,21 +124,6 @@ const App = () => {
 
   // Email check
   const [defaultModal, setDefaultModal] = useState("email");
-
-  const emailRequest = () => {
-    console.log("user data", userData);
-    myAxios
-      .post("/api/customers/verify", {
-        email: userData.email,
-      })
-      .then((response) => {
-        setDefaultModal("login");
-      })
-      .catch((error) => {
-        setDefaultModal("register");
-        console.log("email check error", error);
-      });
-  };
 
   // Login request
 
@@ -144,22 +138,6 @@ const App = () => {
         setUserData(response.data);
       })
       .catch((error) => {});
-  };
-
-  const loginRequest = () => {
-    myAxios
-      .post("/api/customers/login", {
-        email: userData.email,
-        password: userData.password,
-      })
-      .then((response) => {
-        localStorage.setItem("token", response.data.token);
-        handleChangeItem();
-        getUserInfoReq();
-      })
-      .catch((error) => {
-        console.log(error, "not logged");
-      });
   };
 
   //Logout request
@@ -230,10 +208,8 @@ const App = () => {
             setDefaultModal={setDefaultModal}
             postRequest={postRequest}
             errorsResp={errorsResp}
-            loginRequest={loginRequest}
             userData={userData}
             setUserData={setUserData}
-            emailRequest={emailRequest}
           />
         </div>
 

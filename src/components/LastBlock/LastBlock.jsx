@@ -14,6 +14,12 @@ function LastBlock(props) {
     setModalActive(true);
   };
 
+  const logout = (e) => {
+    e.preventDefault();
+    props.setDefaultModal("logout");
+    props.postRequest({}, "/api/customers/logout", "logout");
+  };
+
   console.log("getting full resp", props);
 
   return (
@@ -27,7 +33,7 @@ function LastBlock(props) {
                 ← Back
               </a>{" "}
               |{" "}
-              <a href="/" className="back-link" onClick={props.logout}>
+              <a href="#/" className="back-link" onClick={(e) => logout(e)}>
                 Logout
               </a>
             </div>
