@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import MainBlock from "./components/FirstBlock/MainBlock.jsx";
 import { Carousel } from "react-responsive-carousel";
@@ -7,6 +7,7 @@ import { useRef } from "react";
 import LastBlock from "./components/LastBlock/LastBlock";
 import "./components/FourthBlock/FourthBlock.css";
 import myAxios from "./API";
+import moment from "moment";
 const App = () => {
   const ref = useRef(null);
 
@@ -45,6 +46,37 @@ const App = () => {
     setSelectedDay(date);
     setOrderDate(date.year + "-" + date.month + "-" + date.day);
   };
+
+  // Date request
+
+  const [dates, setDates] = useState();
+  const datesArray = dates?.map((data) => ({
+    year: Number(data.slice(0, 4)),
+    month: Number(data.slice(5, 7)),
+    day: Number(data.slice(8, 10)),
+  }));
+
+  console.log("Array:", datesArray);
+
+  useEffect(() => {
+    const getDates = () => {
+      myAxios
+        .get(
+          "/api/free_dates?place_id=1&area_id=1&seats=2&from=2022-06-25&to=2022-07-10",
+          {}
+        )
+        .then((response) => {
+          setDates(response.data);
+          // moment(dates.forEach).format("DD-MM-YYYY");
+          console.log("Response", response.data);
+          console.log("Dates", dates);
+        })
+        .catch((error) => {
+          console.log("Error", error);
+        });
+    };
+    getDates();
+  }, []);
 
   // New state
   const [userData, setUserData] = useState({
@@ -210,6 +242,7 @@ const App = () => {
             errorsResp={errorsResp}
             userData={userData}
             setUserData={setUserData}
+            datesArray={datesArray}
           />
         </div>
 

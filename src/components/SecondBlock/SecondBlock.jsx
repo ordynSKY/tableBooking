@@ -7,9 +7,41 @@ import Time from "./Calendar/Time";
 import Cal from "./Calendar/Cal";
 import { useState } from "react";
 import MainModal from "../MainModal/MainModal";
+import "react-modern-calendar-datepicker/lib/DatePicker.css";
+import { Calendar, utils } from "react-modern-calendar-datepicker";
 
 function SecondBlock(props) {
   const [modalActive, setModalActive] = useState(false);
+
+  const { datesArray } = props;
+
+  const [selectedDayRange, setSelectedDayRange] = useState(datesArray);
+
+  console.log("availableDates: ", datesArray);
+
+  const setCalendarValue = (day) => {
+    console.log("Selected date: ", day);
+  };
+
+  const defaultValue = {
+    year: 2022,
+    month: 6,
+    day: 30,
+  };
+
+  const minimumDate = {
+    year: 2022,
+    month: 7,
+    day: 10,
+  };
+
+  const maximumDate = {
+    year: 2022,
+    month: 7,
+    day: 21,
+  };
+
+  const [selectedDay, setSelectedDay] = useState(defaultValue);
 
   return (
     <div className="content">
@@ -31,11 +63,26 @@ function SecondBlock(props) {
           </div>
           <div className="title second-title">Select Date And Time</div>
           <div className="second-block__datepicker">
-            <Cal
-              selectedDay={props.selectedDay}
-              handleDayChange={props.handleDayChange}
+            {/* <Cal
+              // selectedDay={props.selectedDay}
+              // handleDayChange={props.handleDayChange}
+              // value={props.datesArray}
+              // onChange={setSelectedDayRange}
+              // shouldHighlightWeekends
+              value={selectedDayRange}
+              onChange={setSelectedDayRange}
+              shouldHighlightWeekends
+            /> */}
+            <Calendar
+              onChange={setSelectedDay}
+              minimumDate={minimumDate}
+              maximumDate={maximumDate}
+              shouldHighlightWeekends
             />
           </div>
+          {/* <div>
+            <button onClick={props.getDates}>Add date</button>
+          </div> */}
           <Time
             time={props.time}
             setTime={props.setTime}
