@@ -62,7 +62,7 @@ const App = () => {
     const getDates = () => {
       myAxios
         .get(
-          "/api/free_dates?place_id=1&area_id=1&seats=2&from=2022-06-25&to=2022-07-10",
+          "/api/free_dates?place_id=1&area_id=1&seats=2&from=2022-07-01&to=2022-07-10",
           {}
         )
         .then((response) => {

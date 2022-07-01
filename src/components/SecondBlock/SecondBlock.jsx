@@ -15,33 +15,38 @@ function SecondBlock(props) {
 
   const { datesArray } = props;
 
-  const [selectedDayRange, setSelectedDayRange] = useState(datesArray);
-
   console.log("availableDates: ", datesArray);
 
+  const newDateArray = datesArray?.map((one) => one.day);
+
+  const getDays = () => {
+    const newDates = [];
+    for (let i = 1; i <= 31; i++) {
+      if (!newDateArray?.includes(i)) {
+        newDates.push({
+          year: 2022,
+          month: 7,
+          day: i,
+        });
+      }
+    }
+    return newDates;
+  };
+
+  const [selectedDayRange, setSelectedDayRange] = useState(utils().getToday());
+
   const setCalendarValue = (day) => {
-    console.log("Selected date: ", day);
+    setSelectedDayRange(day);
+    console.log("Selected Day: ", day);
   };
 
-  const defaultValue = {
-    year: 2022,
-    month: 6,
-    day: 30,
+  const addMonth = () => {
+    console.log("Day: ", selectedDayRange.day);
+    setSelectedDayRange(selectedDayRange.day + 1);
   };
 
-  const minimumDate = {
-    year: 2022,
-    month: 7,
-    day: 10,
-  };
-
-  const maximumDate = {
-    year: 2022,
-    month: 7,
-    day: 21,
-  };
-
-  const [selectedDay, setSelectedDay] = useState(defaultValue);
+  const minimumDate = { year: 2022, month: 6, day: 10 };
+  const maximumDate = { year: 2022, month: 8, day: 21 };
 
   return (
     <div className="content">
@@ -74,11 +79,15 @@ function SecondBlock(props) {
               shouldHighlightWeekends
             /> */}
             <Calendar
-              onChange={setSelectedDay}
+              // value={datesArray}
+              onChange={(day) => setCalendarValue(day)}
+              shouldHighlightWeekends
+              disabledDays={getDays()}
               minimumDate={minimumDate}
               maximumDate={maximumDate}
-              shouldHighlightWeekends
             />
+            <div style={{ display: "flex" }}> ← </div>
+            <div onClick={addMonth}> → </div>
           </div>
           {/* <div>
             <button onClick={props.getDates}>Add date</button>
