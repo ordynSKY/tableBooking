@@ -19,7 +19,7 @@ function SecondBlock(props) {
 
   const newDateArray = datesArray?.map((one) => one.day);
 
-  const getDays = () => {
+  const getDisabledDays = () => {
     const newDates = [];
     for (let i = 1; i <= 31; i++) {
       if (!newDateArray?.includes(i)) {
@@ -38,46 +38,43 @@ function SecondBlock(props) {
   const setCalendarValue = (day) => {
     setSelectedDay(day);
     console.log("Selected Day: ", day);
-    props.getTime();
-  };
-
-  const addMonth = () => {
-    setSelectedDay(selectedDay.day + 1);
+    props.getTime(day);
   };
 
   console.log("Date: ", selectedDay);
 
-  const setMonth = () => {
+  const setMonthUp = () => {
+    let tempDay = { ...selectedDay };
     if (selectedDay.month > 11) {
-      setSelectedDay((prev) => ({ ...prev, month: 1 }));
-    } else if (selectedDay.month < 2) {
-      setSelectedDay((prev) => ({ ...prev, month: 12 }));
+      tempDay = { ...tempDay, month: 1, year: tempDay.year + 1 };
     } else {
-      setSelectedDay((prev) => ({ ...prev, month: prev.month + 1 }));
+      tempDay = { ...tempDay, month: tempDay.month + 1 };
     }
-    props.getTime();
+    setSelectedDay(tempDay);
+    props.getDates(tempDay);
   };
 
-  const removeMonth = () => {
-    if (selectedDay.month < 11) {
-      setSelectedDay((prev) => ({ ...prev, month: 1 }));
-    } else if (selectedDay.month > 2) {
-      setSelectedDay((prev) => ({ ...prev, month: 12 }));
+  const setMonthDown = () => {
+    let tempDay = { ...selectedDay };
+    if (selectedDay.month < 2) {
+      tempDay = { ...tempDay, month: 12, year: tempDay.year - 1 };
     } else {
-      setSelectedDay((prev) => ({ ...prev, month: prev.month - 1 }));
+      tempDay = { ...tempDay, month: tempDay.month - 1 };
     }
+    setSelectedDay(tempDay);
+    props.getDates(tempDay);
   };
 
   const minimumDate = {
     year: 2022,
     month: 7,
-    day: 10,
+    day: 1,
   };
 
   const maximumDate = {
     year: 2022,
     month: 7,
-    day: 21,
+    day: 31,
   };
 
   return (
@@ -111,18 +108,18 @@ function SecondBlock(props) {
               shouldHighlightWeekends
             /> */}
             <Calendar
-              // value={datesArray}
+              value={selectedDay}
               onChange={(day) => setCalendarValue(day)}
               shouldHighlightWeekends
-              disabledDays={getDays()}
+              disabledDays={getDisabledDays()}
               minimumDate={minimumDate}
               maximumDate={maximumDate}
             />
-            <div style={{ display: "flex" }} onClick={removeMonth}>
+            <div style={{ display: "flex" }} onClick={setMonthDown}>
               {" "}
               ←{" "}
             </div>
-            <div onClick={setMonth}> → </div>
+            <div onClick={setMonthUp}> → </div>
           </div>
           {/* <div>
             <button onClick={props.getDates}>Add date</button>
@@ -131,6 +128,7 @@ function SecondBlock(props) {
             time={props.time}
             setTime={props.setTime}
             bookedTimes={props.bookedTimes}
+            makeOrder={props.makeOrder}
           />
           <div
             className="button-main next-button"

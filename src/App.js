@@ -8,6 +8,7 @@ import LastBlock from "./components/LastBlock/LastBlock";
 import "./components/FourthBlock/FourthBlock.css";
 import myAxios from "./API";
 import moment from "moment";
+import { utils } from "react-modern-calendar-datepicker";
 const App = () => {
   const ref = useRef(null);
 
@@ -58,24 +59,34 @@ const App = () => {
 
   console.log("Array:", datesArray);
 
+  const getDates = (day) => {
+    myAxios
+      .get("/api/free_dates", {
+        params: {
+          place_id: 2,
+          area_id: 1,
+          seats: 2,
+          from: `${day.year}-${
+            day.month < 10 ? "0" + day.month : day.month
+          }-01`,
+          to: `${day.year}-${
+            day.month < 10 ? "0" + day.month : day.month
+          }-${new Date(day.year, day.month + 1, 0).getDate()}`,
+        },
+      })
+      .then((response) => {
+        setDates(response.data);
+        // moment(dates.forEach).format("DD-MM-YYYY");
+        console.log("Response", response.data);
+        console.log("Dates", dates);
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  };
+
   useEffect(() => {
-    const getDates = () => {
-      myAxios
-        .get(
-          "/api/free_dates?place_id=1&area_id=1&seats=2&from=2022-07-01&to=2022-07-10",
-          {}
-        )
-        .then((response) => {
-          setDates(response.data);
-          // moment(dates.forEach).format("DD-MM-YYYY");
-          console.log("Response", response.data);
-          console.log("Dates", dates);
-        })
-        .catch((error) => {
-          console.log("Error", error);
-        });
-    };
-    getDates();
+    getDates(utils().getToday());
   }, []);
 
   // New state
@@ -191,20 +202,24 @@ const App = () => {
 
   const [times, setTimes] = useState();
 
-  const getTime = () => {
+  const getTime = (day) => {
     myAxios
       .get("/api/free_time", {
-        place_id: 2,
-        area_id: 1,
-        seats: 2,
-        date: "2022-06-01",
+        params: {
+          place_id: 2,
+          area_id: 1,
+          seats: 2,
+          date: `${day.year}-${day.month < 10 ? "0" + day.month : day.month}-${
+            day.day
+          }`,
+        },
       })
       .then((response) => {
         setTimes(response.data);
-        console.log("Response", response.data);
+        console.log("Response time: ", response.data);
       })
       .catch((error) => {
-        console.log("Error", error);
+        console.log("Error: ", error);
       });
   };
 
@@ -286,6 +301,7 @@ const App = () => {
             setUserData={setUserData}
             datesArray={datesArray}
             getTime={getTime}
+            getDates={getDates}
           />
         </div>
 

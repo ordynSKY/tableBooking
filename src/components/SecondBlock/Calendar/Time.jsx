@@ -40,6 +40,7 @@ function Time(props) {
                     className={`time-button${
                       activeButton === i ? " active" : ""
                     }`}
+                    onClick={props.makeOrder}
                   >
                     {e}
                   </button>
