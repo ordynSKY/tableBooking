@@ -122,7 +122,7 @@ function LastBlock(props) {
           </div>
 
           <div className="next-button second-next-button">
-            <a href="/#" className="next" onClick={props.handleChangeItem}>
+            <a href="/#" className="next" onClick={props.makeOrder}>
               Complete booking →
             </a>
           </div>

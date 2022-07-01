@@ -33,20 +33,52 @@ function SecondBlock(props) {
     return newDates;
   };
 
-  const [selectedDayRange, setSelectedDayRange] = useState(utils().getToday());
+  const [selectedDay, setSelectedDay] = useState(utils().getToday());
 
   const setCalendarValue = (day) => {
-    setSelectedDayRange(day);
+    setSelectedDay(day);
     console.log("Selected Day: ", day);
+    props.getTime();
   };
 
   const addMonth = () => {
-    console.log("Day: ", selectedDayRange.day);
-    setSelectedDayRange(selectedDayRange.day + 1);
+    setSelectedDay(selectedDay.day + 1);
   };
 
-  const minimumDate = { year: 2022, month: 6, day: 10 };
-  const maximumDate = { year: 2022, month: 8, day: 21 };
+  console.log("Date: ", selectedDay);
+
+  const setMonth = () => {
+    if (selectedDay.month > 11) {
+      setSelectedDay((prev) => ({ ...prev, month: 1 }));
+    } else if (selectedDay.month < 2) {
+      setSelectedDay((prev) => ({ ...prev, month: 12 }));
+    } else {
+      setSelectedDay((prev) => ({ ...prev, month: prev.month + 1 }));
+    }
+    props.getTime();
+  };
+
+  const removeMonth = () => {
+    if (selectedDay.month < 11) {
+      setSelectedDay((prev) => ({ ...prev, month: 1 }));
+    } else if (selectedDay.month > 2) {
+      setSelectedDay((prev) => ({ ...prev, month: 12 }));
+    } else {
+      setSelectedDay((prev) => ({ ...prev, month: prev.month - 1 }));
+    }
+  };
+
+  const minimumDate = {
+    year: 2022,
+    month: 7,
+    day: 10,
+  };
+
+  const maximumDate = {
+    year: 2022,
+    month: 7,
+    day: 21,
+  };
 
   return (
     <div className="content">
@@ -86,8 +118,11 @@ function SecondBlock(props) {
               minimumDate={minimumDate}
               maximumDate={maximumDate}
             />
-            <div style={{ display: "flex" }}> ← </div>
-            <div onClick={addMonth}> → </div>
+            <div style={{ display: "flex" }} onClick={removeMonth}>
+              {" "}
+              ←{" "}
+            </div>
+            <div onClick={setMonth}> → </div>
           </div>
           {/* <div>
             <button onClick={props.getDates}>Add date</button>

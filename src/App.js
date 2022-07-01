@@ -187,6 +187,48 @@ const App = () => {
     localStorage.removeItem("token");
   };
 
+  // getTime request
+
+  const [times, setTimes] = useState();
+
+  const getTime = () => {
+    myAxios
+      .get("/api/free_time", {
+        place_id: 2,
+        area_id: 1,
+        seats: 2,
+        date: "2022-06-01",
+      })
+      .then((response) => {
+        setTimes(response.data);
+        console.log("Response", response.data);
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  };
+
+  // Make order request
+
+  const makeOrder = () => {
+    myAxios
+      .post("/api/make_order", {
+        place_id: 2,
+        area_id: 1,
+        seats: 2,
+        reservation_time: "2022-05-18 12:00:00",
+        comment: "",
+        is_take_away: 0,
+      })
+      .then((response) => {
+        setTimes(response.data);
+        console.log("Response: ", response.data);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
+  };
+
   const [time, setTime] = useState("18:00");
   let bookedTimes = [
     "18:00",
@@ -243,6 +285,7 @@ const App = () => {
             userData={userData}
             setUserData={setUserData}
             datesArray={datesArray}
+            getTime={getTime}
           />
         </div>
 
@@ -260,6 +303,7 @@ const App = () => {
             setUserData={setUserData}
             defaultModal={defaultModal}
             setDefaultModal={setDefaultModal}
+            makeOrder={makeOrder}
           />
         </div>
       </Carousel>
