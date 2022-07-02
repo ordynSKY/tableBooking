@@ -17,7 +17,7 @@ export default function MainModal(props) {
     login: "/api/customers/login",
     edit: "/api/customers",
   };
-  console.log("Type:", defaultModal);
+
   return (
     <div
       className={props.active ? "modal active" : "modal"}

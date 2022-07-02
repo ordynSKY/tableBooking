@@ -20,7 +20,7 @@ function LastBlock(props) {
     props.postRequest({}, "/api/customers/logout", "logout");
   };
 
-  console.log("getting full resp", props);
+  console.log("Where to eat: ", props.isTakeAway);
 
   return (
     <div className="content">
@@ -95,6 +95,37 @@ function LastBlock(props) {
                   className="form-name__comment"
                   placeholder="Add the comment"
                 />
+              </div>
+              <div
+                className="second-checkbox"
+                style={{
+                  display: "flex",
+                  paddingBottom: "10px",
+                }}
+              >
+                <input
+                  type="radio"
+                  id="takeawayChoice"
+                  name="takeaway"
+                  value="takeaway"
+                  onClick={() => props.setIsTakeAway(1)}
+                />
+                <label for="contactChoice1">Take away</label>
+              </div>
+              <div
+                className="second-checkbox"
+                style={{
+                  display: "flex",
+                }}
+              >
+                <input
+                  type="radio"
+                  id="eathereChoice"
+                  name="takeaway"
+                  value="eathere"
+                  onClick={() => props.setIsTakeAway(0)}
+                />
+                <label for="eathereChoice">Eat here</label>
               </div>
               <div className="checkbox">
                 <input

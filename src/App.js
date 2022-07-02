@@ -200,7 +200,8 @@ const App = () => {
 
   // getTime request
 
-  const [times, setTimes] = useState();
+  const [times, setTimes] = useState([]);
+  console.log("TIMES: ", times);
 
   const getTime = (day) => {
     myAxios
@@ -215,7 +216,12 @@ const App = () => {
         },
       })
       .then((response) => {
-        setTimes(response.data);
+        const timesArray = response.data?.map((time) => ({
+          time: String(time.slice(11, 19)),
+          active: true,
+          shortTime: String(time.slice(11, 16)),
+        }));
+        setTimes(timesArray);
         console.log("Response time: ", response.data);
       })
       .catch((error) => {
@@ -225,19 +231,21 @@ const App = () => {
 
   // Make order request
 
-  const makeOrder = () => {
+  const [isTakeAway, setIsTakeAway] = useState(0);
+
+  const makeOrder = (oneTime) => {
     myAxios
       .post("/api/make_order", {
         place_id: 2,
         area_id: 1,
         seats: 2,
-        reservation_time: "2022-05-18 12:00:00",
+        reservation_time: oneTime,
         comment: "",
-        is_take_away: 0,
+        is_take_away: isTakeAway,
       })
       .then((response) => {
-        setTimes(response.data);
-        console.log("Response: ", response.data);
+        // setTimes(response.data);
+        console.log("Times: ", times);
       })
       .catch((error) => {
         console.log("Error: ", error);
@@ -288,9 +296,9 @@ const App = () => {
             guestValue={guestValue}
             selectedDate={selectedDate}
             handleDateChange={handleDateChange}
-            bookedTimes={bookedTimes}
-            time={time}
-            setTime={setTime}
+            // bookedTimes={bookedTimes}
+            // time={time}
+            // setTime={setTime}
             selectedDay={selectedDay}
             handleDayChange={handleDayChange}
             defaultModal={defaultModal}
@@ -302,6 +310,8 @@ const App = () => {
             datesArray={datesArray}
             getTime={getTime}
             getDates={getDates}
+            times={times}
+            setTimes={setTimes}
           />
         </div>
 
@@ -320,6 +330,8 @@ const App = () => {
             defaultModal={defaultModal}
             setDefaultModal={setDefaultModal}
             makeOrder={makeOrder}
+            isTakeAway={isTakeAway}
+            setIsTakeAway={setIsTakeAway}
           />
         </div>
       </Carousel>

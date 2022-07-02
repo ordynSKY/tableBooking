@@ -18,6 +18,10 @@ function Time(props) {
     document.querySelector(".block-button__slider").scrollLeft -= 200;
   };
 
+  const newTimeArray = props.times?.map((one) => one.shortTime);
+
+  console.log("new times: ", newTimeArray);
+
   return (
     <div className="mainblock">
       <button id="slideLeft" type="button" onClick={buttonLeft}>
@@ -25,24 +29,20 @@ function Time(props) {
       </button>
       <div className="block-button__slider">
         {Children.toArray(
-          props.bookedTimes.map((e, i) => {
+          props.times?.map((oneTime, i) => {
             return (
               <div className="block-buttons">
                 <div
-                  onClick={(e) => {
-                    return (
-                      props.setTime(e.currentTarget.textContent),
-                      setActiveButton(i)
-                    );
+                  onClick={(oneTime) => {
+                    return setActiveButton(i), props.makeOrder(oneTime);
                   }}
                 >
                   <button
                     className={`time-button${
                       activeButton === i ? " active" : ""
                     }`}
-                    onClick={props.makeOrder}
                   >
-                    {e}
+                    {oneTime.shortTime}
                   </button>
                 </div>
               </div>

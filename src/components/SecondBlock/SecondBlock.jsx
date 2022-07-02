@@ -125,10 +125,12 @@ function SecondBlock(props) {
             <button onClick={props.getDates}>Add date</button>
           </div> */}
           <Time
-            time={props.time}
-            setTime={props.setTime}
-            bookedTimes={props.bookedTimes}
+            // time={props.time}
+            // setTime={props.setTime}
+            // bookedTimes={props.bookedTimes}
             makeOrder={props.makeOrder}
+            times={props.times}
+            setTimes={props.setTimes}
           />
           <div
             className="button-main next-button"
