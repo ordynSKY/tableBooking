@@ -119,12 +119,35 @@
   font-size: 14px;
   line-height: 150%;
   margin-right: 100px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #67a1e5;
+  cursor: pointer;
+}
+
+.second-block__datepicker {
+  max-width: 330px;
+}
+
+.calendar-arrows {
+  display: flex;
+  justify-content: space-between;
+}
+
+.arrows {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: 1.7em;
+  height: 1.7em;
+  font-size: 20px;
 }
 
 @media (max-width: 1024px) {
   .second-block__datepicker {
-    display: flex;
-    justify-content: center;
+    margin: auto;
   }
   .button-main {
     display: flex;
@@ -146,6 +169,8 @@
     display: block;
     justify-content: center;
     margin: 0;
+    border: none;
+    outline: none;
   }
 }
 

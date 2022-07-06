@@ -3,15 +3,23 @@ import Image from "../FirstBlock/img/Image";
 import "./LastBlock.css";
 import SelectLang from "../FirstBlock/SelectLang/SelectLang";
 import Copyrigth from "../FirstBlock/Copyrigth/Copyrigth";
-import moment from "moment";
 import MainModal from "../MainModal/MainModal";
 
 function LastBlock(props) {
   const [modalActive, setModalActive] = useState(false);
 
+  const { selectedDay, selectedTime, restaurantInfo } = props;
+
   const showModalWindow = () => {
     props.setDefaultModal("edit");
+  };
+
+  const makeOrderDone = () => {
+    props.makeOrder();
     setModalActive(true);
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 4000);
   };
 
   const logout = (e) => {
@@ -20,7 +28,21 @@ function LastBlock(props) {
     props.postRequest({}, "/api/customers/logout", "logout");
   };
 
-  console.log("Where to eat: ", props.isTakeAway);
+  const handleOnChangeEmail = () => {
+    if (props.allowEmails === 0) {
+      props.setAllowEmails(1);
+    } else {
+      props.setAllowEmails(0);
+    }
+  };
+
+  const handleOnChangeNews = () => {
+    if (props.allowNews === 0) {
+      props.setAllowNews(1);
+    } else {
+      props.setAllowNews(0);
+    }
+  };
 
   return (
     <div className="content">
@@ -46,13 +68,13 @@ function LastBlock(props) {
           <div className="last-info">
             <div className="info-body">
               <div className="restaurant-info">
-                <div className="restaurant-name">Rositas Bistro</div>
+                <div className="restaurant-name">{restaurantInfo.name}</div>
                 <div className="adress">
-                  Borgergade 20
+                  {restaurantInfo.address}
                   <br />
-                  9000 Aalborg
+                  {restaurantInfo.zip_code} {restaurantInfo.city}
                   <br />
-                  Denmark
+                  {restaurantInfo.country}
                 </div>
                 <div className="guests-date">
                   Guests: &nbsp;
@@ -60,7 +82,8 @@ function LastBlock(props) {
                   <br />
                   Day/time: &nbsp;
                   <b>
-                    {moment(props.orderDate).format("DD-MM-YYYY")} {props.time}
+                    {`${selectedDay.day}-${selectedDay.month}-${selectedDay.year}`}{" "}
+                    {selectedTime.slice(0, 5)}
                   </b>
                 </div>
               </div>
@@ -110,7 +133,7 @@ function LastBlock(props) {
                   value="takeaway"
                   onClick={() => props.setIsTakeAway(1)}
                 />
-                <label for="contactChoice1">Take away</label>
+                <label htmlFor="contactChoice1">Take away</label>
               </div>
               <div
                 className="second-checkbox"
@@ -125,12 +148,13 @@ function LastBlock(props) {
                   value="eathere"
                   onClick={() => props.setIsTakeAway(0)}
                 />
-                <label for="eathereChoice">Eat here</label>
+                <label htmlFor="eathereChoice">Eat here</label>
               </div>
               <div className="checkbox">
                 <input
                   id="first-checkbox"
                   type="checkbox"
+                  onChange={handleOnChangeEmail}
                   style={{ width: "14px", heigth: "14px", marginRight: "8px" }}
                 />
                 <div>
@@ -141,6 +165,7 @@ function LastBlock(props) {
               <div className="second-checkbox">
                 <input
                   type="checkbox"
+                  onChange={handleOnChangeNews}
                   style={{
                     width: "14px",
                     heigth: "14px",
@@ -153,7 +178,7 @@ function LastBlock(props) {
           </div>
 
           <div className="next-button second-next-button">
-            <a href="/#" className="next" onClick={props.makeOrder}>
+            <a href="/#" className="next" onClick={makeOrderDone}>
               Complete booking →
             </a>
           </div>
@@ -169,6 +194,12 @@ function LastBlock(props) {
             defaultModal={"edit"}
             userData={props.userData}
             setUserData={props.setUserData}
+          />
+          <MainModal
+            title="DONE!"
+            active={modalActive}
+            setActive={setModalActive}
+            defaultModal={"done"}
           />
         </div>
       </div>

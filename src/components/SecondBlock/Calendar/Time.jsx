@@ -20,8 +20,6 @@ function Time(props) {
 
   const newTimeArray = props.times?.map((one) => one.shortTime);
 
-  console.log("new times: ", newTimeArray);
-
   return (
     <div className="mainblock">
       <button id="slideLeft" type="button" onClick={buttonLeft}>
@@ -33,8 +31,10 @@ function Time(props) {
             return (
               <div className="block-buttons">
                 <div
-                  onClick={(oneTime) => {
-                    return setActiveButton(i), props.makeOrder(oneTime);
+                  onClick={() => {
+                    return (
+                      setActiveButton(i), props.setSelectedTime(oneTime.time)
+                    );
                   }}
                 >
                   <button

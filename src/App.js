@@ -40,7 +40,7 @@ const App = () => {
 
   // Another calendar
 
-  const [selectedDay, setSelectedDay] = useState(null);
+  const [selectedDay, setSelectedDay] = useState(utils().getToday());
   const [orderDate, setOrderDate] = useState("");
 
   const handleDayChange = (date) => {
@@ -57,15 +57,13 @@ const App = () => {
     day: Number(data.slice(8, 10)),
   }));
 
-  console.log("Array:", datesArray);
-
   const getDates = (day) => {
     myAxios
       .get("/api/free_dates", {
         params: {
           place_id: 2,
           area_id: 1,
-          seats: 2,
+          seats: guestValue,
           from: `${day.year}-${
             day.month < 10 ? "0" + day.month : day.month
           }-01`,
@@ -76,9 +74,6 @@ const App = () => {
       })
       .then((response) => {
         setDates(response.data);
-        // moment(dates.forEach).format("DD-MM-YYYY");
-        console.log("Response", response.data);
-        console.log("Dates", dates);
       })
       .catch((error) => {
         console.log("Error", error);
@@ -90,6 +85,10 @@ const App = () => {
   }, []);
 
   // New state
+
+  const [allowEmails, setAllowEmails] = useState(0);
+  const [allowNews, setAllowNews] = useState(0);
+
   const [userData, setUserData] = useState({
     first_name: "",
     last_name: "",
@@ -98,9 +97,10 @@ const App = () => {
     zip_code: "",
     password: "",
     password_confirmation: "",
-    allow_send_emails: 1,
-    allow_send_news: 0,
+    allow_send_emails: allowEmails,
+    allow_send_news: allowNews,
     language: "en",
+    address: "",
   });
   const mainProps = {
     title: "Next →",
@@ -125,8 +125,6 @@ const App = () => {
           }
         : {};
 
-    console.log("Type and config: ", type, config);
-
     myAxios
       .post(
         url,
@@ -136,10 +134,6 @@ const App = () => {
         config
       )
       .then((response) => {
-        console.log("registered");
-        console.log("resp", response.data);
-        console.log("Type:", type, type === "register", type === "login");
-        console.log("URL:", url);
         type === "register" && setUserData(response.data.customer);
         if (type === "register" || type === "login") {
           localStorage.setItem("token", response.data.token);
@@ -201,7 +195,6 @@ const App = () => {
   // getTime request
 
   const [times, setTimes] = useState([]);
-  console.log("TIMES: ", times);
 
   const getTime = (day) => {
     myAxios
@@ -209,7 +202,7 @@ const App = () => {
         params: {
           place_id: 2,
           area_id: 1,
-          seats: 2,
+          seats: guestValue,
           date: `${day.year}-${day.month < 10 ? "0" + day.month : day.month}-${
             day.day
           }`,
@@ -222,7 +215,6 @@ const App = () => {
           shortTime: String(time.slice(11, 16)),
         }));
         setTimes(timesArray);
-        console.log("Response time: ", response.data);
       })
       .catch((error) => {
         console.log("Error: ", error);
@@ -232,42 +224,68 @@ const App = () => {
   // Make order request
 
   const [isTakeAway, setIsTakeAway] = useState(0);
+  const [selectedTime, setSelectedTime] = useState("18:00");
 
   const makeOrder = (oneTime) => {
     myAxios
-      .post("/api/make_order", {
-        place_id: 2,
-        area_id: 1,
-        seats: 2,
-        reservation_time: oneTime,
-        comment: "",
-        is_take_away: isTakeAway,
-      })
-      .then((response) => {
-        // setTimes(response.data);
-        console.log("Times: ", times);
-      })
+      .post(
+        "/api/make_order",
+        {
+          place_id: 2,
+          area_id: 1,
+          seats: guestValue,
+          reservation_time: `${selectedDay.year}-${
+            selectedDay.month < 10 ? "0" + selectedDay.month : selectedDay.month
+          }-${selectedDay.day} ${selectedTime}`,
+          comment: "",
+          is_take_away: isTakeAway,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((response) => {})
       .catch((error) => {
         console.log("Error: ", error);
       });
   };
 
-  const [time, setTime] = useState("18:00");
-  let bookedTimes = [
-    "18:00",
-    "18:15",
-    "18:45",
-    "19:00",
-    "19:15",
-    "19:45",
-    "20:00",
-    "20:15",
-    "20:45",
-    "21:00",
-    "21:15",
-    "21:45",
-    "22:00",
-  ];
+  console.log("Default Modal: ", defaultModal);
+
+  // Get restaurant info request
+
+  const [restaurantInfo, setRestaurantInfo] = useState({
+    address: "",
+    city: "",
+    name: "",
+    zip_code: "",
+    country: "",
+  });
+
+  const getRestaurantInfo = () => {
+    myAxios
+      .get("/api/places/2")
+      .then((response) => {
+        setRestaurantInfo({
+          ...restaurantInfo,
+          address: response.data.address,
+          city: response.data.city,
+          name: response.data.name,
+          zip_code: response.data.zip_code,
+          country: response.data.country.name,
+        });
+        console.log("Restaurant Info: ", response.data);
+      })
+      .catch((error) => {
+        console.log("Restaurant Info error: ", error);
+      });
+  };
+
+  useEffect(() => {
+    getRestaurantInfo();
+  }, []);
 
   return (
     <div>
@@ -296,10 +314,8 @@ const App = () => {
             guestValue={guestValue}
             selectedDate={selectedDate}
             handleDateChange={handleDateChange}
-            // bookedTimes={bookedTimes}
-            // time={time}
-            // setTime={setTime}
             selectedDay={selectedDay}
+            setSelectedDay={setSelectedDay}
             handleDayChange={handleDayChange}
             defaultModal={defaultModal}
             setDefaultModal={setDefaultModal}
@@ -312,6 +328,8 @@ const App = () => {
             getDates={getDates}
             times={times}
             setTimes={setTimes}
+            selectedTime={selectedTime}
+            setSelectedTime={setSelectedTime}
           />
         </div>
 
@@ -321,7 +339,6 @@ const App = () => {
             handlePrevItem={handlePrevItem}
             guestValue={guestValue}
             orderDate={orderDate}
-            time={time}
             logout={logout}
             postRequest={postRequest}
             errorsResp={errorsResp}
@@ -332,6 +349,14 @@ const App = () => {
             makeOrder={makeOrder}
             isTakeAway={isTakeAway}
             setIsTakeAway={setIsTakeAway}
+            selectedDay={selectedDay}
+            setSelectedDay={setSelectedDay}
+            selectedTime={selectedTime}
+            allowEmails={allowEmails}
+            setAllowEmails={setAllowEmails}
+            allowNews={allowNews}
+            setAllowNews={setAllowNews}
+            restaurantInfo={restaurantInfo}
           />
         </div>
       </Carousel>

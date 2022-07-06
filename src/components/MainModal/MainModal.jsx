@@ -51,13 +51,18 @@ export default function MainModal(props) {
             )}
           </div>
           <div className="form__wrapper">
-            <input
-              type="email"
-              className="form-name__email"
-              placeholder="Email address"
-              value={userData?.email}
-              onChange={(event) => setInput("email", event.target.value)}
-            />
+            {(defaultModal === "register" ||
+              defaultModal === "edit" ||
+              defaultModal === "login" ||
+              defaultModal === "email") && (
+              <input
+                type="email"
+                className="form-name__email"
+                placeholder="Email address"
+                value={userData?.email}
+                onChange={(event) => setInput("email", event.target.value)}
+              />
+            )}
           </div>
           <div className="form-mobile-zip">
             {(defaultModal === "register" || defaultModal === "edit") && (
@@ -108,23 +113,33 @@ export default function MainModal(props) {
             )}
           </div>
         </form>
-        <div className="modal-button">
-          <button
-            className="button-main"
-            onClick={() =>
-              props.callback(userData, getUrl[defaultModal], defaultModal)
-            }
-          >
-            Continue →
-          </button>
-        </div>
-        <div className="error-response">
-          {dispErrors?.title}
-          <br />
-          {dispErrors?.emailError}
-          <br />
-          {dispErrors?.passError}
-        </div>
+        {(defaultModal === "register" ||
+          defaultModal === "edit" ||
+          defaultModal === "login" ||
+          defaultModal === "email") && (
+          <div className="modal-button">
+            <button
+              className="button-main"
+              onClick={() =>
+                props.callback(userData, getUrl[defaultModal], defaultModal)
+              }
+            >
+              Continue →
+            </button>
+          </div>
+        )}
+        {(defaultModal === "register" ||
+          defaultModal === "edit" ||
+          defaultModal === "login" ||
+          defaultModal === "email") && (
+          <div className="error-response">
+            {dispErrors?.title}
+            <br />
+            {dispErrors?.emailError}
+            <br />
+            {dispErrors?.passError}
+          </div>
+        )}
       </div>
     </div>
   );

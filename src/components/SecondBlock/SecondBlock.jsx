@@ -13,9 +13,7 @@ import { Calendar, utils } from "react-modern-calendar-datepicker";
 function SecondBlock(props) {
   const [modalActive, setModalActive] = useState(false);
 
-  const { datesArray } = props;
-
-  console.log("availableDates: ", datesArray);
+  const { datesArray, selectedDay, setSelectedDay } = props;
 
   const newDateArray = datesArray?.map((one) => one.day);
 
@@ -33,15 +31,10 @@ function SecondBlock(props) {
     return newDates;
   };
 
-  const [selectedDay, setSelectedDay] = useState(utils().getToday());
-
   const setCalendarValue = (day) => {
     setSelectedDay(day);
-    console.log("Selected Day: ", day);
     props.getTime(day);
   };
-
-  console.log("Date: ", selectedDay);
 
   const setMonthUp = () => {
     let tempDay = { ...selectedDay };
@@ -77,6 +70,10 @@ function SecondBlock(props) {
     day: 31,
   };
 
+  const addToWait = () => {
+    setModalActive(true);
+  };
+
   return (
     <div className="content">
       <Image />
@@ -97,16 +94,14 @@ function SecondBlock(props) {
           </div>
           <div className="title second-title">Select Date And Time</div>
           <div className="second-block__datepicker">
-            {/* <Cal
-              // selectedDay={props.selectedDay}
-              // handleDayChange={props.handleDayChange}
-              // value={props.datesArray}
-              // onChange={setSelectedDayRange}
-              // shouldHighlightWeekends
-              value={selectedDayRange}
-              onChange={setSelectedDayRange}
-              shouldHighlightWeekends
-            /> */}
+            <div className="calendar-arrows">
+              <button className="arrows">
+                <span onClick={setMonthDown}>←</span>
+              </button>
+              <button className="arrows">
+                <span onClick={setMonthUp}> → </span>
+              </button>
+            </div>
             <Calendar
               value={selectedDay}
               onChange={(day) => setCalendarValue(day)}
@@ -115,22 +110,13 @@ function SecondBlock(props) {
               minimumDate={minimumDate}
               maximumDate={maximumDate}
             />
-            <div style={{ display: "flex" }} onClick={setMonthDown}>
-              {" "}
-              ←{" "}
-            </div>
-            <div onClick={setMonthUp}> → </div>
           </div>
-          {/* <div>
-            <button onClick={props.getDates}>Add date</button>
-          </div> */}
           <Time
-            // time={props.time}
-            // setTime={props.setTime}
-            // bookedTimes={props.bookedTimes}
             makeOrder={props.makeOrder}
             times={props.times}
             setTimes={props.setTimes}
+            selectedTime={props.selectedTime}
+            setSelectedTime={props.setSelectedTime}
           />
           <div
             className="button-main next-button"
@@ -140,9 +126,9 @@ function SecondBlock(props) {
           </div>
           <div className="footer">
             <p className="subtitle">Cannot find a suitable time?</p>
-            <a href="/#" className="waiting-list">
+            <button href="/#" className="waiting-list" onClick={addToWait}>
               Add me to the waiting list
-            </a>
+            </button>
             <Copyrigth />
           </div>
         </div>
@@ -184,6 +170,13 @@ function SecondBlock(props) {
           setUserData={props.setUserData}
         />
       )}
+      <MainModal
+        title="Please enter your email to continue"
+        active={modalActive}
+        setActive={setModalActive}
+        callback={props.postRequest}
+        defaultModal={"waiting"}
+      />
     </div>
   );
 }
