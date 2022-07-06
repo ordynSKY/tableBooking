@@ -24,95 +24,99 @@ export default function MainModal(props) {
       onClick={() => setActive(false)}
     >
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
-        <div className="title modal-title">{title}</div>
-        <form className="form form-modal">
-          <div className="form-name">
-            {(defaultModal === "register" || defaultModal === "edit") && (
-              <div>
-                <input
-                  type="text"
-                  className="form-name__firstname"
-                  placeholder="First Name"
-                  value={userData.first_name}
-                  onChange={(event) =>
-                    setInput("first_name", event.target.value)
-                  }
-                />
-                <input
-                  type="text"
-                  className="form-name__firstname"
-                  placeholder="Last Name"
-                  value={userData.last_name}
-                  onChange={(event) =>
-                    setInput("last_name", event.target.value)
-                  }
-                />
-              </div>
-            )}
-          </div>
-          <div className="form__wrapper">
-            {(defaultModal === "register" ||
-              defaultModal === "edit" ||
-              defaultModal === "login" ||
-              defaultModal === "email") && (
-              <input
-                type="email"
-                className="form-name__email"
-                placeholder="Email address"
-                value={userData?.email}
-                onChange={(event) => setInput("email", event.target.value)}
-              />
-            )}
-          </div>
-          <div className="form-mobile-zip">
-            {(defaultModal === "register" || defaultModal === "edit") && (
-              <div className="form-mobile-number" style={{ display: "flex" }}>
-                <PhoneInput
-                  defaultCountry="DK"
-                  value={userData.phone}
-                  onChange={(val) => setInput("phone", val)}
-                  className="form-name__mobile"
-                  placeholder="Mobile  number"
-                />
+        {defaultModal === "done" && (
+          <div className="title modal-title">{title}</div>
+        )}
+        {defaultModal !== "done" && (
+          <form className="form form-modal">
+            <div className="form-name">
+              {(defaultModal === "register" || defaultModal === "edit") && (
                 <div>
                   <input
                     type="text"
-                    className="form-name__zip"
-                    placeholder="Zip code"
-                    value={userData.zip_code}
+                    className="form-name__firstname"
+                    placeholder="First Name"
+                    value={userData.first_name}
                     onChange={(event) =>
-                      setInput("zip_code", event.target.value)
+                      setInput("first_name", event.target.value)
+                    }
+                  />
+                  <input
+                    type="text"
+                    className="form-name__firstname"
+                    placeholder="Last Name"
+                    value={userData.last_name}
+                    onChange={(event) =>
+                      setInput("last_name", event.target.value)
                     }
                   />
                 </div>
-              </div>
-            )}
-          </div>
-          <div className="form-password">
-            {(defaultModal === "login" ||
-              defaultModal === "register" ||
-              defaultModal === "edit") && (
-              <input
-                type="password"
-                className="form-name__password"
-                placeholder="Password"
-                value={userData.password}
-                onChange={(event) => setInput("password", event.target.value)}
-              />
-            )}
-            {(defaultModal === "register" || defaultModal === "edit") && (
-              <input
-                type="password"
-                className="form-name__confirm-password"
-                placeholder="Confirm password"
-                value={userData.password_confirmation}
-                onChange={(event) =>
-                  setInput("password_confirmation", event.target.value)
-                }
-              />
-            )}
-          </div>
-        </form>
+              )}
+            </div>
+            <div className="form__wrapper">
+              {(defaultModal === "register" ||
+                defaultModal === "edit" ||
+                defaultModal === "login" ||
+                defaultModal === "email") && (
+                <input
+                  type="email"
+                  className="form-name__email"
+                  placeholder="Email address"
+                  value={userData?.email}
+                  onChange={(event) => setInput("email", event.target.value)}
+                />
+              )}
+            </div>
+            <div className="form-mobile-zip">
+              {(defaultModal === "register" || defaultModal === "edit") && (
+                <div className="form-mobile-number" style={{ display: "flex" }}>
+                  <PhoneInput
+                    defaultCountry="DK"
+                    value={userData.phone}
+                    onChange={(val) => setInput("phone", val)}
+                    className="form-name__mobile"
+                    placeholder="Mobile  number"
+                  />
+                  <div>
+                    <input
+                      type="text"
+                      className="form-name__zip"
+                      placeholder="Zip code"
+                      value={userData.zip_code}
+                      onChange={(event) =>
+                        setInput("zip_code", event.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="form-password">
+              {(defaultModal === "login" ||
+                defaultModal === "register" ||
+                defaultModal === "edit") && (
+                <input
+                  type="password"
+                  className="form-name__password"
+                  placeholder="Password"
+                  value={userData.password}
+                  onChange={(event) => setInput("password", event.target.value)}
+                />
+              )}
+              {(defaultModal === "register" || defaultModal === "edit") && (
+                <input
+                  type="password"
+                  className="form-name__confirm-password"
+                  placeholder="Confirm password"
+                  value={userData.password_confirmation}
+                  onChange={(event) =>
+                    setInput("password_confirmation", event.target.value)
+                  }
+                />
+              )}
+            </div>
+          </form>
+        )}
         {(defaultModal === "register" ||
           defaultModal === "edit" ||
           defaultModal === "login" ||

@@ -8,7 +8,8 @@ import MainModal from "../MainModal/MainModal";
 function LastBlock(props) {
   const [modalActive, setModalActive] = useState(false);
 
-  const { selectedDay, selectedTime, restaurantInfo } = props;
+  const { selectedDay, selectedTime, restaurantInfo, defaultModal } = props;
+  console.log("Default Modal: ", defaultModal);
 
   const showModalWindow = () => {
     props.setDefaultModal("edit");
@@ -17,9 +18,10 @@ function LastBlock(props) {
   const makeOrderDone = () => {
     props.makeOrder();
     setModalActive(true);
-    setTimeout(() => {
-      window.location.href = "/";
-    }, 4000);
+    // setTimeout(() => {
+    //   window.location.href = "/";
+    // }, 4000);
+    props.setDefaultModal("done");
   };
 
   const logout = (e) => {
@@ -185,22 +187,26 @@ function LastBlock(props) {
           <div className="copyrigth-footer">
             <Copyrigth />
           </div>
-          <MainModal
-            title="Enter your contact details"
-            active={modalActive}
-            setActive={setModalActive}
-            callback={props.postRequest}
-            errorsResp={props.errorsResp}
-            defaultModal={"edit"}
-            userData={props.userData}
-            setUserData={props.setUserData}
-          />
-          <MainModal
-            title="DONE!"
-            active={modalActive}
-            setActive={setModalActive}
-            defaultModal={"done"}
-          />
+          {defaultModal !== "done" && (
+            <MainModal
+              title="Enter your contact details"
+              active={modalActive}
+              setActive={setModalActive}
+              callback={props.postRequest}
+              errorsResp={props.errorsResp}
+              defaultModal={"edit"}
+              userData={props.userData}
+              setUserData={props.setUserData}
+            />
+          )}
+          {defaultModal === "done" && (
+            <MainModal
+              title="DONE!"
+              active={modalActive}
+              setActive={setModalActive}
+              defaultModal={"done"}
+            />
+          )}
         </div>
       </div>
     </div>

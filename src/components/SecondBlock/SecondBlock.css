@@ -145,6 +145,10 @@
   font-size: 20px;
 }
 
+.Calendar__monthArrowWrapper {
+  display: none;
+}
+
 @media (max-width: 1024px) {
   .second-block__datepicker {
     margin: auto;

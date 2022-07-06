@@ -10,6 +10,14 @@ import myAxios from "./API";
 import moment from "moment";
 import { utils } from "react-modern-calendar-datepicker";
 const App = () => {
+  console.log("Window Location: ", window.location);
+
+  const adress = window.location.pathname.slice(
+    window.location.pathname.lastIndexOf("/") + 1
+  );
+
+  console.log("Window Location: ", adress);
+
   const ref = useRef(null);
 
   const handleChangeItem = () => {
@@ -69,7 +77,7 @@ const App = () => {
           }-01`,
           to: `${day.year}-${
             day.month < 10 ? "0" + day.month : day.month
-          }-${new Date(day.year, day.month + 1, 0).getDate()}`,
+          }-${new Date(day.year, day.month, 0).getDate()}`,
         },
       })
       .then((response) => {
@@ -194,6 +202,8 @@ const App = () => {
 
   // getTime request
 
+  const normalizeNumber = (number) => (number < 10 ? "0" + number : number);
+
   const [times, setTimes] = useState([]);
 
   const getTime = (day) => {
@@ -203,9 +213,9 @@ const App = () => {
           place_id: 2,
           area_id: 1,
           seats: guestValue,
-          date: `${day.year}-${day.month < 10 ? "0" + day.month : day.month}-${
+          date: `${day.year}-${normalizeNumber(day.month)}-${normalizeNumber(
             day.day
-          }`,
+          )}`,
         },
       })
       .then((response) => {

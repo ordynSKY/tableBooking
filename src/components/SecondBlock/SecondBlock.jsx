@@ -58,21 +58,21 @@ function SecondBlock(props) {
     props.getDates(tempDay);
   };
 
-  const minimumDate = {
-    year: 2022,
-    month: 7,
-    day: 1,
-  };
+  // const minimumDate = {
+  //   year: 2022,
+  //   month: 7,
+  //   day: 1,
+  // };
 
-  const maximumDate = {
-    year: 2022,
-    month: 7,
-    day: 31,
-  };
+  // const maximumDate = {
+  //   year: 2022,
+  //   month: 7,
+  //   day: 31,
+  // };
 
-  const addToWait = () => {
-    setModalActive(true);
-  };
+  // const addToWait = () => {
+  //   setModalActive(true);
+  // };
 
   return (
     <div className="content">
@@ -107,8 +107,8 @@ function SecondBlock(props) {
               onChange={(day) => setCalendarValue(day)}
               shouldHighlightWeekends
               disabledDays={getDisabledDays()}
-              minimumDate={minimumDate}
-              maximumDate={maximumDate}
+              // minimumDate={minimumDate}
+              // maximumDate={maximumDate}
             />
           </div>
           <Time
@@ -126,7 +126,7 @@ function SecondBlock(props) {
           </div>
           <div className="footer">
             <p className="subtitle">Cannot find a suitable time?</p>
-            <button href="/#" className="waiting-list" onClick={addToWait}>
+            <button href="/#" className="waiting-list">
               Add me to the waiting list
             </button>
             <Copyrigth />
@@ -170,13 +170,6 @@ function SecondBlock(props) {
           setUserData={props.setUserData}
         />
       )}
-      <MainModal
-        title="Please enter your email to continue"
-        active={modalActive}
-        setActive={setModalActive}
-        callback={props.postRequest}
-        defaultModal={"waiting"}
-      />
     </div>
   );
 }
