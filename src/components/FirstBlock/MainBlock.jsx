@@ -11,9 +11,11 @@ import Copyrigth from "./Copyrigth/Copyrigth.jsx";
 function MainBlock(props) {
   const isValid = props.guestValue;
 
+  console.log("MainBlock Props: ", props.getAddress);
+
   return (
     <div className="content">
-      <Image />
+      <Image getAddress={props.getAddress} />
       <div className="content-wrapper">
         <div className="main-block__body">
           <SelectLang />

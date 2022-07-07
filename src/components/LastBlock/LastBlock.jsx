@@ -9,7 +9,6 @@ function LastBlock(props) {
   const [modalActive, setModalActive] = useState(false);
 
   const { selectedDay, selectedTime, restaurantInfo, defaultModal } = props;
-  console.log("Default Modal: ", defaultModal);
 
   const showModalWindow = () => {
     props.setDefaultModal("edit");

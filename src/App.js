@@ -9,14 +9,18 @@ import "./components/FourthBlock/FourthBlock.css";
 import myAxios from "./API";
 import moment from "moment";
 import { utils } from "react-modern-calendar-datepicker";
+
 const App = () => {
-  console.log("Window Location: ", window.location);
+  // Get place_id
 
-  const adress = window.location.pathname.slice(
-    window.location.pathname.lastIndexOf("/") + 1
-  );
+  const getAddress = () => {
+    const placeId = window.location.pathname.slice(
+      window.location.pathname.lastIndexOf("/") + 1
+    );
+    return placeId && placeId !== NaN ? placeId : 2;
+  };
 
-  console.log("Window Location: ", adress);
+  console.log("Windwo Location: ", window.location);
 
   const ref = useRef(null);
 
@@ -66,10 +70,11 @@ const App = () => {
   }));
 
   const getDates = (day) => {
+    console.log("PLACE_ID: ", getAddress());
     myAxios
       .get("/api/free_dates", {
         params: {
-          place_id: 2,
+          place_id: getAddress(),
           area_id: 1,
           seats: guestValue,
           from: `${day.year}-${
@@ -88,9 +93,9 @@ const App = () => {
       });
   };
 
-  useEffect(() => {
-    getDates(utils().getToday());
-  }, []);
+  // useEffect(() => {
+  //   getDates(utils().getToday());
+  // }, []);
 
   // New state
 
@@ -210,7 +215,7 @@ const App = () => {
     myAxios
       .get("/api/free_time", {
         params: {
-          place_id: 2,
+          place_id: getAddress(),
           area_id: 1,
           seats: guestValue,
           date: `${day.year}-${normalizeNumber(day.month)}-${normalizeNumber(
@@ -241,7 +246,7 @@ const App = () => {
       .post(
         "/api/make_order",
         {
-          place_id: 2,
+          place_id: getAddress(),
           area_id: 1,
           seats: guestValue,
           reservation_time: `${selectedDay.year}-${
@@ -261,8 +266,6 @@ const App = () => {
         console.log("Error: ", error);
       });
   };
-
-  console.log("Default Modal: ", defaultModal);
 
   // Get restaurant info request
 
@@ -286,7 +289,6 @@ const App = () => {
           zip_code: response.data.zip_code,
           country: response.data.country.name,
         });
-        console.log("Restaurant Info: ", response.data);
       })
       .catch((error) => {
         console.log("Restaurant Info error: ", error);
@@ -295,6 +297,7 @@ const App = () => {
 
   useEffect(() => {
     getRestaurantInfo();
+    getDates(utils().getToday());
   }, []);
 
   return (
@@ -315,6 +318,7 @@ const App = () => {
             decrement={decrement}
             guestValue={guestValue}
             mainProps={mainProps}
+            getAddress={getAddress}
           />
         </div>
         <div>
