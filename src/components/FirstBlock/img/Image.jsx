@@ -3,9 +3,14 @@ import "./Image.css";
 import myAxios from "../../../API";
 
 function Image(props) {
-  const [mainImage, setMainImage] = useState(null);
+  const getAddress = () => {
+    const placeId = window.location.pathname.slice(
+      window.location.pathname.lastIndexOf("/") + 1
+    );
+    return placeId && placeId !== NaN ? placeId : 2;
+  };
 
-  const { getAddress } = props;
+  const [mainImage, setMainImage] = useState(null);
 
   const getImage = () => {
     myAxios

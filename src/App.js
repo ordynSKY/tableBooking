@@ -7,15 +7,16 @@ import { useRef } from "react";
 import LastBlock from "./components/LastBlock/LastBlock";
 import "./components/FourthBlock/FourthBlock.css";
 import myAxios from "./API";
-import moment from "moment";
 import { utils } from "react-modern-calendar-datepicker";
 
 const App = () => {
   // Get place_id
 
   const getAddress = () => {
-    const placeId = window.location.pathname.slice(
-      window.location.pathname.lastIndexOf("/") + 1
+    const placeId = Number(
+      window.location.pathname.slice(
+        window.location.pathname.lastIndexOf("/") + 1
+      )
     );
     return placeId && placeId !== NaN ? placeId : 2;
   };
@@ -251,7 +252,9 @@ const App = () => {
           seats: guestValue,
           reservation_time: `${selectedDay.year}-${
             selectedDay.month < 10 ? "0" + selectedDay.month : selectedDay.month
-          }-${selectedDay.day} ${selectedTime}`,
+          }-${
+            selectedDay.day < 10 ? "0" + selectedDay.day : selectedDay.day
+          } ${selectedTime}`,
           comment: "",
           is_take_away: isTakeAway,
         },

@@ -8,13 +8,18 @@ import MainModal from "../MainModal/MainModal";
 function LastBlock(props) {
   const [modalActive, setModalActive] = useState(false);
 
-  const { selectedDay, selectedTime, restaurantInfo, defaultModal } = props;
+  const { selectedDay, selectedTime, restaurantInfo } = props;
 
-  const showModalWindow = () => {
+  const showModalWindow = (e) => {
+    e.preventDefault();
     props.setDefaultModal("edit");
+    setModalActive(true);
   };
 
-  const makeOrderDone = () => {
+  console.log("Default Modal: ", props.defaultModal);
+
+  const makeOrderDone = (e) => {
+    e.preventDefault();
     props.makeOrder();
     setModalActive(true);
     // setTimeout(() => {
@@ -102,9 +107,9 @@ function LastBlock(props) {
                 <div className="guests-date">
                   Not correct?
                   <br />
-                  <a href="/#" onClick={() => showModalWindow()}>
+                  <a href="/#" onClick={(e) => showModalWindow(e)}>
                     Edit my information
-                  </a>{" "}
+                  </a>
                   &nbsp;
                   <a href="/">Not me</a>
                 </div>
@@ -179,14 +184,14 @@ function LastBlock(props) {
           </div>
 
           <div className="next-button second-next-button">
-            <a href="/#" className="next" onClick={makeOrderDone}>
+            <a href="/#" className="next" onClick={(e) => makeOrderDone(e)}>
               Complete booking →
             </a>
           </div>
           <div className="copyrigth-footer">
             <Copyrigth />
           </div>
-          {defaultModal !== "done" && (
+          {props.defaultModal === "edit" && (
             <MainModal
               title="Enter your contact details"
               active={modalActive}
@@ -198,7 +203,8 @@ function LastBlock(props) {
               setUserData={props.setUserData}
             />
           )}
-          {defaultModal === "done" && (
+
+          {props.defaultModal === "done" && (
             <MainModal
               title="DONE!"
               active={modalActive}
