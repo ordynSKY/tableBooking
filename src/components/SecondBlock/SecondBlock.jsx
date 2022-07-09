@@ -164,8 +164,8 @@ function SecondBlock(props) {
           setUserData={props.setUserData}
         />
       )}
-      {/* {props.defaultModal === "waiting" && (
-        <MainModal
+      {props.defaultModal === "waiting" && (
+        <WaitingModal
           title="Please select a waiting list"
           active={modalActive}
           setActive={setModalActive}
@@ -175,11 +175,18 @@ function SecondBlock(props) {
           mainProps={props.mainProps}
           userData={props.userData}
           setUserData={props.setUserData}
+          selectedDay={selectedDay}
+          makeOrder={props.makeOrder}
+          times={props.times}
+          setTimes={props.setTimes}
+          selectedTime={props.selectedTime}
+          setSelectedTime={props.setSelectedTime}
+          setDefaultModal={props.setDefaultModal}
         />
-      )} */}
-      {props.defaultModal === "waiting" && (
+      )}
+      {props.defaultModal === "agreements" && (
         <WaitingModal
-          title="Please select a waiting list"
+          title="Confirm waiting list conditions"
           active={modalActive}
           setActive={setModalActive}
           callback={props.postRequest}

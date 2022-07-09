@@ -24,6 +24,8 @@
   display: flex;
   align-items: center;
   margin: 20px 0px 30px -40px;
+  margin: 20px 0px 30px 0px;
+  justify-content: center;
 }
 
 @media (max-width: 1024px) {
