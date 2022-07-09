@@ -16,8 +16,6 @@ function LastBlock(props) {
     setModalActive(true);
   };
 
-  console.log("Default Modal: ", props.defaultModal);
-
   const makeOrderDone = (e) => {
     e.preventDefault();
     props.makeOrder();

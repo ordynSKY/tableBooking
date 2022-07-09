@@ -25,7 +25,6 @@ export default function MainModal(props) {
     >
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         <div className="title modal-title">{title}</div>
-
         {defaultModal !== "done" && (
           <form className="form form-modal">
             <div className="form-name">

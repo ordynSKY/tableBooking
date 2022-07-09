@@ -10,19 +10,6 @@ import myAxios from "./API";
 import { utils } from "react-modern-calendar-datepicker";
 
 const App = () => {
-  // Get place_id
-
-  const getAddress = () => {
-    const placeId = Number(
-      window.location.pathname.slice(
-        window.location.pathname.lastIndexOf("/") + 1
-      )
-    );
-    return placeId && placeId !== NaN ? placeId : 2;
-  };
-
-  console.log("Windwo Location: ", window.location);
-
   const ref = useRef(null);
 
   const handleChangeItem = () => {
@@ -71,7 +58,6 @@ const App = () => {
   }));
 
   const getDates = (day) => {
-    console.log("PLACE_ID: ", getAddress());
     myAxios
       .get("/api/free_dates", {
         params: {
@@ -93,10 +79,6 @@ const App = () => {
         console.log("Error", error);
       });
   };
-
-  // useEffect(() => {
-  //   getDates(utils().getToday());
-  // }, []);
 
   // New state
 
@@ -208,8 +190,6 @@ const App = () => {
 
   // getTime request
 
-  const normalizeNumber = (number) => (number < 10 ? "0" + number : number);
-
   const [times, setTimes] = useState([]);
 
   const getTime = (day) => {
@@ -280,27 +260,80 @@ const App = () => {
     country: "",
   });
 
-  const getRestaurantInfo = () => {
+  // Optimized Request
+
+  const getAddress = () => {
+    const placeId = Number(
+      window.location.pathname.slice(
+        window.location.pathname.lastIndexOf("/") + 1
+      )
+    );
+    return placeId && !placeId.isNaN() ? placeId : 2;
+  };
+
+  const normalizeNumber = (number) => (number < 10 ? `0${number}` : number);
+
+  const getDatesTimeInfo = (url, day, type) => {
+    const localUrl = url || `/api/free_${type}`;
+    let params =
+      type === "info"
+        ? {}
+        : {
+            place_id: getAddress(),
+            area_id: 1,
+            seats: guestValue,
+          };
+    if (type === "dates") {
+      params = {
+        ...params,
+        from: `${day.year}-${normalizeNumber(day.month)}-01`,
+        to: `${day.year}-${normalizeNumber(day.month)}-${new Date(
+          day.year,
+          day.month,
+          0
+        ).getDate()}`,
+      };
+    }
+    if (type === "time") {
+      params = {
+        ...params,
+        date: `${day.year}-${normalizeNumber(day.month)}-${normalizeNumber(
+          day.day
+        )}`,
+      };
+    }
     myAxios
-      .get("/api/places/2")
+      .get(localUrl, {
+        params,
+      })
       .then((response) => {
-        setRestaurantInfo({
-          ...restaurantInfo,
-          address: response.data.address,
-          city: response.data.city,
-          name: response.data.name,
-          zip_code: response.data.zip_code,
-          country: response.data.country.name,
-        });
+        if (type === "dates") {
+          setDates(response.data);
+        }
+        if (type === "time") {
+          const timesArray = response.data?.map((time) => ({
+            time: String(time.slice(11, 19)),
+            active: true,
+            shortTime: String(time.slice(11, 16)),
+          }));
+          setTimes(timesArray);
+        }
+        if (type === "info") {
+          setRestaurantInfo((prev) => ({
+            ...prev,
+            ...response.data,
+            country: response.data.country.name,
+          }));
+        }
       })
       .catch((error) => {
-        console.log("Restaurant Info error: ", error);
+        console.log(`${type} error: `, error);
       });
   };
 
   useEffect(() => {
-    getRestaurantInfo();
-    getDates(utils().getToday());
+    getDatesTimeInfo(`/api/places/${getAddress()}`, 0, "info");
+    getDatesTimeInfo("", utils().getToday(), "dates");
   }, []);
 
   return (
@@ -347,6 +380,7 @@ const App = () => {
             setTimes={setTimes}
             selectedTime={selectedTime}
             setSelectedTime={setSelectedTime}
+            getDatesTimeInfo={getDatesTimeInfo}
           />
         </div>
 

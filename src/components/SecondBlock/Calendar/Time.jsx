@@ -39,7 +39,7 @@ function Time(props) {
                 >
                   <button
                     className={`time-button${
-                      activeButton === i ? " active" : ""
+                      activeButton === i ? " active-button" : ""
                     }`}
                   >
                     {oneTime.shortTime}

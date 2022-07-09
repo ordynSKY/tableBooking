@@ -4,11 +4,11 @@ import "./SecondBlock.css";
 import SelectLang from "../FirstBlock/SelectLang/SelectLang";
 import Copyrigth from "../FirstBlock/Copyrigth/Copyrigth";
 import Time from "./Calendar/Time";
-import Cal from "./Calendar/Cal";
 import { useState } from "react";
 import MainModal from "../MainModal/MainModal";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import { Calendar, utils } from "react-modern-calendar-datepicker";
+import WaitingModal from "./WaitingModal/WaitingModal";
 
 function SecondBlock(props) {
   const [modalActive, setModalActive] = useState(false);
@@ -33,7 +33,7 @@ function SecondBlock(props) {
 
   const setCalendarValue = (day) => {
     setSelectedDay(day);
-    props.getTime(day);
+    props.getDatesTimeInfo("", day, "time");
   };
 
   const setMonthUp = () => {
@@ -44,7 +44,7 @@ function SecondBlock(props) {
       tempDay = { ...tempDay, month: tempDay.month + 1 };
     }
     setSelectedDay(tempDay);
-    props.getDates(tempDay);
+    props.getDatesTimeInfo("", tempDay, "dates");
   };
 
   const setMonthDown = () => {
@@ -55,24 +55,16 @@ function SecondBlock(props) {
       tempDay = { ...tempDay, month: tempDay.month - 1 };
     }
     setSelectedDay(tempDay);
-    props.getDates(tempDay);
+    props.getDatesTimeInfo("", tempDay, "dates");
   };
 
-  // const minimumDate = {
-  //   year: 2022,
-  //   month: 7,
-  //   day: 1,
-  // };
+  const showModalWindow = (e) => {
+    e.preventDefault();
+    props.setDefaultModal("waiting");
+    setModalActive(true);
+  };
 
-  // const maximumDate = {
-  //   year: 2022,
-  //   month: 7,
-  //   day: 31,
-  // };
-
-  // const addToWait = () => {
-  //   setModalActive(true);
-  // };
+  console.log("Selected Day: ", props.defaultModal);
 
   return (
     <div className="content">
@@ -107,8 +99,6 @@ function SecondBlock(props) {
               onChange={(day) => setCalendarValue(day)}
               shouldHighlightWeekends
               disabledDays={getDisabledDays()}
-              // minimumDate={minimumDate}
-              // maximumDate={maximumDate}
             />
           </div>
           <Time
@@ -126,7 +116,11 @@ function SecondBlock(props) {
           </div>
           <div className="footer">
             <p className="subtitle">Cannot find a suitable time?</p>
-            <button href="/#" className="waiting-list">
+            <button
+              href="/#"
+              className="waiting-list"
+              onClick={(e) => showModalWindow(e)}
+            >
               Add me to the waiting list
             </button>
             <Copyrigth />
@@ -168,6 +162,38 @@ function SecondBlock(props) {
           mainProps={props.mainProps}
           userData={props.userData}
           setUserData={props.setUserData}
+        />
+      )}
+      {/* {props.defaultModal === "waiting" && (
+        <MainModal
+          title="Please select a waiting list"
+          active={modalActive}
+          setActive={setModalActive}
+          callback={props.postRequest}
+          errorsResp={props.errorsResp}
+          defaultModal={props.defaultModal}
+          mainProps={props.mainProps}
+          userData={props.userData}
+          setUserData={props.setUserData}
+        />
+      )} */}
+      {props.defaultModal === "waiting" && (
+        <WaitingModal
+          title="Please select a waiting list"
+          active={modalActive}
+          setActive={setModalActive}
+          callback={props.postRequest}
+          errorsResp={props.errorsResp}
+          defaultModal={props.defaultModal}
+          mainProps={props.mainProps}
+          userData={props.userData}
+          setUserData={props.setUserData}
+          selectedDay={selectedDay}
+          makeOrder={props.makeOrder}
+          times={props.times}
+          setTimes={props.setTimes}
+          selectedTime={props.selectedTime}
+          setSelectedTime={props.setSelectedTime}
         />
       )}
     </div>
