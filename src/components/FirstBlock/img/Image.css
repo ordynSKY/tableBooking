@@ -5,7 +5,6 @@
 .main-image_picture {
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
 }
 

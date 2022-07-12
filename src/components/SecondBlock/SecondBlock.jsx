@@ -4,7 +4,6 @@ import "./SecondBlock.css";
 import SelectLang from "../FirstBlock/SelectLang/SelectLang";
 import Copyrigth from "../FirstBlock/Copyrigth/Copyrigth";
 import Time from "./Calendar/Time";
-import { useState } from "react";
 import MainModal from "../MainModal/MainModal";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import { Calendar } from "react-modern-calendar-datepicker";
@@ -75,10 +74,11 @@ function SecondBlock(props) {
     } else {
       setModalActive(true);
     }
+    props.setBlockType("lastblock");
   };
 
-  console.log("Selected Day: ", props.defaultModal);
-  console.log("Active: ", modalActive);
+  console.log("Selected Day: ", props.blockType);
+  console.log("Active: ", props);
 
   const getTitle = {
     waiting: "Please select a waiting list",
@@ -122,13 +122,41 @@ function SecondBlock(props) {
               disabledDays={getDisabledDays()}
             />
           </div>
-          <Time
+          {/* <Time
             makeOrder={props.makeOrder}
             times={props.times}
             setTimes={props.setTimes}
             selectedTime={props.selectedTime}
             setSelectedTime={props.setSelectedTime}
-          />
+          /> */}
+          {props.blockType === "secondblock" && (
+            <div>
+              <div className="select-time">
+                <p className="select-time-title">Eat & talk 120 minutes</p>
+                Denne booking tid giver dig tid til at nyde op til 3 retter med
+                god tid til en snak også
+                <Time
+                  makeOrder={props.makeOrder}
+                  times={props.times}
+                  setTimes={props.setTimes}
+                  selectedTime={props.selectedTime}
+                  setSelectedTime={props.setSelectedTime}
+                />
+              </div>
+              <div className="select-time">
+                <p className="select-time-title">Eat & stay +180 minutes</p>
+                Denne booking giver dig bordet hele aftenen og tid til at nyde
+                lige så mange retter du har lyst til
+                <Time
+                  makeOrder={props.makeOrder}
+                  times={props.times}
+                  setTimes={props.setTimes}
+                  selectedTime={props.selectedTime}
+                  setSelectedTime={props.setSelectedTime}
+                />
+              </div>
+            </div>
+          )}
           <div className="button-main next-button" onClick={checkToken}>
             Next →
           </div>

@@ -48,6 +48,11 @@ function LastBlock(props) {
     }
   };
 
+  const changeType = () => {
+    props.handlePrevItem();
+    props.setBlockType("secondblock");
+  };
+
   return (
     <div className="content">
       <Image />
@@ -55,7 +60,7 @@ function LastBlock(props) {
         <div className="main-block__body">
           <div className="nav">
             <div className="back">
-              <a href="/#" className="back-link" onClick={props.handlePrevItem}>
+              <a href="/#" className="back-link" onClick={changeType}>
                 ← Back
               </a>{" "}
               |{" "}

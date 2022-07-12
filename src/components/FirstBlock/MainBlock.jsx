@@ -11,6 +11,11 @@ import Copyrigth from "./Copyrigth/Copyrigth.jsx";
 function MainBlock(props) {
   const isValid = props.guestValue;
 
+  const changeType = () => {
+    props.handleChangeItem();
+    props.setBlockType("secondblock");
+  };
+
   return (
     <div className="content">
       <Image getAddress={props.getAddress} />
@@ -25,7 +30,7 @@ function MainBlock(props) {
           />
           <button
             className="button-main"
-            onClick={props.handleChangeItem}
+            onClick={changeType}
             disabled={!isValid}
           >
             {props.mainProps.title}

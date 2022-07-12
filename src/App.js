@@ -168,6 +168,7 @@ const App = () => {
 
   // Email check
   const [defaultModal, setDefaultModal] = useState("email");
+  const [blockType, setBlockType] = useState("mainblock");
 
   // Login request
 
@@ -346,6 +347,8 @@ const App = () => {
     getDatesTimeInfo("", utils().getToday(), "dates");
   }, []);
 
+  console.log(defaultModal);
+
   return (
     <div>
       <Carousel
@@ -365,6 +368,8 @@ const App = () => {
             guestValue={guestValue}
             mainProps={mainProps}
             getAddress={getAddress}
+            blockType={blockType}
+            setBlockType={setBlockType}
           />
         </div>
         <div>
@@ -395,6 +400,8 @@ const App = () => {
             modalActive={modalActive}
             setModalActive={setModalActive}
             makeOrder={makeOrder}
+            blockType={blockType}
+            setBlockType={setBlockType}
           />
         </div>
 
@@ -422,6 +429,8 @@ const App = () => {
             allowNews={allowNews}
             setAllowNews={setAllowNews}
             restaurantInfo={restaurantInfo}
+            blockType={blockType}
+            setBlockType={setBlockType}
           />
         </div>
       </Carousel>

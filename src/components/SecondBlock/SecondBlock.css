@@ -149,6 +149,17 @@
   display: none;
 }
 
+.select-time-title {
+  margin-top: 18px;
+  font-family: "Lusitana";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 100%;
+  letter-spacing: 4px;
+  color: #333333;
+}
+
 @media (max-width: 1024px) {
   .second-block__datepicker {
     margin: auto;
