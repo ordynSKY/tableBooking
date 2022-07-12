@@ -18,7 +18,7 @@ function Time(props) {
     document.querySelector(".block-button__slider").scrollLeft -= 200;
   };
 
-  const newTimeArray = props.times?.map((one) => one.shortTime);
+  // const newTimeArray = props.times?.map((one) => one.shortTime);
 
   return (
     <div className="mainblock">

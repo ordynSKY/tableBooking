@@ -14,7 +14,9 @@ export default function MainModal(props) {
   const getUrl = {
     register: "/api/customers/register",
     email: "/api/customers/verify",
+    emailWait: "/api/customers/verify",
     login: "/api/customers/login",
+    loginWait: "/api/customers/login",
     edit: "/api/customers",
   };
 
@@ -55,7 +57,9 @@ export default function MainModal(props) {
               {(defaultModal === "register" ||
                 defaultModal === "edit" ||
                 defaultModal === "login" ||
-                defaultModal === "email") && (
+                defaultModal === "email" ||
+                defaultModal === "loginWait" ||
+                defaultModal === "emailWait") && (
                 <input
                   type="email"
                   className="form-name__email"
@@ -91,6 +95,7 @@ export default function MainModal(props) {
             </div>
             <div className="form-password">
               {(defaultModal === "login" ||
+                defaultModal === "loginWait" ||
                 defaultModal === "register" ||
                 defaultModal === "edit") && (
                 <input
@@ -118,7 +123,9 @@ export default function MainModal(props) {
         {(defaultModal === "register" ||
           defaultModal === "edit" ||
           defaultModal === "login" ||
-          defaultModal === "email") && (
+          defaultModal === "email" ||
+          defaultModal === "loginWait" ||
+          defaultModal === "emailWait") && (
           <div className="modal-button">
             <button
               className="button-main"

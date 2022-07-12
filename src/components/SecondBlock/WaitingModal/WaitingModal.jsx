@@ -1,16 +1,40 @@
-import React from "react";
 import Time from "../Calendar/Time";
 import "./WaitingModal.css";
 
 export default function WaitingModal(props) {
   const dispErrors = props.errorsResp;
-  const { title, defaultModal, setActive, selectedDay } = props;
+  const {
+    title,
+    defaultModal,
+    setDefaultModal,
+    setActive,
+    selectedDay,
+    restaurantInfo,
+    selectedTime,
+  } = props;
 
   const setType = () => {
-    props.setDefaultModal("agreements");
+    if (defaultModal === "waiting") {
+      props.setDefaultModal("agreements");
+    }
+    if (defaultModal === "agreements" && localStorage.getItem("token")) {
+      setDefaultModal("submit");
+      props.getUserInfoReq();
+    } else if (defaultModal === "agreements") {
+      setDefaultModal("emailWait");
+    }
   };
 
-  console.log("Default Modal: ", defaultModal);
+  const makeOrderDone = () => {
+    props.makeOrder();
+    props.setModalActive(true);
+    // setTimeout(() => {
+    //   window.location.href = "/";
+    // }, 4000);
+    setDefaultModal("ordered");
+  };
+
+  console.log("Default: ", defaultModal);
 
   return (
     <div
@@ -46,11 +70,110 @@ export default function WaitingModal(props) {
             you have read and understood the above conditions
           </p>
         )}
-        <div className="modal-button">
-          <button className="button-main" onClick={() => setType()}>
-            Continue →
-          </button>
-        </div>
+        {(defaultModal === "submit" || defaultModal === "ordered") && (
+          <div>
+            <div
+              className="info-body"
+              style={{ backgroundColor: "#f6f6f6", paddingBottom: "9px" }}
+            >
+              <div className="restaurant-info">
+                <div className="restaurant-name">{restaurantInfo.name}</div>
+                <div className="adress">
+                  {restaurantInfo.address}
+                  <br />
+                  {restaurantInfo.zip_code} {restaurantInfo.city}
+                  <br />
+                  {restaurantInfo.country}
+                </div>
+                <div className="guests-date">
+                  Guests: &nbsp;
+                  <b>{props.guestValue}</b>
+                  <br />
+                  Day/time: &nbsp;
+                  <b>
+                    {`${selectedDay.day}-${selectedDay.month}-${selectedDay.year}`}{" "}
+                    {selectedTime.slice(0, 5)}
+                  </b>
+                </div>
+              </div>
+              <div className="client-info">
+                <div className="client-title">Your contact information</div>
+                <div className="client-adress">
+                  {props.userData.first_name} {props.userData.last_name}
+                  <br />
+                  {props.userData.email}
+                  <br />
+                  {props.userData.phone}
+                  <br />
+                  {props.userData.zip_code}
+                </div>
+                <div className="guests-date">
+                  Not correct?
+                  <br />
+                  <a href="/#">Edit my information</a>
+                  &nbsp;
+                  <a href="/">Not me</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        {defaultModal !== "waiting" &&
+          defaultModal !== "agreements" &&
+          defaultModal !== "ordered" && (
+            <div className="form">
+              <div className="title-comment-waiting">Add a comment</div>
+              <div>
+                <input
+                  type="text"
+                  className="form-comment-waiting"
+                  placeholder="Add the comment"
+                />
+              </div>
+            </div>
+          )}
+
+        {(defaultModal === "waiting" || defaultModal === "agreements") && (
+          <div className="modal-button">
+            <button
+              type="button"
+              className="button-main"
+              onClick={() => setType()}
+            >
+              Continue →
+            </button>
+          </div>
+        )}
+        {defaultModal === "submit" && (
+          <div className="modal-button">
+            <button
+              type="button"
+              className="button-main"
+              onClick={() => makeOrderDone()}
+            >
+              Continue →
+            </button>
+          </div>
+        )}
+        {defaultModal === "ordered" && (
+          <div style={{ marginTop: "50px" }}>
+            <div>
+              <a href="/#" className="waiting-footer">
+                Go back to the restaurant profile page
+              </a>
+            </div>
+            <div>
+              <a href="/#" className="waiting-footer">
+                Cancel a booking
+              </a>
+            </div>
+            <div>
+              <a href="/" className="waiting-footer">
+                New booking
+              </a>
+            </div>
+          </div>
+        )}
         {(defaultModal === "register" ||
           defaultModal === "edit" ||
           defaultModal === "login" ||

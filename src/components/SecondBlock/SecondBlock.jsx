@@ -7,13 +7,17 @@ import Time from "./Calendar/Time";
 import { useState } from "react";
 import MainModal from "../MainModal/MainModal";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
-import { Calendar, utils } from "react-modern-calendar-datepicker";
+import { Calendar } from "react-modern-calendar-datepicker";
 import WaitingModal from "./WaitingModal/WaitingModal";
 
 function SecondBlock(props) {
-  const [modalActive, setModalActive] = useState(false);
-
-  const { datesArray, selectedDay, setSelectedDay } = props;
+  const {
+    datesArray,
+    selectedDay,
+    setSelectedDay,
+    setModalActive,
+    modalActive,
+  } = props;
 
   const newDateArray = datesArray?.map((one) => one.day);
 
@@ -64,7 +68,24 @@ function SecondBlock(props) {
     setModalActive(true);
   };
 
+  const checkToken = () => {
+    if (localStorage.getItem("token")) {
+      props.getUserInfoReq();
+      props.handleChangeItem();
+    } else {
+      setModalActive(true);
+    }
+  };
+
   console.log("Selected Day: ", props.defaultModal);
+  console.log("Active: ", modalActive);
+
+  const getTitle = {
+    waiting: "Please select a waiting list",
+    agreements: "Confirm waiting list conditions",
+    submit: "You are about to be added to the waiting list",
+    ordered: `Thanks ${props.userData.first_name} - you have been added to the waiting list`,
+  };
 
   return (
     <div className="content">
@@ -108,10 +129,7 @@ function SecondBlock(props) {
             selectedTime={props.selectedTime}
             setSelectedTime={props.setSelectedTime}
           />
-          <div
-            className="button-main next-button"
-            onClick={() => setModalActive(true)}
-          >
+          <div className="button-main next-button" onClick={checkToken}>
             Next →
           </div>
           <div className="footer">
@@ -127,7 +145,8 @@ function SecondBlock(props) {
           </div>
         </div>
       </div>
-      {props.defaultModal === "email" && (
+      {(props.defaultModal === "email" ||
+        props.defaultModal === "emailWait") && (
         <MainModal
           title="Please enter your email to continue"
           active={modalActive}
@@ -139,7 +158,8 @@ function SecondBlock(props) {
           setUserData={props.setUserData}
         />
       )}
-      {props.defaultModal === "login" && (
+      {(props.defaultModal === "login" ||
+        props.defaultModal === "loginWait") && (
         <MainModal
           title="Please enter your email and password to continue"
           active={modalActive}
@@ -164,9 +184,12 @@ function SecondBlock(props) {
           setUserData={props.setUserData}
         />
       )}
-      {props.defaultModal === "waiting" && (
+      {(props.defaultModal === "waiting" ||
+        props.defaultModal === "agreements" ||
+        props.defaultModal === "submit" ||
+        props.defaultModal === "ordered") && (
         <WaitingModal
-          title="Please select a waiting list"
+          title={getTitle[props.defaultModal] || ""}
           active={modalActive}
           setActive={setModalActive}
           callback={props.postRequest}
@@ -182,9 +205,13 @@ function SecondBlock(props) {
           selectedTime={props.selectedTime}
           setSelectedTime={props.setSelectedTime}
           setDefaultModal={props.setDefaultModal}
+          restaurantInfo={props.restaurantInfo}
+          guestValue={props.guestValue}
+          getUserInfoReq={props.getUserInfoReq}
+          setModalActive={setModalActive}
         />
       )}
-      {props.defaultModal === "agreements" && (
+      {/* {props.defaultModal === "agreements" && (
         <WaitingModal
           title="Confirm waiting list conditions"
           active={modalActive}
@@ -202,7 +229,26 @@ function SecondBlock(props) {
           selectedTime={props.selectedTime}
           setSelectedTime={props.setSelectedTime}
         />
-      )}
+      )} */}
+      {/* {props.defaultModal === "submit" && (
+        <WaitingModal
+          title="You are about to be added to the waiting list"
+          active={modalActive}
+          setActive={setModalActive}
+          callback={props.postRequest}
+          errorsResp={props.errorsResp}
+          defaultModal={props.defaultModal}
+          mainProps={props.mainProps}
+          userData={props.userData}
+          setUserData={props.setUserData}
+          selectedDay={selectedDay}
+          makeOrder={props.makeOrder}
+          times={props.times}
+          setTimes={props.setTimes}
+          selectedTime={props.selectedTime}
+          setSelectedTime={props.setSelectedTime}
+        />
+      )} */}
     </div>
   );
 }

@@ -57,28 +57,28 @@ const App = () => {
     day: Number(data.slice(8, 10)),
   }));
 
-  const getDates = (day) => {
-    myAxios
-      .get("/api/free_dates", {
-        params: {
-          place_id: getAddress(),
-          area_id: 1,
-          seats: guestValue,
-          from: `${day.year}-${
-            day.month < 10 ? "0" + day.month : day.month
-          }-01`,
-          to: `${day.year}-${
-            day.month < 10 ? "0" + day.month : day.month
-          }-${new Date(day.year, day.month, 0).getDate()}`,
-        },
-      })
-      .then((response) => {
-        setDates(response.data);
-      })
-      .catch((error) => {
-        console.log("Error", error);
-      });
-  };
+  // const getDates = (day) => {
+  //   myAxios
+  //     .get("/api/free_dates", {
+  //       params: {
+  //         place_id: getAddress(),
+  //         area_id: 1,
+  //         seats: guestValue,
+  //         from: `${day.year}-${
+  //           day.month < 10 ? "0" + day.month : day.month
+  //         }-01`,
+  //         to: `${day.year}-${
+  //           day.month < 10 ? "0" + day.month : day.month
+  //         }-${new Date(day.year, day.month, 0).getDate()}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       setDates(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log("Error", error);
+  //     });
+  // };
 
   // New state
 
@@ -111,6 +111,8 @@ const App = () => {
 
   // Register request
 
+  const [modalActive, setModalActive] = useState(false);
+
   const postRequest = (data, url, type) => {
     const config =
       type === "logout" || type === "edit"
@@ -135,11 +137,20 @@ const App = () => {
           localStorage.setItem("token", response.data.token);
           handleChangeItem();
         }
-        type === "email" && setDefaultModal("login");
         type === "login" && getUserInfoReq();
+        if (type === "loginWait") {
+          localStorage.setItem("token", response.data.token);
+          getUserInfoReq();
+          setDefaultModal("submit");
+        }
+        type === "email" && setDefaultModal("login");
+        type === "emailWait" && setDefaultModal("loginWait");
         if (type === "logout") {
           localStorage.removeItem("token");
           window.location.reload();
+        }
+        if (type === "login") {
+          setModalActive(false);
         }
       })
       .catch((error) => {
@@ -212,39 +223,6 @@ const App = () => {
         }));
         setTimes(timesArray);
       })
-      .catch((error) => {
-        console.log("Error: ", error);
-      });
-  };
-
-  // Make order request
-
-  const [isTakeAway, setIsTakeAway] = useState(0);
-  const [selectedTime, setSelectedTime] = useState("18:00");
-
-  const makeOrder = (oneTime) => {
-    myAxios
-      .post(
-        "/api/make_order",
-        {
-          place_id: getAddress(),
-          area_id: 1,
-          seats: guestValue,
-          reservation_time: `${selectedDay.year}-${
-            selectedDay.month < 10 ? "0" + selectedDay.month : selectedDay.month
-          }-${
-            selectedDay.day < 10 ? "0" + selectedDay.day : selectedDay.day
-          } ${selectedTime}`,
-          comment: "",
-          is_take_away: isTakeAway,
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-      .then((response) => {})
       .catch((error) => {
         console.log("Error: ", error);
       });
@@ -331,6 +309,38 @@ const App = () => {
       });
   };
 
+  // Make order request
+
+  const [isTakeAway, setIsTakeAway] = useState(0);
+  const [selectedTime, setSelectedTime] = useState("18:00");
+
+  const makeOrder = () => {
+    myAxios
+      .post(
+        "/api/make_order",
+        {
+          place_id: getAddress(),
+          area_id: 1,
+          seats: guestValue,
+          reservation_time: `${selectedDay.year}-${normalizeNumber(
+            selectedDay.month
+          )}-${normalizeNumber(selectedDay.day)} ${selectedTime}`,
+          comment: "",
+          is_take_away: isTakeAway,
+          status: defaultModal === "submit" ? "waiting" : "",
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((response) => {})
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
+  };
+
   useEffect(() => {
     getDatesTimeInfo(`/api/places/${getAddress()}`, 0, "info");
     getDatesTimeInfo("", utils().getToday(), "dates");
@@ -375,12 +385,16 @@ const App = () => {
             setUserData={setUserData}
             datesArray={datesArray}
             getTime={getTime}
-            getDates={getDates}
             times={times}
             setTimes={setTimes}
             selectedTime={selectedTime}
             setSelectedTime={setSelectedTime}
             getDatesTimeInfo={getDatesTimeInfo}
+            restaurantInfo={restaurantInfo}
+            getUserInfoReq={getUserInfoReq}
+            modalActive={modalActive}
+            setModalActive={setModalActive}
+            makeOrder={makeOrder}
           />
         </div>
 
