@@ -9,8 +9,6 @@ import "./components/FourthBlock/FourthBlock.css";
 import myAxios from "./API";
 import { utils } from "react-modern-calendar-datepicker";
 
-//check
-
 const App = () => {
   const ref = useRef(null);
 
