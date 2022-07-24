@@ -57,29 +57,6 @@ const App = () => {
     day: Number(data.slice(8, 10)),
   }));
 
-  // const getDates = (day) => {
-  //   myAxios
-  //     .get("/api/free_dates", {
-  //       params: {
-  //         place_id: getAddress(),
-  //         area_id: 1,
-  //         seats: guestValue,
-  //         from: `${day.year}-${
-  //           day.month < 10 ? "0" + day.month : day.month
-  //         }-01`,
-  //         to: `${day.year}-${
-  //           day.month < 10 ? "0" + day.month : day.month
-  //         }-${new Date(day.year, day.month, 0).getDate()}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       setDates(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error", error);
-  //     });
-  // };
-
   // New state
 
   const [allowEmails, setAllowEmails] = useState(0);
@@ -97,6 +74,7 @@ const App = () => {
     allow_send_news: allowNews,
     language: "en",
     address: "",
+    bookingid: "",
   });
   const mainProps = {
     title: "Next →",
@@ -314,6 +292,8 @@ const App = () => {
 
   const [isTakeAway, setIsTakeAway] = useState(0);
   const [selectedTime, setSelectedTime] = useState("18:00");
+  const [timeline, setTimeline] = useState("");
+  const [orderResponse, setOrderResponse] = useState();
 
   const makeOrder = () => {
     myAxios
@@ -329,6 +309,7 @@ const App = () => {
           comment: "",
           is_take_away: isTakeAway,
           status: defaultModal === "submit" ? "waiting" : "",
+          length: timeline,
         },
         {
           headers: {
@@ -336,7 +317,10 @@ const App = () => {
           },
         }
       )
-      .then((response) => {})
+      .then((response) => {
+        setOrderResponse(response.data);
+        console.log("Order Response: ", response);
+      })
       .catch((error) => {
         console.log("Error: ", error);
       });
@@ -347,7 +331,56 @@ const App = () => {
     getDatesTimeInfo("", utils().getToday(), "dates");
   }, []);
 
+  console.log("Order State: ", orderResponse);
+
+  // Cancel order
+
+  const cancelOrder = () => {
+    myAxios.delete(`/api/cancel_order/${orderResponse?.id || ""}`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+  };
+
+  // Getting extra time
+  const [extraTimeReq, setExtraTimeReq] = useState();
+  const [extraTime, setExtraTime] = useState({});
+
+  const getExtraTime = () => {
+    myAxios
+      .get("/api/custom_booking_lengths", {
+        params: {
+          place_id: getAddress(),
+          area_id: 1,
+          seats: guestValue,
+          reservation_date: `${selectedDay.year}-${normalizeNumber(
+            selectedDay.month
+          )}-${normalizeNumber(selectedDay.day)}`,
+          language: "en",
+        },
+      })
+      .then((response) => {
+        const extraTimesArray = response.data[0]?.time.map((time) => ({
+          time: String(time.slice(11, 19)),
+          active: true,
+          shortTime: String(time.slice(11, 16)),
+        }));
+        console.log("Extra Time: ", response.data[0]);
+        setExtraTimeReq(response.data[0]);
+        setExtraTime(extraTimesArray);
+      })
+      .catch((error) => {
+        console.log("Extra time errror: ", error);
+      });
+  };
+
+  useEffect(() => {
+    getExtraTime();
+  }, []);
+
   console.log(defaultModal);
+  console.log("Extra time state: ", extraTime);
 
   return (
     <div>
@@ -370,6 +403,33 @@ const App = () => {
             getAddress={getAddress}
             blockType={blockType}
             setBlockType={setBlockType}
+            defaultModal={defaultModal}
+            setDefaultModal={setDefaultModal}
+            modalActive={modalActive}
+            setModalActive={setModalActive}
+            postRequest={postRequest}
+            userData={userData}
+            setUserData={setUserData}
+            handlePrevItem={handlePrevItem}
+            selectedDate={selectedDate}
+            handleDateChange={handleDateChange}
+            selectedDay={selectedDay}
+            setSelectedDay={setSelectedDay}
+            handleDayChange={handleDayChange}
+            errorsResp={errorsResp}
+            datesArray={datesArray}
+            getTime={getTime}
+            times={times}
+            setTimes={setTimes}
+            selectedTime={selectedTime}
+            setSelectedTime={setSelectedTime}
+            getDatesTimeInfo={getDatesTimeInfo}
+            restaurantInfo={restaurantInfo}
+            getUserInfoReq={getUserInfoReq}
+            makeOrder={makeOrder}
+            timeline={timeline}
+            setTimeline={setTimeline}
+            cancelOrder={cancelOrder}
           />
         </div>
         <div>
@@ -402,6 +462,11 @@ const App = () => {
             makeOrder={makeOrder}
             blockType={blockType}
             setBlockType={setBlockType}
+            timeline={timeline}
+            setTimeline={setTimeline}
+            setExtraTime={setExtraTime}
+            extraTime={extraTime}
+            extraTimeReq={extraTimeReq}
           />
         </div>
 
@@ -431,6 +496,7 @@ const App = () => {
             restaurantInfo={restaurantInfo}
             blockType={blockType}
             setBlockType={setBlockType}
+            orderResponse={orderResponse}
           />
         </div>
       </Carousel>

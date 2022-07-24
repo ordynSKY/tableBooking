@@ -5,7 +5,14 @@ import "./MainModal.css";
 
 export default function MainModal(props) {
   const dispErrors = props.errorsResp;
-  const { title, setUserData, userData, defaultModal, setActive } = props;
+  const {
+    title,
+    setUserData,
+    userData,
+    defaultModal,
+    setActive,
+    orderResponse,
+  } = props;
 
   const setInput = (name, value) => {
     setUserData((prev) => ({ ...prev, [name]: value }));
@@ -136,6 +143,9 @@ export default function MainModal(props) {
               Continue →
             </button>
           </div>
+        )}
+        {defaultModal === "done" && (
+          <h2>Your booking ID: {orderResponse.id}</h2>
         )}
         {(defaultModal === "register" ||
           defaultModal === "edit" ||

@@ -19,6 +19,7 @@ function Time(props) {
   };
 
   // const newTimeArray = props.times?.map((one) => one.shortTime);
+  console.log("Extra Time short: ", props.extraTime);
 
   return (
     <div className="mainblock">
@@ -27,7 +28,7 @@ function Time(props) {
       </button>
       <div className="block-button__slider">
         {Children.toArray(
-          props.times?.map((oneTime, i) => {
+          props.extraTime?.map((oneTime, i) => {
             return (
               <div className="block-buttons">
                 <div

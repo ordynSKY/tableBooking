@@ -7,7 +7,7 @@ function Image(props) {
     const placeId = window.location.pathname.slice(
       window.location.pathname.lastIndexOf("/") + 1
     );
-    return placeId && placeId !== NaN ? placeId : 2;
+    return placeId && placeId !== isNaN ? placeId : 2;
   };
 
   const [mainImage, setMainImage] = useState(null);

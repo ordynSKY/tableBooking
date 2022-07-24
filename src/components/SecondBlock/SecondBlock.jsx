@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "../FirstBlock/img/Image";
 import "./SecondBlock.css";
 import SelectLang from "../FirstBlock/SelectLang/SelectLang";
@@ -16,7 +16,15 @@ function SecondBlock(props) {
     setSelectedDay,
     setModalActive,
     modalActive,
+    timeline,
+    setTimeline,
   } = props;
+
+  const setTimelineType = (type) => {
+    setTimeline(type);
+  };
+
+  console.log("Time Type: ", timeline);
 
   const newDateArray = datesArray?.map((one) => one.day);
 
@@ -132,29 +140,42 @@ function SecondBlock(props) {
           {props.blockType === "secondblock" && (
             <div>
               <div className="select-time">
-                <p className="select-time-title">Eat & talk 120 minutes</p>
-                Denne booking tid giver dig tid til at nyde op til 3 retter med
-                god tid til en snak også
-                <Time
-                  makeOrder={props.makeOrder}
-                  times={props.times}
-                  setTimes={props.setTimes}
-                  selectedTime={props.selectedTime}
-                  setSelectedTime={props.setSelectedTime}
-                />
+                <p
+                  className="select-time-title"
+                  onClick={() => setTimelineType(120)}
+                >
+                  {props.extraTimeReq.name}
+                </p>
+                {props.extraTimeReq.description}
+                {timeline === 120 && (
+                  <Time
+                    makeOrder={props.makeOrder}
+                    extraTime={props.extraTime}
+                    setExtraTime={props.setExtraTime}
+                    selectedTime={props.selectedTime}
+                    setSelectedTime={props.setSelectedTime}
+                  />
+                )}
               </div>
-              <div className="select-time">
-                <p className="select-time-title">Eat & stay +180 minutes</p>
+              {/* <div className="select-time">
+                <p
+                  className="select-time-title"
+                  onClick={() => setTimelineType(180)}
+                >
+                  Eat & stay +180 minutes
+                </p>
                 Denne booking giver dig bordet hele aftenen og tid til at nyde
                 lige så mange retter du har lyst til
-                <Time
-                  makeOrder={props.makeOrder}
-                  times={props.times}
-                  setTimes={props.setTimes}
-                  selectedTime={props.selectedTime}
-                  setSelectedTime={props.setSelectedTime}
-                />
-              </div>
+                {timeline === 180 && (
+                  <Time
+                    makeOrder={props.makeOrder}
+                    times={props.times}
+                    setTimes={props.setTimes}
+                    selectedTime={props.selectedTime}
+                    setSelectedTime={props.setSelectedTime}
+                  />
+                )}
+              </div> */}
             </div>
           )}
           <div className="button-main next-button" onClick={checkToken}>

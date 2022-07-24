@@ -8,7 +8,7 @@ import MainModal from "../MainModal/MainModal";
 function LastBlock(props) {
   const [modalActive, setModalActive] = useState(false);
 
-  const { selectedDay, selectedTime, restaurantInfo } = props;
+  const { selectedDay, selectedTime, restaurantInfo, orderResponse } = props;
 
   const showModalWindow = (e) => {
     e.preventDefault();
@@ -213,6 +213,7 @@ function LastBlock(props) {
               active={modalActive}
               setActive={setModalActive}
               defaultModal={"done"}
+              orderResponse={orderResponse}
             />
           )}
         </div>
