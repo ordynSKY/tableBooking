@@ -14,9 +14,17 @@ export default function CancelingModal(props) {
   } = props;
 
   const setType = () => {
-    if (defaultModal === "canceling") {
+    if (defaultModal === "canceling" && localStorage.getItem("token")) {
+      setDefaultModal("confirmation");
+    }
+    if (defaultModal === "loginCancel") {
       props.setDefaultModal("confirmation");
     }
+    if (defaultModal === "emailCancel") {
+      props.setDefaultModal("loginCancel");
+    }
+
+    props.getOrders();
   };
 
   const makeOrderDone = () => {
@@ -146,6 +154,11 @@ export default function CancelingModal(props) {
           <div className="canceling-footer">
             <a href="/#">Return without canceling</a>
           </div>
+        )}
+        {(defaultModal === "confirmation" ||
+          defaultModal === "canceling" ||
+          defaultModal === "canceled") && (
+          <div className="error-response">{props.ordersError}</div>
         )}
       </div>
     </div>

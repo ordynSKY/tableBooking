@@ -22,6 +22,17 @@ function SecondBlock(props) {
 
   const setTimelineType = (type) => {
     setTimeline(type);
+    const extraTimesArray = (timereq) =>
+      props.extraTimeReq
+        .filter((oneBlock) => oneBlock.length === timereq)[0]
+        .time.map((time) => ({
+          time: String(time.slice(11, 19)),
+          active: true,
+          shortTime: String(time.slice(11, 16)),
+        }));
+    console.log("Times array Extra: ", extraTimesArray(type));
+    // const setExtraTimes = ;
+    props.setTimes(extraTimesArray(type));
   };
 
   console.log("Time Type: ", timeline);
@@ -44,7 +55,8 @@ function SecondBlock(props) {
 
   const setCalendarValue = (day) => {
     setSelectedDay(day);
-    props.getDatesTimeInfo("", day, "time");
+    // props.getDatesTimeInfo("", day, "time");
+    props.getExtraTime();
   };
 
   const setMonthUp = () => {
@@ -84,9 +96,6 @@ function SecondBlock(props) {
     }
     props.setBlockType("lastblock");
   };
-
-  console.log("Selected Day: ", props.blockType);
-  console.log("Active: ", props);
 
   const getTitle = {
     waiting: "Please select a waiting list",
@@ -139,7 +148,7 @@ function SecondBlock(props) {
           /> */}
           {props.blockType === "secondblock" && (
             <div>
-              <div className="select-time">
+              {/* <div className="select-time">
                 <p
                   className="select-time-title"
                   onClick={() => setTimelineType(120)}
@@ -156,7 +165,28 @@ function SecondBlock(props) {
                     setSelectedTime={props.setSelectedTime}
                   />
                 )}
-              </div>
+              </div> */}
+              {props.extraTimeReq?.map((blockTime) => (
+                <div className="select-time" key={blockTime.length}>
+                  <p
+                    className="select-time-title"
+                    onClick={() => setTimelineType(blockTime.length)}
+                  >
+                    {blockTime.name}
+                  </p>
+                  {blockTime.description}
+                  {timeline === blockTime.length && (
+                    <Time
+                      makeOrder={props.makeOrder}
+                      extraTime={props.extraTime}
+                      setExtraTime={props.setExtraTime}
+                      selectedTime={props.selectedTime}
+                      setSelectedTime={props.setSelectedTime}
+                      times={props.times}
+                    />
+                  )}
+                </div>
+              ))}
               {/* <div className="select-time">
                 <p
                   className="select-time-title"

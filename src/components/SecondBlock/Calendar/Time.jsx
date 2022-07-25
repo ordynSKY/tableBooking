@@ -18,8 +18,7 @@ function Time(props) {
     document.querySelector(".block-button__slider").scrollLeft -= 200;
   };
 
-  // const newTimeArray = props.times?.map((one) => one.shortTime);
-  console.log("Extra Time short: ", props.extraTime);
+  console.log("Times: ", props.times);
 
   return (
     <div className="mainblock">
@@ -28,7 +27,7 @@ function Time(props) {
       </button>
       <div className="block-button__slider">
         {Children.toArray(
-          props.extraTime?.map((oneTime, i) => {
+          props.times?.map((oneTime, i) => {
             return (
               <div className="block-buttons">
                 <div

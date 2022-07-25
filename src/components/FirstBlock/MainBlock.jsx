@@ -8,6 +8,7 @@ import Info from "./Info/Info.jsx";
 import Cancel from "./Cancel/Cancel.jsx";
 import Copyrigth from "./Copyrigth/Copyrigth.jsx";
 import CancelingModal from "./CancelingModal/CancelingModal.jsx";
+import MainModal from "../MainModal/MainModal.jsx";
 
 function MainBlock(props) {
   const isValid = props.guestValue;
@@ -67,6 +68,7 @@ function MainBlock(props) {
                 active={props.modalActive}
                 setActive={props.setModalActive}
                 callback={props.cancelOrder}
+                getOrders={props.getOrders}
                 errorsResp={props.errorsResp}
                 defaultModal={props.defaultModal}
                 mainProps={props.mainProps}
@@ -83,6 +85,31 @@ function MainBlock(props) {
                 guestValue={props.guestValue}
                 getUserInfoReq={props.getUserInfoReq}
                 setModalActive={props.setModalActive}
+                ordersError={props.ordersError}
+              />
+            )}
+            {props.defaultModal === "emailCancel" && (
+              <MainModal
+                title="Please enter your email to continue"
+                active={props.modalActive}
+                setActive={props.setModalActive}
+                mainProps={props.mainProps}
+                callback={props.postRequest}
+                defaultModal={props.defaultModal}
+                userData={props.userData}
+                setUserData={props.setUserData}
+              />
+            )}
+            {props.defaultModal === "loginCancel" && (
+              <MainModal
+                title="Please enter your email and password to continue"
+                active={props.modalActive}
+                setActive={props.setModalActive}
+                callback={props.postRequest}
+                defaultModal={props.defaultModal}
+                mainProps={props.mainProps}
+                userData={props.userData}
+                setUserData={props.setUserData}
               />
             )}
             <Copyrigth />

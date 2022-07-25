@@ -22,8 +22,10 @@ export default function MainModal(props) {
     register: "/api/customers/register",
     email: "/api/customers/verify",
     emailWait: "/api/customers/verify",
+    emailCancel: "/api/customers/verify",
     login: "/api/customers/login",
     loginWait: "/api/customers/login",
+    loginCancel: "/api/customers/login",
     edit: "/api/customers",
   };
 
@@ -66,7 +68,9 @@ export default function MainModal(props) {
                 defaultModal === "login" ||
                 defaultModal === "email" ||
                 defaultModal === "loginWait" ||
-                defaultModal === "emailWait") && (
+                defaultModal === "emailWait" ||
+                defaultModal === "emailCancel" ||
+                defaultModal === "loginCancel") && (
                 <input
                   type="email"
                   className="form-name__email"
@@ -104,7 +108,8 @@ export default function MainModal(props) {
               {(defaultModal === "login" ||
                 defaultModal === "loginWait" ||
                 defaultModal === "register" ||
-                defaultModal === "edit") && (
+                defaultModal === "edit" ||
+                defaultModal === "loginCancel") && (
                 <input
                   type="password"
                   className="form-name__password"
@@ -132,7 +137,9 @@ export default function MainModal(props) {
           defaultModal === "login" ||
           defaultModal === "email" ||
           defaultModal === "loginWait" ||
-          defaultModal === "emailWait") && (
+          defaultModal === "emailWait" ||
+          defaultModal === "emailCancel" ||
+          defaultModal === "loginCancel") && (
           <div className="modal-button">
             <button
               className="button-main"
@@ -144,9 +151,7 @@ export default function MainModal(props) {
             </button>
           </div>
         )}
-        {defaultModal === "done" && (
-          <h2>Your booking ID: {orderResponse.id}</h2>
-        )}
+
         {(defaultModal === "register" ||
           defaultModal === "edit" ||
           defaultModal === "login" ||

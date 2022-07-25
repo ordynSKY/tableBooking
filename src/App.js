@@ -121,8 +121,14 @@ const App = () => {
           getUserInfoReq();
           setDefaultModal("submit");
         }
+        if (type === "loginCancel") {
+          localStorage.setItem("token", response.data.token);
+          getUserInfoReq();
+          setDefaultModal("confirmation");
+        }
         type === "email" && setDefaultModal("login");
         type === "emailWait" && setDefaultModal("loginWait");
+        type === "emailCancel" && setDefaultModal("loginCancel");
         if (type === "logout") {
           localStorage.removeItem("token");
           window.location.reload();
@@ -320,6 +326,7 @@ const App = () => {
       .then((response) => {
         setOrderResponse(response.data);
         console.log("Order Response: ", response);
+        setUserData((prev) => ({ ...prev, bookingid: response.data.id }));
       })
       .catch((error) => {
         console.log("Error: ", error);
@@ -334,13 +341,39 @@ const App = () => {
   console.log("Order State: ", orderResponse);
 
   // Cancel order
+  const [filteredOrder, setFilteredOrder] = useState();
+  const [ordersError, setOrdersError] = useState(true);
+
+  console.log("Filtered: ", filteredOrder);
+  console.log("Orders Error: ", ordersError);
 
   const cancelOrder = () => {
-    myAxios.delete(`/api/cancel_order/${orderResponse?.id || ""}`, {
+    myAxios.delete(`/api/cancel_order/${userData?.bookingid || ""}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
     });
+  };
+
+  const getOrders = () => {
+    myAxios
+      .get("/api/customers/orders", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        // filteredOrder === [] ? setOrdersError(null) :
+        const filteredArray = response.data.filter(
+          (order) => order.id === userData?.bookingid || ""
+        );
+        setOrdersError(!!filteredArray);
+        setFilteredOrder(filteredArray);
+        if (defaultModal === "canceling") {
+          setDefaultModal("emailCancel");
+        }
+      })
+      .catch((error) => setOrdersError(error.response.data.message));
   };
 
   // Getting extra time
@@ -361,23 +394,18 @@ const App = () => {
         },
       })
       .then((response) => {
-        const extraTimesArray = response.data[0]?.time.map((time) => ({
-          time: String(time.slice(11, 19)),
-          active: true,
-          shortTime: String(time.slice(11, 16)),
-        }));
-        console.log("Extra Time: ", response.data[0]);
-        setExtraTimeReq(response.data[0]);
-        setExtraTime(extraTimesArray);
+        console.log("Extra Time: ", response.data);
+        setExtraTimeReq(response.data);
+        // setExtraTime(extraTimesArray);
       })
       .catch((error) => {
         console.log("Extra time errror: ", error);
       });
   };
 
-  useEffect(() => {
-    getExtraTime();
-  }, []);
+  // useEffect(() => {
+  //   getExtraTime();
+  // }, []);
 
   console.log(defaultModal);
   console.log("Extra time state: ", extraTime);
@@ -430,6 +458,8 @@ const App = () => {
             timeline={timeline}
             setTimeline={setTimeline}
             cancelOrder={cancelOrder}
+            getOrders={getOrders}
+            ordersError={ordersError}
           />
         </div>
         <div>
@@ -467,6 +497,7 @@ const App = () => {
             setExtraTime={setExtraTime}
             extraTime={extraTime}
             extraTimeReq={extraTimeReq}
+            getExtraTime={getExtraTime}
           />
         </div>
 
