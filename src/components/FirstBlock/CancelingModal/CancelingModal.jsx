@@ -17,7 +17,7 @@ export default function CancelingModal(props) {
     if (defaultModal === "canceling" && localStorage.getItem("token")) {
       props.getOrders();
     } else if (defaultModal === "canceling") {
-      props.setDefaultModal("emailCancel");
+      props.setDefaultModal("confirmation");
     }
   };
 

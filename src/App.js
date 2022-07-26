@@ -123,8 +123,7 @@ const App = () => {
         }
         if (type === "loginCancel") {
           localStorage.setItem("token", response.data.token);
-          getOrders();
-          setDefaultModal("confirmation");
+          setDefaultModal("canceling");
         }
         type === "email" && setDefaultModal("login");
         type === "emailWait" && setDefaultModal("loginWait");
@@ -342,6 +341,8 @@ const App = () => {
   const [filteredOrder, setFilteredOrder] = useState();
   const [ordersError, setOrdersError] = useState(true);
   const [ordersErrorString, setOrdersErrorString] = useState();
+
+  console.log("Orders Error: ", ordersError);
 
   const cancelOrder = () => {
     myAxios.delete(`/api/cancel_order/${userData?.bookingid || ""}`, {
