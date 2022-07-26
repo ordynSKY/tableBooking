@@ -35,8 +35,6 @@ function SecondBlock(props) {
     props.setTimes(extraTimesArray(type));
   };
 
-  console.log("Time Type: ", timeline);
-
   const newDateArray = datesArray?.map((one) => one.day);
 
   const getDisabledDays = () => {
@@ -208,7 +206,11 @@ function SecondBlock(props) {
               </div> */}
             </div>
           )}
-          <div className="button-main next-button" onClick={checkToken}>
+          <div
+            className="button-main next-button"
+            onClick={checkToken}
+            style={{ marginTop: "40px" }}
+          >
             Next →
           </div>
           <div className="footer">

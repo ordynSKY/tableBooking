@@ -123,7 +123,7 @@ const App = () => {
         }
         if (type === "loginCancel") {
           localStorage.setItem("token", response.data.token);
-          getUserInfoReq();
+          getOrders();
           setDefaultModal("confirmation");
         }
         type === "email" && setDefaultModal("login");
@@ -338,14 +338,10 @@ const App = () => {
     getDatesTimeInfo("", utils().getToday(), "dates");
   }, []);
 
-  console.log("Order State: ", orderResponse);
-
   // Cancel order
   const [filteredOrder, setFilteredOrder] = useState();
   const [ordersError, setOrdersError] = useState(true);
-
-  console.log("Filtered: ", filteredOrder);
-  console.log("Orders Error: ", ordersError);
+  const [ordersErrorString, setOrdersErrorString] = useState();
 
   const cancelOrder = () => {
     myAxios.delete(`/api/cancel_order/${userData?.bookingid || ""}`, {
@@ -363,17 +359,21 @@ const App = () => {
         },
       })
       .then((response) => {
-        // filteredOrder === [] ? setOrdersError(null) :
-        const filteredArray = response.data.filter(
-          (order) => order.id === userData?.bookingid || ""
-        );
-        setOrdersError(!!filteredArray);
-        setFilteredOrder(filteredArray);
-        if (defaultModal === "canceling") {
-          setDefaultModal("emailCancel");
+        const filteredArray = response.data.filter((order) => {
+          return order.id === Number(userData?.bookingid);
+        });
+        setOrdersError(filteredArray.length);
+        if (filteredArray.length > 0) {
+          setDefaultModal("confirmation");
+        } else {
+          setOrdersErrorString("Not found");
         }
+        setFilteredOrder(filteredArray);
       })
-      .catch((error) => setOrdersError(error.response.data.message));
+      .catch((error) => {
+        setOrdersErrorString(error.response.data.message);
+        setOrdersError(false);
+      });
   };
 
   // Getting extra time
@@ -394,21 +394,12 @@ const App = () => {
         },
       })
       .then((response) => {
-        console.log("Extra Time: ", response.data);
         setExtraTimeReq(response.data);
-        // setExtraTime(extraTimesArray);
       })
       .catch((error) => {
         console.log("Extra time errror: ", error);
       });
   };
-
-  // useEffect(() => {
-  //   getExtraTime();
-  // }, []);
-
-  console.log(defaultModal);
-  console.log("Extra time state: ", extraTime);
 
   return (
     <div>
@@ -460,6 +451,8 @@ const App = () => {
             cancelOrder={cancelOrder}
             getOrders={getOrders}
             ordersError={ordersError}
+            ordersErrorString={ordersErrorString}
+            filteredOrder={filteredOrder}
           />
         </div>
         <div>

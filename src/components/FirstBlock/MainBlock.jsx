@@ -30,8 +30,6 @@ function MainBlock(props) {
     canceled: "You cancelled the reservation",
   };
 
-  console.log("Default Modal is: ", props.defaultModal === "canceling");
-
   return (
     <div className="content">
       <Image getAddress={props.getAddress} />
@@ -86,6 +84,8 @@ function MainBlock(props) {
                 getUserInfoReq={props.getUserInfoReq}
                 setModalActive={props.setModalActive}
                 ordersError={props.ordersError}
+                ordersErrorString={props.ordersErrorString}
+                filteredOrder={props.filteredOrder}
               />
             )}
             {props.defaultModal === "emailCancel" && (

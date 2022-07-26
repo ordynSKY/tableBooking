@@ -13,18 +13,12 @@ export default function CancelingModal(props) {
     selectedTime,
   } = props;
 
-  const setType = () => {
+  const setCancelType = () => {
     if (defaultModal === "canceling" && localStorage.getItem("token")) {
-      setDefaultModal("confirmation");
+      props.getOrders();
+    } else if (defaultModal === "canceling") {
+      props.setDefaultModal("emailCancel");
     }
-    if (defaultModal === "loginCancel") {
-      props.setDefaultModal("confirmation");
-    }
-    if (defaultModal === "emailCancel") {
-      props.setDefaultModal("loginCancel");
-    }
-
-    props.getOrders();
   };
 
   const makeOrderDone = () => {
@@ -39,9 +33,6 @@ export default function CancelingModal(props) {
   const setInput = (name, value) => {
     props.setUserData((prev) => ({ ...prev, [name]: value }));
   };
-
-  console.log("Is active: ", props);
-  console.log("Type: ", props.userData.bookingid);
 
   return (
     <div
@@ -67,14 +58,6 @@ export default function CancelingModal(props) {
                 placeholder="Booking ID"
                 className="bookingid-input"
                 onChange={(event) => setInput("bookingid", event.target.value)}
-              />
-              <PhoneInput
-                defaultCountry="DK"
-                value={props.userData.phone}
-                onChange={(val) => setInput("phone", val)}
-                className="form-name__mobile"
-                placeholder="Mobile  number"
-                style={{ marginRigth: "0px" }}
               />
             </div>
           </div>
@@ -103,13 +86,16 @@ export default function CancelingModal(props) {
                 </div>
                 <div className="guests-date">
                   Guests: &nbsp;
-                  <b>{props.guestValue}</b>
+                  <b>{props.filteredOrder[0].seats}</b>
                   <br />
                   Day/time: &nbsp;
-                  <b>
-                    {`${selectedDay.day}-${selectedDay.month}-${selectedDay.year}`}{" "}
-                    {selectedTime.slice(0, 5)}
-                  </b>
+                  <b>{`${props.filteredOrder[0].reservation_time.slice(
+                    0,
+                    10
+                  )} ${props.filteredOrder[0].reservation_time.slice(
+                    11,
+                    16
+                  )}`}</b>
                 </div>
               </div>
             </div>
@@ -120,7 +106,7 @@ export default function CancelingModal(props) {
             <button
               type="button"
               className="button-main"
-              onClick={() => setType()}
+              onClick={() => setCancelType()}
             >
               Continue →
             </button>
@@ -155,10 +141,8 @@ export default function CancelingModal(props) {
             <a href="/#">Return without canceling</a>
           </div>
         )}
-        {(defaultModal === "confirmation" ||
-          defaultModal === "canceling" ||
-          defaultModal === "canceled") && (
-          <div className="error-response">{props.ordersError}</div>
+        {!props.ordersError && (
+          <div className="error-response">{props.ordersErrorString}</div>
         )}
       </div>
     </div>
