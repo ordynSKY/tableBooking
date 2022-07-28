@@ -21,6 +21,14 @@ export default function CancelingModal(props) {
     }
   };
 
+  const setMoreType = () => {
+    if (defaultModal === "canceling" && localStorage.getItem("token")) {
+      props.getOrders();
+    } else if (defaultModal === "canceling") {
+      props.setDefaultModal("confirmation");
+    }
+  };
+
   const makeOrderDone = () => {
     props.callback();
     props.setModalActive(true);
@@ -34,15 +42,20 @@ export default function CancelingModal(props) {
     props.setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
+  console.log("User Data: ", props.userData);
+  console.log("Type: ", defaultModal);
+
   return (
     <div
       className={props.active ? "modal active" : "modal"}
       onClick={() => setActive(false)}
     >
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
-        <div className="title modal-title">
-          Cancel reservation at Rositas Bistro
-        </div>
+        {defaultModal !== "morePeople" && (
+          <div className="title modal-title">
+            Cancel reservation at Rositas Bistro
+          </div>
+        )}
         <h2>{title}</h2>
         {defaultModal === "canceling" && (
           <div className="cancel-info">
@@ -101,17 +114,57 @@ export default function CancelingModal(props) {
             </div>
           </div>
         )}
-        {defaultModal === "canceling" && (
-          <div className="modal-button">
-            <button
-              type="button"
-              className="button-main"
-              onClick={() => setCancelType()}
+        {defaultModal === "morePeople" && (
+          <div>
+            <div
+              className="info-body"
+              style={{
+                backgroundColor: "#f6f6f6",
+                paddingBottom: "9px",
+                marginTop: "20px",
+                justifyContent: "center",
+              }}
             >
-              Continue →
-            </button>
+              <div className="client-info">
+                <div className="client-title">Your contact information</div>
+                <div
+                  className="client-adress"
+                  style={{ justifyContent: "center", textAlign: "center" }}
+                >
+                  {props.userData.first_name} {props.userData.last_name}
+                  <br />
+                  {props.userData.email}
+                  <br />
+                  {props.userData.phone}
+                  <br />
+                  {props.userData.zip_code}
+                </div>
+              </div>
+            </div>
+            <div style={{}}>
+              <div className="client-title__comment">Add a comment</div>
+              <div className="form-comment">
+                <input
+                  type="text"
+                  className="form-name__comment"
+                  placeholder="Add the comment"
+                />
+              </div>
+            </div>
           </div>
         )}
+        {defaultModal === "canceling" ||
+          (defaultModal === "morePeople" && (
+            <div className="modal-button">
+              <button
+                type="button"
+                className="button-main"
+                onClick={() => setCancelType()}
+              >
+                Continue →
+              </button>
+            </div>
+          ))}
         {defaultModal === "confirmation" && (
           <div className="modal-button">
             <button

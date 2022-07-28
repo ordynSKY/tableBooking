@@ -23,7 +23,17 @@ function MainBlock(props) {
     localStorage.getItem("token")
       ? props.setDefaultModal("canceling")
       : props.setDefaultModal("emailCancel");
-    // props.setDefaultModal("canceling");
+    props.setModalActive(true);
+  };
+
+  const showModalMore = (e) => {
+    e.preventDefault();
+    if (localStorage.getItem("token")) {
+      props.setDefaultModal("morePeople");
+      props.getUserInfoReq();
+    } else {
+      props.setDefaultModal("emailMore");
+    }
     props.setModalActive(true);
   };
 
@@ -31,6 +41,7 @@ function MainBlock(props) {
     canceling: "Canceling",
     confirmation: "You are about to cancel the following reservation:",
     canceled: "You cancelled the reservation",
+    morePeople: "Please enter your message",
   };
 
   return (
@@ -52,7 +63,18 @@ function MainBlock(props) {
           >
             {props.mainProps.title}
           </button>
-          <Info />
+          <div className="main-block__info">
+            Booking for{" "}
+            <a href="#" onClick={(e) => showModalMore(e)}>
+              more than 8
+            </a>{" "}
+            people?
+            <br /> Do you want to{" "}
+            <a href="#" onClick={(e) => showModalWindow(e)}>
+              cancel a booking
+            </a>
+            ?
+          </div>
           <div className="main-footer">
             <a
               href="/#"
@@ -63,7 +85,8 @@ function MainBlock(props) {
             </a>
             {(props.defaultModal === "canceling" ||
               props.defaultModal === "confirmation" ||
-              props.defaultModal === "canceled") && (
+              props.defaultModal === "canceled" ||
+              props.defaultModal === "morePeople") && (
               <CancelingModal
                 title={getTitle[props.defaultModal] || ""}
                 active={props.modalActive}
@@ -91,7 +114,8 @@ function MainBlock(props) {
                 filteredOrder={props.filteredOrder}
               />
             )}
-            {props.defaultModal === "emailCancel" && (
+            {(props.defaultModal === "emailCancel" ||
+              props.defaultModal === "emailMore") && (
               <MainModal
                 title="Please enter your email to continue"
                 active={props.modalActive}
@@ -103,7 +127,8 @@ function MainBlock(props) {
                 setUserData={props.setUserData}
               />
             )}
-            {props.defaultModal === "loginCancel" && (
+            {(props.defaultModal === "loginCancel" ||
+              props.defaultModal === "loginMore") && (
               <MainModal
                 title="Please enter your email and password to continue"
                 active={props.modalActive}
@@ -115,7 +140,7 @@ function MainBlock(props) {
                 setUserData={props.setUserData}
               />
             )}
-            <Copyrigth />
+            <div className="copyrigth">{props.restaurantInfo.name}</div>
           </div>
         </div>
       </div>

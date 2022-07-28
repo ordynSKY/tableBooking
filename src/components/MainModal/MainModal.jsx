@@ -23,9 +23,11 @@ export default function MainModal(props) {
     email: "/api/customers/verify",
     emailWait: "/api/customers/verify",
     emailCancel: "/api/customers/verify",
+    emailMore: "/api/customers/verify",
     login: "/api/customers/login",
     loginWait: "/api/customers/login",
     loginCancel: "/api/customers/login",
+    loginMore: "/api/customers/login",
     edit: "/api/customers",
   };
 
@@ -70,7 +72,9 @@ export default function MainModal(props) {
                 defaultModal === "loginWait" ||
                 defaultModal === "emailWait" ||
                 defaultModal === "emailCancel" ||
-                defaultModal === "loginCancel") && (
+                defaultModal === "loginCancel" ||
+                defaultModal === "emailMore" ||
+                defaultModal === "loginMore") && (
                 <input
                   type="email"
                   className="form-name__email"
@@ -108,8 +112,8 @@ export default function MainModal(props) {
               {(defaultModal === "login" ||
                 defaultModal === "loginWait" ||
                 defaultModal === "register" ||
-                defaultModal === "edit" ||
-                defaultModal === "loginCancel") && (
+                defaultModal === "loginCancel" ||
+                defaultModal === "loginMore") && (
                 <input
                   type="password"
                   className="form-name__password"
@@ -118,7 +122,7 @@ export default function MainModal(props) {
                   onChange={(event) => setInput("password", event.target.value)}
                 />
               )}
-              {(defaultModal === "register" || defaultModal === "edit") && (
+              {defaultModal === "register" && (
                 <input
                   type="password"
                   className="form-name__confirm-password"
@@ -139,7 +143,9 @@ export default function MainModal(props) {
           defaultModal === "loginWait" ||
           defaultModal === "emailWait" ||
           defaultModal === "emailCancel" ||
-          defaultModal === "loginCancel") && (
+          defaultModal === "loginCancel" ||
+          defaultModal === "emailMore" ||
+          defaultModal === "loginMore") && (
           <div className="modal-button">
             <button
               className="button-main"

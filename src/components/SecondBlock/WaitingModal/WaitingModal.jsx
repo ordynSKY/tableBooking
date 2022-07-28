@@ -43,7 +43,7 @@ export default function WaitingModal(props) {
     >
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         <div className="title modal-title">{title}</div>
-        {defaultModal === "waiting" && (
+        {defaultModal === "waiting" ? (
           <div className="choose-time">
             <div className="selected-date" style={{ marginBottom: "10px" }}>
               You have chosen a date{" "}
@@ -59,6 +59,10 @@ export default function WaitingModal(props) {
                 setSelectedTime={props.setSelectedTime}
               />
             </div>
+          </div>
+        ) : (
+          <div className="no-choose-time">
+            <b>Please select a date:</b>
           </div>
         )}
         {defaultModal === "agreements" && (

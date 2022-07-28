@@ -83,6 +83,7 @@ function SecondBlock(props) {
     e.preventDefault();
     props.setDefaultModal("waiting");
     setModalActive(true);
+    props.getExtraTime();
   };
 
   const checkToken = () => {
@@ -137,33 +138,8 @@ function SecondBlock(props) {
               disabledDays={getDisabledDays()}
             />
           </div>
-          {/* <Time
-            makeOrder={props.makeOrder}
-            times={props.times}
-            setTimes={props.setTimes}
-            selectedTime={props.selectedTime}
-            setSelectedTime={props.setSelectedTime}
-          /> */}
           {props.blockType === "secondblock" && (
             <div>
-              {/* <div className="select-time">
-                <p
-                  className="select-time-title"
-                  onClick={() => setTimelineType(120)}
-                >
-                  {props.extraTimeReq.name}
-                </p>
-                {props.extraTimeReq.description}
-                {timeline === 120 && (
-                  <Time
-                    makeOrder={props.makeOrder}
-                    extraTime={props.extraTime}
-                    setExtraTime={props.setExtraTime}
-                    selectedTime={props.selectedTime}
-                    setSelectedTime={props.setSelectedTime}
-                  />
-                )}
-              </div> */}
               {props.extraTimeReq?.map((blockTime) => (
                 <div className="select-time" key={blockTime.length}>
                   <p
@@ -185,25 +161,6 @@ function SecondBlock(props) {
                   )}
                 </div>
               ))}
-              {/* <div className="select-time">
-                <p
-                  className="select-time-title"
-                  onClick={() => setTimelineType(180)}
-                >
-                  Eat & stay +180 minutes
-                </p>
-                Denne booking giver dig bordet hele aftenen og tid til at nyde
-                lige så mange retter du har lyst til
-                {timeline === 180 && (
-                  <Time
-                    makeOrder={props.makeOrder}
-                    times={props.times}
-                    setTimes={props.setTimes}
-                    selectedTime={props.selectedTime}
-                    setSelectedTime={props.setSelectedTime}
-                  />
-                )}
-              </div> */}
             </div>
           )}
           <div
@@ -292,44 +249,6 @@ function SecondBlock(props) {
           setModalActive={setModalActive}
         />
       )}
-      {/* {props.defaultModal === "agreements" && (
-        <WaitingModal
-          title="Confirm waiting list conditions"
-          active={modalActive}
-          setActive={setModalActive}
-          callback={props.postRequest}
-          errorsResp={props.errorsResp}
-          defaultModal={props.defaultModal}
-          mainProps={props.mainProps}
-          userData={props.userData}
-          setUserData={props.setUserData}
-          selectedDay={selectedDay}
-          makeOrder={props.makeOrder}
-          times={props.times}
-          setTimes={props.setTimes}
-          selectedTime={props.selectedTime}
-          setSelectedTime={props.setSelectedTime}
-        />
-      )} */}
-      {/* {props.defaultModal === "submit" && (
-        <WaitingModal
-          title="You are about to be added to the waiting list"
-          active={modalActive}
-          setActive={setModalActive}
-          callback={props.postRequest}
-          errorsResp={props.errorsResp}
-          defaultModal={props.defaultModal}
-          mainProps={props.mainProps}
-          userData={props.userData}
-          setUserData={props.setUserData}
-          selectedDay={selectedDay}
-          makeOrder={props.makeOrder}
-          times={props.times}
-          setTimes={props.setTimes}
-          selectedTime={props.selectedTime}
-          setSelectedTime={props.setSelectedTime}
-        />
-      )} */}
     </div>
   );
 }

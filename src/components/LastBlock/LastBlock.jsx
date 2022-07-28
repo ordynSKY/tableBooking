@@ -192,7 +192,7 @@ function LastBlock(props) {
             </a>
           </div>
           <div className="copyrigth-footer">
-            <Copyrigth />
+            <Copyrigth restaurantInfo={restaurantInfo} />
           </div>
           {props.defaultModal === "edit" && (
             <MainModal

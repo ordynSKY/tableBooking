@@ -125,9 +125,14 @@ const App = () => {
           localStorage.setItem("token", response.data.token);
           setDefaultModal("canceling");
         }
+        if (type === "loginMore") {
+          localStorage.setItem("token", response.data.token);
+          setDefaultModal("morePeople");
+        }
         type === "email" && setDefaultModal("login");
         type === "emailWait" && setDefaultModal("loginWait");
         type === "emailCancel" && setDefaultModal("loginCancel");
+        type === "emailMore" && setDefaultModal("loginMore");
         if (type === "logout") {
           localStorage.removeItem("token");
           window.location.reload();
